@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://cxla1ua1rcufk"]
+[gd_scene load_steps=3 format=3 uid="uid://cxla1ua1rcufk"]
 
 [ext_resource type="Texture2D" uid="uid://dgx7em8hp3j3i" path="res://assets/2d/tv_frame_overlay.png" id="1_wfmkb"]
+[ext_resource type="Script" uid="uid://bvsq5qffn62sg" path="res://scenes/tv_overlay_ui.gd" id="2_a6fob"]
 
 [node name="NinePatchRect" type="NinePatchRect"]
 anchors_preset = 15
@@ -13,3 +14,21 @@ patch_margin_left = 213
 patch_margin_top = 190
 patch_margin_right = 213
 patch_margin_bottom = 230
+script = ExtResource("2_a6fob")
+breaking_news = Array[String](["This is breaking news", "This is next breaking news", "Even more breaking news - insane!!"])
+running_text_speed = 40
+
+[node name="running_text" type="ColorRect" parent="."]
+z_index = -2
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -258.08502
+offset_bottom = -162.81
+grow_horizontal = 2
+grow_vertical = 0
+color = Color(0, 0, 0, 1)
+
+[node name="tv_display" type="Node2D" parent="."]
