@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://cxla1ua1rcufk"]
+
+[ext_resource type="Texture2D" uid="uid://dgx7em8hp3j3i" path="res://assets/2d/tv_frame_overlay.png" id="1_wfmkb"]
+
+[node name="NinePatchRect" type="NinePatchRect"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_wfmkb")
+patch_margin_left = 213
+patch_margin_top = 190
+patch_margin_right = 213
+patch_margin_bottom = 230
