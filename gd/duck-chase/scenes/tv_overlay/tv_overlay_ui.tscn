@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cxla1ua1rcufk"]
 
-[ext_resource type="Texture2D" uid="uid://dgx7em8hp3j3i" path="res://assets/2d/tv_frame_overlay.png" id="1_wfmkb"]
-[ext_resource type="Script" uid="uid://bvsq5qffn62sg" path="res://scenes/tv_overlay_ui.gd" id="2_a6fob"]
+[ext_resource type="Texture2D" uid="uid://bl0sue444624c" path="res://assets/2d/tv_frame_overlay_2.png" id="1_a6fob"]
+[ext_resource type="Script" uid="uid://bvsq5qffn62sg" path="res://scenes/tv_overlay/tv_overlay_ui.gd" id="2_a6fob"]
 
 [node name="NinePatchRect" type="NinePatchRect"]
 anchors_preset = 15
@@ -9,7 +9,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_wfmkb")
+texture = ExtResource("1_a6fob")
 patch_margin_left = 213
 patch_margin_top = 190
 patch_margin_right = 213
