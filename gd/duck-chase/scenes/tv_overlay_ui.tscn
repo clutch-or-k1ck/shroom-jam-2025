@@ -15,20 +15,9 @@ patch_margin_top = 190
 patch_margin_right = 213
 patch_margin_bottom = 230
 script = ExtResource("2_a6fob")
-breaking_news = Array[String](["This is breaking news", "This is next breaking news", "Even more breaking news - insane!!"])
-running_text_speed = 40
-
-[node name="running_text" type="ColorRect" parent="."]
-z_index = -2
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -258.08502
-offset_bottom = -162.81
-grow_horizontal = 2
-grow_vertical = 0
-color = Color(0, 0, 0, 1)
+breaking_news = Array[String](["Local man declares [color=red]war[/color] on his Wi-Fi router — truce talks expected by evening", "Global shortage of spoons leaves cereal lovers in existential crisis", "[color=orange]BREAKING NEWS:[/color] Mayor inaugurates new roundabout, immediately gets lost in it", "Cat reportedly “working from home” for the third consecutive year", "New study finds 9 out of 10 pigeons don’t care about your sandwich", "[color=orange]BREAKING NEWS:[/color] Area woman successfully claps between every word for emphasis", "Experts warn against microwaving sadness — it doesn’t make it better", "Anonymous source claims coffee machines are planning something big", "[color=orange]BREAKING NEWS[/color] Local man installs smart fridge; fridge now more qualified than he is"])
+running_text_speed = -170
+running_text_position_ratio = 0.75
+running_text_font_size = 60
 
 [node name="tv_display" type="Node2D" parent="."]

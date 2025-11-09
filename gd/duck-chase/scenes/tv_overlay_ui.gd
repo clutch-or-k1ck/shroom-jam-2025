@@ -1,50 +1,85 @@
 extends NinePatchRect
 
+## an array of strings that will become news in the running text
 @export var breaking_news: Array[String]
+
+## speed of the running text (pixels per second)
 @export var running_text_speed: int
 
+## ratio of the screen vertical size where running text line will be spawned
+@export var running_text_position_ratio: float
+
+## font size in the running text line
+@export var running_text_font_size: int = 30
+
+
+## to keep track of the rich text labels in the running text (need to spwan/despawn)
+var running_text_labels: Array[RichTextLabel]
+const breaking_news_separator := '   [char=2022]   '
 @onready var running_text := $running_text
 
-var breaking_news_idx := 0 # the index of the breaking news we are currently showing
+
+## combines the breaking news items into one long line of rich text
+## imagine that 20 separate news will become a single line separated with '***' or similar
+func build_long_running_text() -> String:
+	return breaking_news_separator.join(breaking_news)
 
 
-## this will add the next breaking news to the running text
-func add_next_breaking_news() -> void:
-	# no news to show
-	if breaking_news.size() == 0:
-		return
+## creates a long rich text label containing all of the breaking news items, separated with a special char
+func create_running_text_line() -> RichTextLabel:
+	var rich_text_label := RichTextLabel.new()
+	rich_text_label.text = build_long_running_text()
+	
+	# NOTE this will make the rich text label adjust to the font size
+	rich_text_label.autowrap_mode = TextServer.AUTOWRAP_OFF
+	rich_text_label.fit_content = true
+
+	# font and background (black)
+	rich_text_label.add_theme_font_size_override('normal_font_size', running_text_font_size)
+	var stylebox := StyleBoxFlat.new()
+	stylebox.bg_color = Color()
+	rich_text_label.add_theme_stylebox_override('normal', stylebox)
+	
+	rich_text_label.z_index = -1 # NOTE render BEHIND the tv frame
+	
+	# respect BBCode
+	rich_text_label.bbcode_enabled = true
+	
+	return rich_text_label
+
+
+func move_running_text(delta: float) -> void:
+	for label in running_text_labels:
+		label.position += Vector2(running_text_speed, 0) * delta
 		
-	# if we scrolled through all the breaking news, go the beginning
-	if breaking_news_idx >= breaking_news.size():
-		breaking_news_idx = 0
-		
-	# retrieve position of the very last breaking news line
-	var last_breaking_news_corner: int
-	if running_text.get_child_count() == 0:
-		last_breaking_news_corner = get_viewport_rect().size[0]
-		pass # simply add behind the screen
-	else:
-		var last_breaking_news_label := running_text.get_children()[-1] as Label
-		last_breaking_news_corner = last_breaking_news_label.position[0] + last_breaking_news_label.size[0]
-	
-	# spawn at the last breaking news corner
-	var new_breaking_news_label := Label.new()
-	new_breaking_news_label.text = breaking_news[breaking_news_idx].to_upper()
-	running_text.add_child(new_breaking_news_label)
-	new_breaking_news_label.position = Vector2(last_breaking_news_corner, 0.)
-	
-	
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass
+	var running_text_label = create_running_text_line()
+	running_text_labels.append(running_text_label)
+	add_child(running_text_label)
+	running_text_label.position = Vector2(0, running_text_position_ratio * get_viewport_rect().size[1])
+
+
+func is_out_of_bounds(control: Control) -> bool:
+	return control.position[0] + control.size[0] < 0
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	# keep adding breaking news until at least five are enqueued
-	if running_text.get_child_count() < 5:
-		add_next_breaking_news()
-		
-	# adjust children positions accordingly
-	for child in running_text.get_children():
-		child.position += Vector2(-1.*running_text_speed, 0) * delta
+	move_running_text(delta)
+	
+	if running_text_labels.size() >= 0:
+		# despawn the label that is not visible
+		if is_out_of_bounds(running_text_labels[0]):
+			remove_child(running_text_labels[0])
+			running_text_labels.remove_at(0)
+			
+		# we always want to have exactly two labels in the news line
+		if running_text_labels.size() < 2:
+			var next_running_text_label = create_running_text_line()
+			var existing_running_text_label = running_text_labels[0]
+			
+			running_text_labels.append(next_running_text_label)
+			add_child(next_running_text_label)
+			next_running_text_label.position = existing_running_text_label.position + \
+				Vector2(existing_running_text_label.size[0], 0)
