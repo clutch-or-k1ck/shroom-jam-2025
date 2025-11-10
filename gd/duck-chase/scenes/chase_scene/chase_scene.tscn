@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://bqnhgrmahpp44"]
+
+[ext_resource type="Script" uid="uid://cc7qw8macbkml" path="res://scenes/chase_scene/chase_scene.gd" id="1_8pw8v"]
+[ext_resource type="PackedScene" uid="uid://y4on5eclsc2c" path="res://scenes/duck_character/duck_character.tscn" id="1_m83pa"]
+[ext_resource type="PackedScene" uid="uid://y4hccnwhpc3e" path="res://scenes/running_text_widget/running_text_widget.tscn" id="2_a4cdl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a4cdl"]
+size = Vector2(2692, 113)
+
+[node name="root" type="Node2D"]
+script = ExtResource("1_8pw8v")
+
+[node name="pavement" type="StaticBody2D" parent="."]
+position = Vector2(0, 766)
+
+[node name="pavement_collision" type="CollisionShape2D" parent="pavement"]
+position = Vector2(1347, 59.5)
+shape = SubResource("RectangleShape2D_a4cdl")
+
+[node name="pavement_visual" type="Polygon2D" parent="pavement"]
+position = Vector2(9, -90.88793)
+scale = Vector2(1, 2.0086207)
+color = Color(0.47737837, 0.31371406, 0.7034061, 1)
+polygon = PackedVector2Array(-12, -13, 2683, -13, 2690, 108.97424, 1344, 105.48929, -10, 101)
+
+[node name="duck_character" parent="." instance=ExtResource("1_m83pa")]
+position = Vector2(350, 566)
+
+[node name="ui" type="CanvasLayer" parent="."]
+
+[node name="running_text" parent="ui" instance=ExtResource("2_a4cdl")]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -275.0
+offset_bottom = -235.0
+grow_vertical = 0
+breaking_news = Array[String](["BREAKING NEWS", "BREAKING NEWS", "BREAKING NEWS", "BREAKING NEWS", "BREAKING NEWS", "BREAKING NEWS", "BREAKING NEWS", "BREAKING NEWS", "BREAKING NEWS"])
+running_text_speed = -250
+running_text_font_size = 90

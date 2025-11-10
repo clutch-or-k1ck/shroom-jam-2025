@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://y4hccnwhpc3e"]
+
+[ext_resource type="Script" uid="uid://ddggngr1rksu3" path="res://scenes/running_text_widget/running_text_widget.gd" id="1_cfxxr"]
+
+[node name="runningTextRoot" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_cfxxr")
