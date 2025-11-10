@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://bjt1nuusy2kll"]
+
+[ext_resource type="Texture2D" uid="uid://bl0sue444624c" path="res://assets/2d/tv_frame_overlay_2.png" id="1_gprme"]
+[ext_resource type="PackedScene" uid="uid://bqnhgrmahpp44" path="res://scenes/chase_scene/chase_scene.tscn" id="2_4s6tu"]
+[ext_resource type="Shader" uid="uid://bembr3fsdxaku" path="res://assets/shaders/interlaced_glitch.gdshader" id="2_nhnna"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_u73fl"]
+shader = ExtResource("2_nhnna")
+
+[node name="tv_box" type="TextureRect"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_gprme")
+expand_mode = 1
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+z_index = -1
+material = SubResource("ShaderMaterial_u73fl")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(1920, 1080)
+render_target_update_mode = 4
+
+[node name="root" parent="SubViewportContainer/SubViewport" instance=ExtResource("2_4s6tu")]

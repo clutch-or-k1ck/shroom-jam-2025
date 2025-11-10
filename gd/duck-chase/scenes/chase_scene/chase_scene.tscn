@@ -24,7 +24,7 @@ color = Color(0.47737837, 0.31371406, 0.7034061, 1)
 polygon = PackedVector2Array(-12, -13, 2683, -13, 2690, 108.97424, 1344, 105.48929, -10, 101)
 
 [node name="duck_character" parent="." instance=ExtResource("1_m83pa")]
-position = Vector2(350, 566)
+position = Vector2(288, 0)
 
 [node name="ui" type="CanvasLayer" parent="."]
 
