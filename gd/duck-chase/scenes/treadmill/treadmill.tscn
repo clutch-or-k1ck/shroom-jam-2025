@@ -1,0 +1,51 @@
+[gd_scene load_steps=5 format=3 uid="uid://cmcugu1gcrjsw"]
+
+[ext_resource type="Script" uid="uid://beehhs7t2qyd" path="res://scenes/treadmill/treadmill.gd" id="1_x7lhu"]
+
+[sub_resource type="GDScript" id="GDScript_x7lhu"]
+script/source = "extends Sprite2D
+
+
+class_name TreadmillItem
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+"
+
+[sub_resource type="PackedScene" id="PackedScene_h4op3"]
+_bundled = {
+"conn_count": 0,
+"conns": PackedInt32Array(),
+"editable_instances": [],
+"names": PackedStringArray("sprite", "Sprite2D", "script"),
+"node_count": 1,
+"node_paths": [],
+"nodes": PackedInt32Array(-1, -1, 1, 0, -1, 1, 2, 0, 0),
+"variants": [SubResource("GDScript_x7lhu")],
+"version": 3
+}
+
+[sub_resource type="PackedScene" id="PackedScene_y77te"]
+_bundled = {
+"base_scene": 0,
+"conn_count": 0,
+"conns": PackedInt32Array(),
+"editable_instances": [],
+"names": PackedStringArray("sprite", "Polygon2D", "Polygon2D", "polygon"),
+"node_count": 2,
+"node_paths": [NodePath(".")],
+"nodes": PackedInt32Array(-1, -1, 2147483647, 0, -1, 0, 0, 1073741824, 0, 2, 262145, -1, 1, 3, 1, 0),
+"variants": [SubResource("PackedScene_h4op3"), PackedVector2Array(1, 4, -1, -141, -178, -138, -323, -84, -181, -4)],
+"version": 3
+}
+
+[node name="root" type="Node2D"]
+script = ExtResource("1_x7lhu")
+item_types = Array[PackedScene]([SubResource("PackedScene_y77te")])

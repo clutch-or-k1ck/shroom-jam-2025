@@ -1,8 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://bqnhgrmahpp44"]
+[gd_scene load_steps=7 format=3 uid="uid://bqnhgrmahpp44"]
 
 [ext_resource type="Script" uid="uid://cc7qw8macbkml" path="res://scenes/chase_scene/chase_scene.gd" id="1_8pw8v"]
 [ext_resource type="PackedScene" uid="uid://y4on5eclsc2c" path="res://scenes/duck_character/duck_character.tscn" id="1_m83pa"]
 [ext_resource type="PackedScene" uid="uid://y4hccnwhpc3e" path="res://scenes/running_text_widget/running_text_widget.tscn" id="2_a4cdl"]
+[ext_resource type="Script" uid="uid://beehhs7t2qyd" path="res://scenes/treadmill/treadmill.gd" id="4_myeqy"]
+[ext_resource type="PackedScene" uid="uid://dh6jji1tmvisv" path="res://scenes/treadmill/treadmill_item/item_variations/primitive_treadmill_item.tscn" id="5_ucmrg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a4cdl"]
 size = Vector2(2692, 113)
@@ -38,3 +40,10 @@ grow_vertical = 0
 breaking_news = Array[String](["BREAKING NEWS", "BREAKING NEWS", "BREAKING NEWS", "BREAKING NEWS", "BREAKING NEWS", "BREAKING NEWS", "BREAKING NEWS", "BREAKING NEWS", "BREAKING NEWS"])
 running_text_speed = -250
 running_text_font_size = 90
+
+[node name="Treadmill" type="Node2D" parent="."]
+position = Vector2(0, 987)
+script = ExtResource("4_myeqy")
+item_types = Array[PackedScene]([ExtResource("5_ucmrg")])
+speed = 400
+metadata/_custom_type_script = "uid://beehhs7t2qyd"

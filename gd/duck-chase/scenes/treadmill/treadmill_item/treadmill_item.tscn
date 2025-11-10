@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://con3lr0t0mr8e"]
+
+[ext_resource type="Script" uid="uid://d0id5yk26pptc" path="res://scenes/treadmill/treadmill_item/treadmill_item.gd" id="1_75h3o"]
+
+[node name="root" type="Node2D"]
+script = ExtResource("1_75h3o")

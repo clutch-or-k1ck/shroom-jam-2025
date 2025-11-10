@@ -12,6 +12,6 @@ script = ExtResource("1_fkuwv")
 shape = SubResource("RectangleShape2D_fkuwv")
 
 [node name="duck_sprite" type="Sprite2D" parent="."]
-position = Vector2(-44.5, -46.515495)
+position = Vector2(0, -47)
 scale = Vector2(0.2104019, 0.20905843)
 texture = ExtResource("1_nrtfl")
