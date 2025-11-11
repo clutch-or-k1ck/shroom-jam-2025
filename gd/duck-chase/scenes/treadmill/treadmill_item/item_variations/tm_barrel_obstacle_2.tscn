@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://ctsesmh2kgbr6"]
+
+[ext_resource type="PackedScene" uid="uid://ccc8nqq4x5n21" path="res://scenes/treadmill/treadmill_item/treadmill_composite.tscn" id="1_de247"]
+[ext_resource type="Texture2D" uid="uid://dptiar8w4814k" path="res://assets/2d/Barrel_3.png" id="2_rljku"]
+[ext_resource type="Texture2D" uid="uid://uspfmm2p8yrv" path="res://assets/2d/Barrel_2.png" id="3_fbl4u"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aoh8l"]
+size = Vector2(89, 130)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4tsn7"]
+size = Vector2(173, 88)
+
+[node name="root" instance=ExtResource("1_de247")]
+bounds = Vector2(178.02, 130.2)
+no_spawn_buffer = 100
+deals_damage = true
+damage_dealt = 1
+
+[node name="hitbox_shape" parent="hitbox" index="0"]
+position = Vector2(44.5, -65)
+shape = SubResource("RectangleShape2D_aoh8l")
+
+[node name="hitbox_shape2" type="CollisionShape2D" parent="hitbox" index="1"]
+position = Vector2(90.5, -54)
+shape = SubResource("RectangleShape2D_4tsn7")
+
+[node name="barrel2" type="Sprite2D" parent="." index="1"]
+position = Vector2(112.76601, -52.484005)
+rotation = 1.5779349
+scale = Vector2(0.316, 0.316)
+texture = ExtResource("2_rljku")
+
+[node name="barrel1" type="Sprite2D" parent="." index="2"]
+position = Vector2(43.766003, -59.483997)
+scale = Vector2(0.316, 0.316)
+texture = ExtResource("3_fbl4u")

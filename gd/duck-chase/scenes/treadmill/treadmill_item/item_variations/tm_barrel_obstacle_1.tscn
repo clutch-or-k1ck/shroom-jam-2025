@@ -10,6 +10,7 @@ size = Vector2(123, 133)
 
 [node name="root" instance=ExtResource("1_jly4t")]
 bounds = Vector2(209.28, 134.58)
+no_spawn_buffer = 100
 deals_damage = true
 damage_dealt = 1
 

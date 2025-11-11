@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://crnbqkfoefllp"]
+
+[ext_resource type="PackedScene" uid="uid://ccc8nqq4x5n21" path="res://scenes/treadmill/treadmill_item/treadmill_composite.tscn" id="1_oxltl"]
+[ext_resource type="Texture2D" uid="uid://dwgccgvo8weyy" path="res://assets/2d/Box_1.png" id="2_bo3kg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ucw75"]
+size = Vector2(132, 106)
+
+[node name="root" instance=ExtResource("1_oxltl")]
+bounds = Vector2(134.28, 106.32)
+no_spawn_buffer = 30
+
+[node name="hitbox_shape" parent="hitbox" index="0"]
+position = Vector2(67, -53)
+shape = SubResource("RectangleShape2D_ucw75")
+
+[node name="box" type="Sprite2D" parent="." index="1"]
+position = Vector2(67.052765, -52.457996)
+scale = Vector2(0.36547446, 0.36547443)
+texture = ExtResource("2_bo3kg")

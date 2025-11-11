@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://bsrnp6eyr2j8t"]
+
+[ext_resource type="PackedScene" uid="uid://ccc8nqq4x5n21" path="res://scenes/treadmill/treadmill_item/treadmill_composite.tscn" id="1_l4dlb"]
+[ext_resource type="Texture2D" uid="uid://bthnrflnc5o5j" path="res://assets/2d/Cone_2.png" id="2_nsy7t"]
+[ext_resource type="Texture2D" uid="uid://bgnyry7bpkvut" path="res://assets/2d/Cone_1.png" id="3_d6ew4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ol2bu"]
+size = Vector2(172, 87)
+
+[node name="root" instance=ExtResource("1_l4dlb")]
+bounds = Vector2(172.68, 73.44)
+no_spawn_buffer = 40
+
+[node name="hitbox_shape" parent="hitbox" index="0"]
+position = Vector2(86, -29.5)
+shape = SubResource("RectangleShape2D_ol2bu")
+
+[node name="cone1" type="Sprite2D" parent="." index="1"]
+position = Vector2(78.375, -28)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_nsy7t")
+
+[node name="cone2" type="Sprite2D" parent="." index="2"]
+position = Vector2(143.375, -35)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("3_d6ew4")

@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://bf68uovsnajdd"]
+
+[ext_resource type="PackedScene" uid="uid://ccc8nqq4x5n21" path="res://scenes/treadmill/treadmill_item/treadmill_composite.tscn" id="1_boyju"]
+[ext_resource type="Texture2D" uid="uid://0i31v2yropa4" path="res://assets/2d/Fence_2.png" id="2_iigqp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8rqbh"]
+
+[node name="root" instance=ExtResource("1_boyju")]
+bounds = Vector2(467.64, 63.3)
+no_spawn_buffer = 50
+
+[node name="hitbox_shape" parent="hitbox" index="0"]
+shape = SubResource("RectangleShape2D_8rqbh")
+
+[node name="fence1" type="Sprite2D" parent="." index="1"]
+position = Vector2(79.00001, -29.000004)
+scale = Vector2(0.234, 0.234)
+texture = ExtResource("2_iigqp")
+
+[node name="fence2" type="Sprite2D" parent="." index="2"]
+position = Vector2(234.00003, -29.000004)
+scale = Vector2(0.234, 0.234)
+texture = ExtResource("2_iigqp")
+
+[node name="fence3" type="Sprite2D" parent="." index="3"]
+position = Vector2(389.00003, -29.000004)
+scale = Vector2(0.234, 0.234)
+texture = ExtResource("2_iigqp")

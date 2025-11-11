@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://bg7ke66epp12a"]
+
+[ext_resource type="PackedScene" uid="uid://bf68uovsnajdd" path="res://scenes/treadmill/treadmill_item/item_variations/tm_fence_3.tscn" id="1_aqqoc"]
+[ext_resource type="Texture2D" uid="uid://0i31v2yropa4" path="res://assets/2d/Fence_2.png" id="2_4yk4b"]
+
+[node name="root" instance=ExtResource("1_aqqoc")]
+bounds = Vector2(778.02, 63.3)
+
+[node name="fence4" type="Sprite2D" parent="." index="4"]
+position = Vector2(544, -29.000004)
+scale = Vector2(0.234, 0.234)
+texture = ExtResource("2_4yk4b")
+
+[node name="fence5" type="Sprite2D" parent="." index="5"]
+position = Vector2(699, -29.000004)
+scale = Vector2(0.234, 0.234)
+texture = ExtResource("2_4yk4b")
