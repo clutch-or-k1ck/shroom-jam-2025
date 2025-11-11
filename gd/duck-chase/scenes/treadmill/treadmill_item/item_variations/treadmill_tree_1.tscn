@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://cbm4li6t68yd2"]
+
+[ext_resource type="PackedScene" uid="uid://dh6jji1tmvisv" path="res://scenes/treadmill/treadmill_item/primitive_treadmill_item.tscn" id="1_05ypu"]
+[ext_resource type="Texture2D" uid="uid://c5vd81mi161qs" path="res://assets/2d/Tree_1.png" id="2_730in"]
+
+[node name="root" instance=ExtResource("1_05ypu")]
+scale = Vector2(0.244, 0.244)
+no_spawn_buffer = 0
+
+[node name="treadmill_item_sprite" parent="." index="0"]
+position = Vector2(0, -1.0842022e-19)
+texture = ExtResource("2_730in")
+offset = Vector2(418, -519)

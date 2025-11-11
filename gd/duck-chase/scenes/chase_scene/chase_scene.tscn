@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bqnhgrmahpp44"]
+[gd_scene load_steps=19 format=3 uid="uid://bqnhgrmahpp44"]
 
 [ext_resource type="Script" uid="uid://cc7qw8macbkml" path="res://scenes/chase_scene/chase_scene.gd" id="1_8pw8v"]
 [ext_resource type="PackedScene" uid="uid://y4on5eclsc2c" path="res://scenes/duck_character/duck_character.tscn" id="1_m83pa"]
@@ -11,7 +11,9 @@
 [ext_resource type="PackedScene" uid="uid://d0gundbavq47b" path="res://scenes/treadmill/treadmill_item/item_variations/treadmill_brick.tscn" id="5_myeqy"]
 [ext_resource type="PackedScene" uid="uid://kuy1nfcy4ni5" path="res://scenes/treadmill/treadmill_item/treadmill_barrel_1.tscn" id="5_q31dt"]
 [ext_resource type="PackedScene" uid="uid://dk72dfih4oswg" path="res://scenes/treadmill/treadmill_item/item_variations/treadmill_fence_1.tscn" id="5_t50dl"]
+[ext_resource type="PackedScene" uid="uid://cbm4li6t68yd2" path="res://scenes/treadmill/treadmill_item/item_variations/treadmill_tree_1.tscn" id="6_5qs4y"]
 [ext_resource type="PackedScene" uid="uid://bqkucl7xa4j03" path="res://scenes/treadmill/treadmill_item/item_variations/treadmill_fence_2.tscn" id="6_dkpwp"]
+[ext_resource type="PackedScene" uid="uid://gplrm6pp2dtk" path="res://scenes/treadmill/treadmill_item/item_variations/treadmill_tree_2.tscn" id="7_v4kp3"]
 [ext_resource type="Texture2D" uid="uid://dxb3jmgumh2vd" path="res://assets/2d/UI_Breaking_News.png" id="9_dkpwp"]
 [ext_resource type="Texture2D" uid="uid://y8wbnag6yxbr" path="res://assets/2d/UI_LIVE.png" id="10_envix"]
 [ext_resource type="Texture2D" uid="uid://nlp7x7wcx5qh" path="res://assets/2d/UI_Heart.png" id="11_q31dt"]
@@ -50,6 +52,17 @@ metadata/_custom_type_script = "uid://beehhs7t2qyd"
 [node name="road" type="Node2D" parent="."]
 position = Vector2(0, 919)
 scale = Vector2(1, 1.376)
+
+[node name="treadmill_trees" type="Node2D" parent="road" node_paths=PackedStringArray("container_node")]
+position = Vector2(0, -327.7616)
+scale = Vector2(1, 0.727)
+script = ExtResource("4_myeqy")
+item_types = Array[PackedScene]([ExtResource("6_5qs4y"), ExtResource("7_v4kp3")])
+global_speed_multiplier = 0.5
+spawn_method = 1
+spawn_probability = 0.4
+container_node = NodePath(".")
+metadata/_custom_type_script = "uid://beehhs7t2qyd"
 
 [node name="pavement_visual" type="Polygon2D" parent="road"]
 position = Vector2(9, -208.88794)
