@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://c0h0c0n624xcm"]
+
+[ext_resource type="PackedScene" uid="uid://ccc8nqq4x5n21" path="res://scenes/treadmill/treadmill_item/treadmill_composite.tscn" id="1_afe86"]
+[ext_resource type="Texture2D" uid="uid://0i31v2yropa4" path="res://assets/2d/Fence_2.png" id="2_qr2wp"]
+[ext_resource type="Texture2D" uid="uid://dvywdvak748p4" path="res://assets/2d/Sign_1.png" id="3_k8wow"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cn2xc"]
+
+[node name="root" instance=ExtResource("1_afe86")]
+bounds = Vector2(332.04, 186.3)
+
+[node name="hitbox_shape" parent="hitbox" index="0"]
+position = Vector2(12, -11)
+shape = SubResource("RectangleShape2D_cn2xc")
+
+[node name="fence1" type="Sprite2D" parent="." index="1"]
+position = Vector2(79, -31)
+scale = Vector2(0.23404253, 0.23404257)
+texture = ExtResource("2_qr2wp")
+
+[node name="sign" type="Sprite2D" parent="fence1" index="0"]
+position = Vector2(366.09094, -269.18182)
+scale = Vector2(1.3789257, 1.3789257)
+texture = ExtResource("3_k8wow")
+
+[node name="fence2" type="Sprite2D" parent="fence1" index="1"]
+position = Vector2(742.0908, 0)
+scale = Vector2(0.99999994, 1)
+texture = ExtResource("2_qr2wp")

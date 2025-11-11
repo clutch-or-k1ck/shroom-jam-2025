@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bqnhgrmahpp44"]
+[gd_scene load_steps=21 format=3 uid="uid://bqnhgrmahpp44"]
 
 [ext_resource type="Script" uid="uid://cc7qw8macbkml" path="res://scenes/chase_scene/chase_scene.gd" id="1_8pw8v"]
 [ext_resource type="PackedScene" uid="uid://y4on5eclsc2c" path="res://scenes/duck_character/duck_character.tscn" id="1_m83pa"]
@@ -10,17 +10,18 @@
 [ext_resource type="Script" uid="uid://beehhs7t2qyd" path="res://scenes/treadmill/treadmill.gd" id="4_myeqy"]
 [ext_resource type="PackedScene" uid="uid://blo15if732qre" path="res://scenes/treadmill/treadmill_item/item_variations/treadmill_clouds.tscn" id="4_v4kp3"]
 [ext_resource type="PackedScene" uid="uid://d0gundbavq47b" path="res://scenes/treadmill/treadmill_item/item_variations/treadmill_brick.tscn" id="5_myeqy"]
-[ext_resource type="PackedScene" uid="uid://kuy1nfcy4ni5" path="res://scenes/treadmill/treadmill_item/treadmill_barrel_1.tscn" id="5_q31dt"]
 [ext_resource type="PackedScene" uid="uid://dk72dfih4oswg" path="res://scenes/treadmill/treadmill_item/item_variations/treadmill_fence_1.tscn" id="5_t50dl"]
 [ext_resource type="PackedScene" uid="uid://cbm4li6t68yd2" path="res://scenes/treadmill/treadmill_item/item_variations/treadmill_tree_1.tscn" id="6_5qs4y"]
 [ext_resource type="PackedScene" uid="uid://bqkucl7xa4j03" path="res://scenes/treadmill/treadmill_item/item_variations/treadmill_fence_2.tscn" id="6_dkpwp"]
 [ext_resource type="PackedScene" uid="uid://gplrm6pp2dtk" path="res://scenes/treadmill/treadmill_item/item_variations/treadmill_tree_2.tscn" id="7_v4kp3"]
 [ext_resource type="Texture2D" uid="uid://dxb3jmgumh2vd" path="res://assets/2d/UI_Breaking_News.png" id="9_dkpwp"]
 [ext_resource type="Texture2D" uid="uid://y8wbnag6yxbr" path="res://assets/2d/UI_LIVE.png" id="10_envix"]
+[ext_resource type="PackedScene" uid="uid://c8lnt2dejstw8" path="res://scenes/treadmill/treadmill_item/item_variations/barrel_obstacle_1.tscn" id="11_4yt5v"]
 [ext_resource type="Texture2D" uid="uid://nlp7x7wcx5qh" path="res://assets/2d/UI_Heart.png" id="11_q31dt"]
+[ext_resource type="PackedScene" uid="uid://c0h0c0n624xcm" path="res://scenes/treadmill/treadmill_item/item_variations/two_fences_and_sign.tscn" id="14_4yt5v"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a4cdl"]
-size = Vector2(2692, 77.21515)
+size = Vector2(2692, 110.00009)
 
 [node name="root" type="Node2D"]
 script = ExtResource("1_8pw8v")
@@ -80,10 +81,9 @@ metadata/_custom_type_script = "uid://beehhs7t2qyd"
 
 [node name="road" type="Node2D" parent="."]
 position = Vector2(0, 919)
-scale = Vector2(1, 1.376)
 
 [node name="treadmill_trees" type="Node2D" parent="road"]
-position = Vector2(0, -327.7616)
+position = Vector2(0, -476)
 scale = Vector2(1, 0.727)
 script = ExtResource("4_myeqy")
 item_types = Array[PackedScene]([ExtResource("6_5qs4y"), ExtResource("7_v4kp3")])
@@ -104,14 +104,14 @@ metadata/_custom_type_script = "uid://beehhs7t2qyd"
 position = Vector2(9, -208.88794)
 scale = Vector2(1, 2.0086207)
 texture = ExtResource("2_ucmrg")
-polygon = PackedVector2Array(-9, -66.270386, 2689, -66.270386, 2679, 162.24754, -8, 162.24754)
+polygon = PackedVector2Array(-9, -136.96565, 2677, -136.96565, 2679, 162.24754, -8, 162.24754)
 uv = PackedVector2Array(-2.884087, 1.2191811, 3841.9077, 7.3350945, 3845.9077, 1179.259, 3.2318268, 1197.1089)
 
 [node name="road_collision" type="StaticBody2D" parent="road"]
 position = Vector2(0, -118)
 
 [node name="collision_shape" type="CollisionShape2D" parent="road/road_collision"]
-position = Vector2(1347, 77.39252)
+position = Vector2(1347, 61.00006)
 shape = SubResource("RectangleShape2D_a4cdl")
 
 [node name="sidewalk_bottom" type="Node2D" parent="road"]
@@ -127,7 +127,7 @@ prespawn_probability = null
 metadata/_custom_type_script = "uid://beehhs7t2qyd"
 
 [node name="sidewalk_middle" type="Node2D" parent="road"]
-position = Vector2(0, -182.41278)
+position = Vector2(0, -256)
 script = ExtResource("4_myeqy")
 item_types = Array[PackedScene]([ExtResource("5_myeqy")])
 global_speed_multiplier = 0.9
@@ -140,10 +140,9 @@ prespawn_probability = null
 metadata/_custom_type_script = "uid://beehhs7t2qyd"
 
 [node name="obstacles" type="Node2D" parent="road"]
-position = Vector2(0, -79.94185)
-scale = Vector2(1, 0.727)
+position = Vector2(0, -112.000015)
 script = ExtResource("4_myeqy")
-item_types = Array[PackedScene]([ExtResource("5_q31dt")])
+item_types = Array[PackedScene]([ExtResource("11_4yt5v")])
 global_speed_multiplier = 0.9
 spawn_method = 1
 spawn_probability = 1.0
@@ -156,7 +155,7 @@ prespawn_probability = null
 metadata/_custom_type_script = "uid://beehhs7t2qyd"
 
 [node name="sidewalk_top" type="Node2D" parent="road"]
-position = Vector2(0, -305.23254)
+position = Vector2(0, -441)
 script = ExtResource("4_myeqy")
 item_types = Array[PackedScene]([ExtResource("5_myeqy")])
 global_speed_multiplier = 0.8
@@ -172,9 +171,9 @@ prespawn_probability = null
 metadata/_custom_type_script = "uid://beehhs7t2qyd"
 
 [node name="middle_sidewalk_decorations" type="Node2D" parent="road"]
-position = Vector2(0, -194.0407)
+position = Vector2(0, -270)
 script = ExtResource("4_myeqy")
-item_types = Array[PackedScene]([ExtResource("5_t50dl"), ExtResource("6_dkpwp")])
+item_types = Array[PackedScene]([ExtResource("5_t50dl"), ExtResource("6_dkpwp"), ExtResource("14_4yt5v")])
 global_speed_multiplier = 0.9
 spawn_method = 1
 spawn_probability = 0.5
