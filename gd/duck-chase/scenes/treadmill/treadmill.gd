@@ -4,6 +4,7 @@ extends Node2D
 class_name Treadmill
 
 
+@export_category('General')
 ## array of elements that this treadmill is able to spawn
 @export var item_types: Array[PackedScene]
 ## the speed with which treadmill elements are moving to the left
@@ -15,8 +16,15 @@ enum eTreadmillSpawnMethod {FillViewport, Random}
 ## probability to spawn a random element (this ticks once per second and only applies if spawn_method == Random)
 @export var spawn_probability: float
 
-## this is the node that will contain treadmill items of this treadmill as children
-@export var container_node: Node2D = self
+## randomization (random displacement and scaling)
+@export_category('Randomization')
+
+## whether to apply random scaling or not
+@export var apply_random_scaling := false
+## min scaling when applying random scaling to elements spawned
+@export var random_scale_min := 1.
+## max scaling when applying random scaling to elements spawned
+@export var random_scale_max := 1.
 
 ## here we keep track of all treadmill items currently present on the treadmill
 var items: Array[TreadmillItem] = []
@@ -34,7 +42,7 @@ func move_treadmill(delta: float) -> void:
 func despawn_out_of_bounds_elements() -> void:
 	## TODO scaling factor will affect get_bounding_rect value in global space...
 	while items.size() > 0 and items[0].position.x + items[0].get_bounding_rect().end.x < 0.:
-		container_node.remove_child(items[0]) # CAUTION does this truly free the child?
+		self.remove_child(items[0]) # CAUTION does this truly free the child?
 		items.remove_at(0)
 
 
@@ -45,8 +53,19 @@ func create_new_treadmill_item(idx: int) -> TreadmillItem:
 		return null
 	
 	var new_treadmill_item := item_types[idx].instantiate()
-	container_node.add_child(new_treadmill_item)
+	self.add_child(new_treadmill_item)
 	items.append(new_treadmill_item)
+	
+	# apply random scaling if required
+	if apply_random_scaling:
+		var random_scaling_factor: float
+		if is_equal_approx(random_scale_min, random_scale_max):
+			random_scaling_factor = random_scale_min
+		else:
+			random_scaling_factor = randf_range(random_scale_min, random_scale_max)
+			
+		(new_treadmill_item as TreadmillItem).scale *= random_scaling_factor
+		
 	return new_treadmill_item
 
 
@@ -65,7 +84,7 @@ func stack_new_treadmill_item() -> TreadmillItem:
 
 ## select a random treadmill item type from collection 
 func select_random_treadmill_item_type() -> int:
-	return randi_range(0, item_types.size() - 1)
+	return randi_range(0, item_types.size() - 1) # TODO more interesting selection methods?
 
 
 ## spawns a treadmill item outside the screen boundaries
