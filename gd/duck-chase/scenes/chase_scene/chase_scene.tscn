@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://bqnhgrmahpp44"]
+[gd_scene load_steps=20 format=3 uid="uid://bqnhgrmahpp44"]
 
 [ext_resource type="Script" uid="uid://cc7qw8macbkml" path="res://scenes/chase_scene/chase_scene.gd" id="1_8pw8v"]
 [ext_resource type="PackedScene" uid="uid://y4on5eclsc2c" path="res://scenes/duck_character/duck_character.tscn" id="1_m83pa"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://rinq6u86110t" path="res://scenes/treadmill/treadmill_item/item_variations/treadmill_city_back.tscn" id="4_4p7bp"]
 [ext_resource type="PackedScene" uid="uid://bsnf513113sfi" path="res://scenes/treadmill/treadmill_item/item_variations/treadmill_city_front.tscn" id="4_jqnf2"]
 [ext_resource type="Script" uid="uid://beehhs7t2qyd" path="res://scenes/treadmill/treadmill.gd" id="4_myeqy"]
+[ext_resource type="PackedScene" uid="uid://blo15if732qre" path="res://scenes/treadmill/treadmill_item/item_variations/treadmill_clouds.tscn" id="4_v4kp3"]
 [ext_resource type="PackedScene" uid="uid://d0gundbavq47b" path="res://scenes/treadmill/treadmill_item/item_variations/treadmill_brick.tscn" id="5_myeqy"]
 [ext_resource type="PackedScene" uid="uid://kuy1nfcy4ni5" path="res://scenes/treadmill/treadmill_item/treadmill_barrel_1.tscn" id="5_q31dt"]
 [ext_resource type="PackedScene" uid="uid://dk72dfih4oswg" path="res://scenes/treadmill/treadmill_item/item_variations/treadmill_fence_1.tscn" id="5_t50dl"]
@@ -29,6 +30,16 @@ starting_world_speed = 800
 texture = ExtResource("2_b8in7")
 polygon = PackedVector2Array(1, -1, -2, 553, 2730, 552, 2726, 3)
 uv = PackedVector2Array(1, -1, -2, 1041.4167, 3847.2463, 1025.1364, 3839.1062, -6.1402807)
+
+[node name="treadmill_clouds" type="Node2D" parent="." node_paths=PackedStringArray("container_node")]
+position = Vector2(0, 219)
+script = ExtResource("4_myeqy")
+item_types = Array[PackedScene]([ExtResource("4_v4kp3")])
+global_speed_multiplier = 0.02
+spawn_method = 1
+spawn_probability = 0.2
+container_node = NodePath(".")
+metadata/_custom_type_script = "uid://beehhs7t2qyd"
 
 [node name="city_backdrop" type="Node2D" parent="."]
 position = Vector2(0, 486)
