@@ -38,9 +38,9 @@ item_types = Array[PackedScene]([ExtResource("4_v4kp3")])
 global_speed_multiplier = 0.02
 spawn_method = 1
 spawn_probability = 0.2
-apply_random_scaling = null
-random_scale_min = null
-random_scale_max = null
+apply_random_displacement = null
+random_displacement_min = null
+random_displacement_max = null
 metadata/_custom_type_script = "uid://beehhs7t2qyd"
 
 [node name="city_backdrop" type="Node2D" parent="."]
@@ -51,9 +51,9 @@ position = Vector2(0, -27)
 script = ExtResource("4_myeqy")
 item_types = Array[PackedScene]([ExtResource("4_4p7bp")])
 global_speed_multiplier = 0.05
-apply_random_scaling = null
-random_scale_min = null
-random_scale_max = null
+apply_random_displacement = null
+random_displacement_min = null
+random_displacement_max = null
 metadata/_custom_type_script = "uid://beehhs7t2qyd"
 
 [node name="treadmill_city_front" type="Node2D" parent="city_backdrop"]
@@ -61,9 +61,9 @@ position = Vector2(0, -38)
 script = ExtResource("4_myeqy")
 item_types = Array[PackedScene]([ExtResource("4_jqnf2")])
 global_speed_multiplier = 0.15
-apply_random_scaling = null
-random_scale_min = null
-random_scale_max = null
+apply_random_displacement = null
+random_displacement_min = null
+random_displacement_max = null
 metadata/_custom_type_script = "uid://beehhs7t2qyd"
 
 [node name="road" type="Node2D" parent="."]
@@ -78,9 +78,11 @@ item_types = Array[PackedScene]([ExtResource("6_5qs4y"), ExtResource("7_v4kp3")]
 global_speed_multiplier = 0.5
 spawn_method = 1
 spawn_probability = 0.4
-apply_random_scaling = null
-random_scale_min = null
-random_scale_max = null
+apply_random_scaling = true
+random_scale_min = 0.8
+random_scale_max = 1.2
+apply_random_displacement = true
+random_displacement_max = Vector2(0, 40)
 metadata/_custom_type_script = "uid://beehhs7t2qyd"
 
 [node name="pavement_visual" type="Polygon2D" parent="road"]
@@ -101,9 +103,9 @@ shape = SubResource("RectangleShape2D_a4cdl")
 position = Vector2(0, 7)
 script = ExtResource("4_myeqy")
 item_types = Array[PackedScene]([ExtResource("5_myeqy")])
-apply_random_scaling = null
-random_scale_min = null
-random_scale_max = null
+apply_random_displacement = null
+random_displacement_min = null
+random_displacement_max = null
 metadata/_custom_type_script = "uid://beehhs7t2qyd"
 
 [node name="sidewalk_middle" type="Node2D" parent="road"]
@@ -111,9 +113,9 @@ position = Vector2(0, -182.41278)
 script = ExtResource("4_myeqy")
 item_types = Array[PackedScene]([ExtResource("5_myeqy")])
 global_speed_multiplier = 0.9
-apply_random_scaling = null
-random_scale_min = null
-random_scale_max = null
+apply_random_displacement = null
+random_displacement_min = null
+random_displacement_max = null
 metadata/_custom_type_script = "uid://beehhs7t2qyd"
 
 [node name="obstacles" type="Node2D" parent="road"]
@@ -124,9 +126,9 @@ item_types = Array[PackedScene]([ExtResource("5_q31dt")])
 global_speed_multiplier = 0.9
 spawn_method = 1
 spawn_probability = 1.0
-apply_random_scaling = null
-random_scale_min = null
-random_scale_max = null
+apply_random_displacement = null
+random_displacement_min = null
+random_displacement_max = null
 metadata/_custom_type_script = "uid://beehhs7t2qyd"
 
 [node name="sidewalk_top" type="Node2D" parent="road"]
@@ -137,6 +139,9 @@ global_speed_multiplier = 0.8
 apply_random_scaling = true
 random_scale_min = 0.7
 random_scale_max = 0.7
+apply_random_displacement = null
+random_displacement_min = null
+random_displacement_max = null
 metadata/_custom_type_script = "uid://beehhs7t2qyd"
 
 [node name="middle_sidewalk_decorations" type="Node2D" parent="road"]
@@ -146,9 +151,9 @@ item_types = Array[PackedScene]([ExtResource("5_t50dl"), ExtResource("6_dkpwp")]
 global_speed_multiplier = 0.9
 spawn_method = 1
 spawn_probability = 0.5
-apply_random_scaling = null
-random_scale_min = null
-random_scale_max = null
+apply_random_displacement = null
+random_displacement_min = null
+random_displacement_max = null
 metadata/_custom_type_script = "uid://beehhs7t2qyd"
 
 [node name="duck_character" parent="." instance=ExtResource("1_m83pa")]

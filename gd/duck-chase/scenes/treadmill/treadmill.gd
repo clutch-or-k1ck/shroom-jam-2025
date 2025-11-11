@@ -26,6 +26,13 @@ enum eTreadmillSpawnMethod {FillViewport, Random}
 ## max scaling when applying random scaling to elements spawned
 @export var random_scale_max := 1.
 
+## whether to apply random displacement or not
+@export var apply_random_displacement := false
+## minimum x and minimum y for the random displacement
+@export var random_displacement_min: Vector2
+## maximum x and maximum y for the random displacement
+@export var random_displacement_max: Vector2
+
 ## here we keep track of all treadmill items currently present on the treadmill
 var items: Array[TreadmillItem] = []
 
@@ -69,16 +76,39 @@ func create_new_treadmill_item(idx: int) -> TreadmillItem:
 	return new_treadmill_item
 
 
+enum eTargetPositionResolutionMethod {SnapToLast, OutsideScreenBoundaries, FixedPosition}
+## finds a position for a new treamill item following the spawn method and applying randomization
+## returns true if no no-spawn-area was overlapped (only valid if check_no_spawn_overlaps == true)
+func resolve_position(method: eTargetPositionResolutionMethod, fixed_position: Vector2 = Vector2(0., 0.)) -> Vector2:
+	var spawn_at: Vector2
+	match method:
+		eTargetPositionResolutionMethod.SnapToLast:
+			# NOTE snap to last item if present, otherwise spawn at root
+			spawn_at = Vector2(0., 0.) if items.size() == 1 else \
+				Vector2(items[-2].position.x + items[-2].get_bounding_rect().end.x, items[-2].position.y)
+		eTargetPositionResolutionMethod.OutsideScreenBoundaries:
+			# NOTE spawn a bit further than the screen boundary
+			spawn_at = Vector2(get_viewport_rect().size.x * 1.1, 0.)
+		eTargetPositionResolutionMethod.FixedPosition:
+			spawn_at = fixed_position
+			
+	# apply random displacement next
+	var random_x := random_displacement_min.x if is_equal_approx(
+			random_displacement_min.x, random_displacement_max.x
+		) else randf_range(random_displacement_min.x, random_displacement_max.x)
+	var random_y := random_displacement_min.y if is_equal_approx(
+			random_displacement_min.y, random_displacement_max.y
+		) else randf_range(random_displacement_min.y, random_displacement_max.y)
+		
+	return spawn_at + Vector2(random_x, random_y)
+
+
 ## spawns a new treadmill item immediately following the last one, or at the beginning if the treadmill is empty
 func stack_new_treadmill_item() -> TreadmillItem:
 	# when stacking, we always only take the first possible type: stacking different types makes no sense
 	var new_treadmill_item := create_new_treadmill_item(0)
-	# TODO same stuff, scaling
 	if new_treadmill_item:
-		var spawn_at := Vector2(0., 0.) if items.size() == 1 else \
-			Vector2(items[-2].position.x + items[-2].get_bounding_rect().end.x, items[-2].position.y)
-		new_treadmill_item.position = spawn_at
-		
+		new_treadmill_item.position = resolve_position(eTargetPositionResolutionMethod.SnapToLast)
 	return new_treadmill_item
 
 
@@ -90,7 +120,7 @@ func select_random_treadmill_item_type() -> int:
 ## spawns a treadmill item outside the screen boundaries
 func spawn_outside_screen_boundaries() -> void:
 	# NOTE spawn a bit further that the screen actually ends
-	var spawn_at := Vector2(get_viewport_rect().size.x * 1.1, 0.)
+	var spawn_at := resolve_position(eTargetPositionResolutionMethod.OutsideScreenBoundaries)
 
 	# is there a treadmill item that prohibits spawning due to its no-spawn area?
 	if not items.is_empty():
