@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="duck-chase"
-run/main_scene="uid://cxla1ua1rcufk"
+run/main_scene="uid://bjt1nuusy2kll"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[autoload]
+
+Globals="*res://globals/globals.gd"
 
 [display]
 
@@ -42,8 +46,3 @@ jump={
 , Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"button_index":0,"pressure":0.0,"pressed":false,"script":null)
 ]
 }
-
-[rendering]
-
-renderer/rendering_method="gl_compatibility"
-renderer/rendering_method.mobile="gl_compatibility"

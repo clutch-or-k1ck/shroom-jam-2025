@@ -9,9 +9,9 @@ func get_bounding_rect() -> Rect2:
 	return Rect2()
 
 
-## spawning other items is not allowed in the vicinity (rect2 in local coordinates)
-func get_no_spawn_area() -> Rect2:
-	return Rect2()
+## the number of pixels that follow the treadmill item where no further spawns are allowed
+func get_no_spawn_area() -> int:
+	return 1
 
 
 # Called when the node enters the scene tree for the first time.

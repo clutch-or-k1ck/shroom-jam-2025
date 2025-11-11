@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://kuy1nfcy4ni5"]
+
+[ext_resource type="PackedScene" uid="uid://dh6jji1tmvisv" path="res://scenes/treadmill/treadmill_item/primitive_treadmill_item.tscn" id="1_1a6fs"]
+[ext_resource type="Texture2D" uid="uid://bnm0qn4tx5i2w" path="res://assets/2d/Barrel_1.png" id="2_1iu85"]
+[ext_resource type="Script" uid="uid://u272tw5rsllp" path="res://scenes/treadmill/treadmill_item/treadmill_barrel_1.gd" id="2_lqcjy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1a6fs"]
+size = Vector2(277.02707, 402.02698)
+
+[node name="root" instance=ExtResource("1_1a6fs")]
+scale = Vector2(0.296, 0.296)
+script = ExtResource("2_lqcjy")
+no_spawn_buffer = 0
+
+[node name="treadmill_item_sprite" parent="." index="0"]
+position = Vector2(0, -1)
+texture = ExtResource("2_1iu85")
+offset = Vector2(139, -201)
+
+[node name="damage_box" type="Area2D" parent="." index="1"]
+
+[node name="damage_box_shape" type="CollisionShape2D" parent="damage_box" index="0"]
+position = Vector2(138.51349, -201.01344)
+scale = Vector2(0.99999976, 0.99999976)
+shape = SubResource("RectangleShape2D_1a6fs")
+
+[connection signal="area_entered" from="damage_box" to="." method="_on_damage_box_area_entered"]
+[connection signal="body_entered" from="damage_box" to="." method="_on_damage_box_body_entered"]

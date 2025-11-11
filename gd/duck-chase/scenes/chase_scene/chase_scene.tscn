@@ -1,32 +1,92 @@
-[gd_scene load_steps=7 format=3 uid="uid://bqnhgrmahpp44"]
+[gd_scene load_steps=14 format=3 uid="uid://bqnhgrmahpp44"]
 
 [ext_resource type="Script" uid="uid://cc7qw8macbkml" path="res://scenes/chase_scene/chase_scene.gd" id="1_8pw8v"]
 [ext_resource type="PackedScene" uid="uid://y4on5eclsc2c" path="res://scenes/duck_character/duck_character.tscn" id="1_m83pa"]
 [ext_resource type="PackedScene" uid="uid://y4hccnwhpc3e" path="res://scenes/running_text_widget/running_text_widget.tscn" id="2_a4cdl"]
+[ext_resource type="Texture2D" uid="uid://cookxxbmq5r6d" path="res://assets/2d/Ground_Main.png" id="2_ucmrg"]
 [ext_resource type="Script" uid="uid://beehhs7t2qyd" path="res://scenes/treadmill/treadmill.gd" id="4_myeqy"]
-[ext_resource type="PackedScene" uid="uid://dh6jji1tmvisv" path="res://scenes/treadmill/treadmill_item/item_variations/primitive_treadmill_item.tscn" id="5_ucmrg"]
+[ext_resource type="PackedScene" uid="uid://d0gundbavq47b" path="res://scenes/treadmill/treadmill_item/item_variations/treadmill_brick.tscn" id="5_myeqy"]
+[ext_resource type="PackedScene" uid="uid://kuy1nfcy4ni5" path="res://scenes/treadmill/treadmill_item/treadmill_barrel_1.tscn" id="5_q31dt"]
+[ext_resource type="PackedScene" uid="uid://dk72dfih4oswg" path="res://scenes/treadmill/treadmill_item/item_variations/treadmill_fence_1.tscn" id="5_t50dl"]
+[ext_resource type="PackedScene" uid="uid://bqkucl7xa4j03" path="res://scenes/treadmill/treadmill_item/item_variations/treadmill_fence_2.tscn" id="6_dkpwp"]
+[ext_resource type="Texture2D" uid="uid://dxb3jmgumh2vd" path="res://assets/2d/UI_Breaking_News.png" id="9_dkpwp"]
+[ext_resource type="Texture2D" uid="uid://y8wbnag6yxbr" path="res://assets/2d/UI_LIVE.png" id="10_envix"]
+[ext_resource type="Texture2D" uid="uid://nlp7x7wcx5qh" path="res://assets/2d/UI_Heart.png" id="11_q31dt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a4cdl"]
-size = Vector2(2692, 113)
+size = Vector2(2692, 77.21515)
 
 [node name="root" type="Node2D"]
 script = ExtResource("1_8pw8v")
+starting_world_speed = 800
 
-[node name="pavement" type="StaticBody2D" parent="."]
-position = Vector2(0, 766)
+[node name="road" type="Node2D" parent="."]
+position = Vector2(0, 919)
+scale = Vector2(1, 1.376)
 
-[node name="pavement_collision" type="CollisionShape2D" parent="pavement"]
-position = Vector2(1347, 59.5)
+[node name="pavement_visual" type="Polygon2D" parent="road"]
+position = Vector2(9, -208.88794)
+scale = Vector2(1, 2.0086207)
+texture = ExtResource("2_ucmrg")
+polygon = PackedVector2Array(-9, -66.270386, 2689, -66.270386, 2679, 162.24754, -8, 162.24754)
+uv = PackedVector2Array(-2.884087, 1.2191811, 3841.9077, 7.3350945, 3845.9077, 1179.259, 3.2318268, 1197.1089)
+
+[node name="road_collision" type="StaticBody2D" parent="road"]
+position = Vector2(0, -118)
+
+[node name="collision_shape" type="CollisionShape2D" parent="road/road_collision"]
+position = Vector2(1347, 77.39252)
 shape = SubResource("RectangleShape2D_a4cdl")
 
-[node name="pavement_visual" type="Polygon2D" parent="pavement"]
-position = Vector2(9, -90.88793)
-scale = Vector2(1, 2.0086207)
-color = Color(0.47737837, 0.31371406, 0.7034061, 1)
-polygon = PackedVector2Array(-12, -13, 2683, -13, 2690, 108.97424, 1344, 105.48929, -10, 101)
+[node name="sidewalk_bottom" type="Node2D" parent="road" node_paths=PackedStringArray("container_node")]
+position = Vector2(0, 7)
+script = ExtResource("4_myeqy")
+item_types = Array[PackedScene]([ExtResource("5_myeqy")])
+container_node = NodePath(".")
+metadata/_custom_type_script = "uid://beehhs7t2qyd"
+
+[node name="sidewalk_middle" type="Node2D" parent="road" node_paths=PackedStringArray("container_node")]
+position = Vector2(0, -182.41278)
+script = ExtResource("4_myeqy")
+item_types = Array[PackedScene]([ExtResource("5_myeqy")])
+global_speed_multiplier = 0.9
+container_node = NodePath(".")
+metadata/_custom_type_script = "uid://beehhs7t2qyd"
+
+[node name="obstacles" type="Node2D" parent="road" node_paths=PackedStringArray("container_node")]
+position = Vector2(0, -79.94185)
+scale = Vector2(1, 0.727)
+script = ExtResource("4_myeqy")
+item_types = Array[PackedScene]([ExtResource("5_q31dt")])
+global_speed_multiplier = 0.9
+spawn_method = 1
+spawn_probability = 1.0
+container_node = NodePath(".")
+metadata/_custom_type_script = "uid://beehhs7t2qyd"
+
+[node name="sidewalk_top" type="Node2D" parent="road" node_paths=PackedStringArray("container_node")]
+position = Vector2(0, -305.23254)
+script = ExtResource("4_myeqy")
+item_types = Array[PackedScene]([ExtResource("5_myeqy")])
+global_speed_multiplier = 0.8
+container_node = NodePath(".")
+metadata/_custom_type_script = "uid://beehhs7t2qyd"
+
+[node name="middle_sidewalk_decorations" type="Node2D" parent="road" node_paths=PackedStringArray("container_node")]
+position = Vector2(0, -194.0407)
+script = ExtResource("4_myeqy")
+item_types = Array[PackedScene]([ExtResource("5_t50dl"), ExtResource("6_dkpwp")])
+global_speed_multiplier = 0.9
+spawn_method = 1
+spawn_probability = 0.5
+container_node = NodePath(".")
+metadata/_custom_type_script = "uid://beehhs7t2qyd"
 
 [node name="duck_character" parent="." instance=ExtResource("1_m83pa")]
 position = Vector2(288, 0)
+jump_velocity = -900
+speed = 400
+stamina_regeneration_rate = 25.0
 
 [node name="ui" type="CanvasLayer" parent="."]
 
@@ -34,16 +94,92 @@ position = Vector2(288, 0)
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -275.0
-offset_bottom = -235.0
+offset_top = -138.0
+offset_bottom = -98.0
 grow_vertical = 0
 breaking_news = Array[String](["BREAKING NEWS", "BREAKING NEWS", "BREAKING NEWS", "BREAKING NEWS", "BREAKING NEWS", "BREAKING NEWS", "BREAKING NEWS", "BREAKING NEWS", "BREAKING NEWS"])
 running_text_speed = -250
-running_text_font_size = 90
+running_text_font_size = 60
 
-[node name="Treadmill" type="Node2D" parent="."]
-position = Vector2(0, 987)
-script = ExtResource("4_myeqy")
-item_types = Array[PackedScene]([ExtResource("5_ucmrg")])
-speed = 400
-metadata/_custom_type_script = "uid://beehhs7t2qyd"
+[node name="top_left_widget" type="VBoxContainer" parent="ui"]
+offset_left = 206.95
+offset_top = 130.0
+offset_right = 570.0
+offset_bottom = 256.0
+
+[node name="breaking_news_label" type="TextureRect" parent="ui/top_left_widget"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+texture = ExtResource("9_dkpwp")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="spacer" type="Control" parent="ui/top_left_widget"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.1
+
+[node name="stam_bar" type="ProgressBar" parent="ui/top_left_widget"]
+layout_mode = 2
+size_flags_vertical = 3
+max_value = 1.0
+show_percentage = false
+
+[node name="top_right_widget" type="VBoxContainer" parent="ui"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -420.89502
+offset_top = 145.485
+offset_right = -236.89502
+offset_bottom = 287.48505
+grow_horizontal = 0
+
+[node name="live_label" type="TextureRect" parent="ui/top_right_widget"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+texture = ExtResource("10_envix")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="spacer" type="Control" parent="ui/top_right_widget"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.1
+
+[node name="hearts" type="HBoxContainer" parent="ui/top_right_widget"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="heart1" type="TextureRect" parent="ui/top_right_widget/hearts"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("11_q31dt")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="heart2" type="TextureRect" parent="ui/top_right_widget/hearts"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("11_q31dt")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="heart3" type="TextureRect" parent="ui/top_right_widget/hearts"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("11_q31dt")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="heart4" type="TextureRect" parent="ui/top_right_widget/hearts"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("11_q31dt")
+expand_mode = 1
+stretch_mode = 5
+
+[connection signal="lives_updated" from="duck_character" to="." method="_on_duck_character_lives_updated"]
+[connection signal="stamina_updated" from="duck_character" to="." method="_on_duck_character_stamina_updated"]

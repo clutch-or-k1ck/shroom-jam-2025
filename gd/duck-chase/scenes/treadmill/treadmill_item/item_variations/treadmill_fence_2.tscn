@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://bqkucl7xa4j03"]
+
+[ext_resource type="PackedScene" uid="uid://dh6jji1tmvisv" path="res://scenes/treadmill/treadmill_item/primitive_treadmill_item.tscn" id="1_qx68j"]
+[ext_resource type="Texture2D" uid="uid://0i31v2yropa4" path="res://assets/2d/Fence_2.png" id="2_t1n5b"]
+
+[node name="root" instance=ExtResource("1_qx68j")]
+scale = Vector2(0.269, 0.269)
+no_spawn_buffer = 0
+
+[node name="treadmill_item_sprite" parent="." index="0"]
+texture = ExtResource("2_t1n5b")
+offset = Vector2(356, -141)
