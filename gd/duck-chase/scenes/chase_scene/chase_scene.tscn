@@ -1,10 +1,12 @@
-[gd_scene load_steps=15 format=3 uid="uid://bqnhgrmahpp44"]
+[gd_scene load_steps=17 format=3 uid="uid://bqnhgrmahpp44"]
 
 [ext_resource type="Script" uid="uid://cc7qw8macbkml" path="res://scenes/chase_scene/chase_scene.gd" id="1_8pw8v"]
 [ext_resource type="PackedScene" uid="uid://y4on5eclsc2c" path="res://scenes/duck_character/duck_character.tscn" id="1_m83pa"]
 [ext_resource type="PackedScene" uid="uid://y4hccnwhpc3e" path="res://scenes/running_text_widget/running_text_widget.tscn" id="2_a4cdl"]
 [ext_resource type="Texture2D" uid="uid://bh8cccfqnjbbb" path="res://assets/2d/Sky.png" id="2_b8in7"]
 [ext_resource type="Texture2D" uid="uid://cookxxbmq5r6d" path="res://assets/2d/Ground_Main.png" id="2_ucmrg"]
+[ext_resource type="PackedScene" uid="uid://rinq6u86110t" path="res://scenes/treadmill/treadmill_item/item_variations/treadmill_city_back.tscn" id="4_4p7bp"]
+[ext_resource type="PackedScene" uid="uid://bsnf513113sfi" path="res://scenes/treadmill/treadmill_item/item_variations/treadmill_city_front.tscn" id="4_jqnf2"]
 [ext_resource type="Script" uid="uid://beehhs7t2qyd" path="res://scenes/treadmill/treadmill.gd" id="4_myeqy"]
 [ext_resource type="PackedScene" uid="uid://d0gundbavq47b" path="res://scenes/treadmill/treadmill_item/item_variations/treadmill_brick.tscn" id="5_myeqy"]
 [ext_resource type="PackedScene" uid="uid://kuy1nfcy4ni5" path="res://scenes/treadmill/treadmill_item/treadmill_barrel_1.tscn" id="5_q31dt"]
@@ -21,12 +23,29 @@ size = Vector2(2692, 77.21515)
 script = ExtResource("1_8pw8v")
 starting_world_speed = 800
 
-[node name="backdrop" type="Node2D" parent="."]
-
-[node name="sky_polygon" type="Polygon2D" parent="backdrop"]
+[node name="sky_polygon" type="Polygon2D" parent="."]
 texture = ExtResource("2_b8in7")
 polygon = PackedVector2Array(1, -1, -2, 553, 2730, 552, 2726, 3)
 uv = PackedVector2Array(1, -1, -2, 1041.4167, 3847.2463, 1025.1364, 3839.1062, -6.1402807)
+
+[node name="city_backdrop" type="Node2D" parent="."]
+position = Vector2(0, 486)
+
+[node name="treadmill_city_back" type="Node2D" parent="city_backdrop" node_paths=PackedStringArray("container_node")]
+position = Vector2(0, -27)
+script = ExtResource("4_myeqy")
+item_types = Array[PackedScene]([ExtResource("4_4p7bp")])
+global_speed_multiplier = 0.05
+container_node = NodePath(".")
+metadata/_custom_type_script = "uid://beehhs7t2qyd"
+
+[node name="treadmill_city_front" type="Node2D" parent="city_backdrop" node_paths=PackedStringArray("container_node")]
+position = Vector2(0, -38)
+script = ExtResource("4_myeqy")
+item_types = Array[PackedScene]([ExtResource("4_jqnf2")])
+global_speed_multiplier = 0.15
+container_node = NodePath(".")
+metadata/_custom_type_script = "uid://beehhs7t2qyd"
 
 [node name="road" type="Node2D" parent="."]
 position = Vector2(0, 919)
