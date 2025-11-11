@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://ccc8nqq4x5n21"]
+
+[ext_resource type="PackedScene" uid="uid://con3lr0t0mr8e" path="res://scenes/treadmill/treadmill_item/treadmill_item.tscn" id="1_wsgys"]
+[ext_resource type="Script" uid="uid://cvb61uulvm1rf" path="res://scenes/treadmill/treadmill_item/treadmill_composite.gd" id="2_8tq44"]
+
+[node name="root" instance=ExtResource("1_wsgys")]
+script = ExtResource("2_8tq44")
+bounds = Vector2(0, 0)
+no_spawn_buffer = 372
+deals_damage = false
+damage_dealt = 0
+
+[node name="hitbox" type="Area2D" parent="." index="0"]
+monitoring = false
+
+[node name="hitbox_shape" type="CollisionShape2D" parent="hitbox" index="0"]
+
+[connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_body_entered"]
