@@ -33,6 +33,14 @@ enum eTreadmillSpawnMethod {FillViewport, Random}
 ## maximum x and maximum y for the random displacement
 @export var random_displacement_max: Vector2
 
+## pre-spawn will perform some spawning in the _on_ready
+@export_category('Prespawn')
+@export var enable_prespawn := false
+## the probability whether to spawn or not will be sampled this many times
+@export var prespawn_samples := 20
+## probability on each random toss
+@export var prespawn_probability := 0.05
+
 ## here we keep track of all treadmill items currently present on the treadmill
 var items: Array[TreadmillItem] = []
 
@@ -117,18 +125,44 @@ func select_random_treadmill_item_type() -> int:
 	return randi_range(0, item_types.size() - 1) # TODO more interesting selection methods?
 
 
-## spawns a treadmill item outside the screen boundaries
-func spawn_outside_screen_boundaries() -> void:
-	# NOTE spawn a bit further that the screen actually ends
-	var spawn_at := resolve_position(eTargetPositionResolutionMethod.OutsideScreenBoundaries)
-
+func is_overlapping_no_spawn_areas(position: Vector2) -> bool:
 	# is there a treadmill item that prohibits spawning due to its no-spawn area?
 	if not items.is_empty():
-		if spawn_at.x <= items[-1].position.x + items[-1].get_bounding_rect().end.x + items[-1].get_no_spawn_area():
-			return
+		if position.x <= items[-1].position.x + items[-1].get_bounding_rect().end.x + items[-1].get_no_spawn_area():
+			return true
+	return false
 
+
+## spawns a treadmill item outside the screen boundaries
+func spawn_outside_screen_boundaries() -> void:
+	var spawn_at := resolve_position(eTargetPositionResolutionMethod.OutsideScreenBoundaries)
+	if is_overlapping_no_spawn_areas(spawn_at):
+		return
 	var new_treadmill_item := create_new_treadmill_item(select_random_treadmill_item_type())
 	new_treadmill_item.position = spawn_at
+
+
+## performs one-time spawning of items accross the screen space
+func prespawn() -> void:
+	for i in range(prespawn_samples):
+		var do_spawn := randf() <= prespawn_probability
+		if not do_spawn:
+			continue
+			
+		# the x-coordinate for the spawn is found as fraction of the screen x for this sample
+		var x_coord := get_viewport_rect().size.x * (i * 1.) / prespawn_samples
+		
+		var spawn_at := resolve_position(
+			eTargetPositionResolutionMethod.FixedPosition,
+			Vector2(x_coord, 0.)
+		)
+		
+		if is_overlapping_no_spawn_areas(spawn_at):
+			continue
+		
+		var new_treadmill_item := create_new_treadmill_item(select_random_treadmill_item_type())
+		new_treadmill_item.position = spawn_at
+
 
 ## a function that spawns treadmill elements in accordance with spawn method, called every frame
 ## for random spawning, spawn with a very low probability every frame
@@ -150,6 +184,9 @@ func spawn_loop() -> void:
 func _ready() -> void:
 	if not Engine.is_editor_hint() and spawn_method == eTreadmillSpawnMethod.Random:
 		spawn_loop()
+		
+	if not Engine.is_editor_hint() and enable_prespawn:
+		prespawn()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
