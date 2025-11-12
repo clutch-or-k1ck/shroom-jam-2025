@@ -1,0 +1,16 @@
+[remap]
+
+importer="spine.atlas"
+type="SpineAtlasResource"
+uid="uid://dv4kcwr3pjo4q"
+path="res://.godot/imported/Duck_Cut.atlas-ed2b9f4015671cca3f19915a6e87ed32.spatlas"
+
+[deps]
+
+source_file="res://assets/spine/Duck_Cut.atlas"
+dest_files=["res://.godot/imported/Duck_Cut.atlas-ed2b9f4015671cca3f19915a6e87ed32.spatlas"]
+
+[params]
+
+normal_map_prefix="n"
+specular_map_prefix="s"
