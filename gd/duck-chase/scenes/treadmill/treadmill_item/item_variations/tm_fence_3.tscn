@@ -13,16 +13,16 @@ no_spawn_buffer = 50
 shape = SubResource("RectangleShape2D_8rqbh")
 
 [node name="fence1" type="Sprite2D" parent="." index="1"]
-position = Vector2(79.00001, -29.000004)
+position = Vector2(79, -29)
 scale = Vector2(0.234, 0.234)
 texture = ExtResource("2_iigqp")
 
 [node name="fence2" type="Sprite2D" parent="." index="2"]
-position = Vector2(234.00003, -29.000004)
+position = Vector2(234, -29)
 scale = Vector2(0.234, 0.234)
 texture = ExtResource("2_iigqp")
 
 [node name="fence3" type="Sprite2D" parent="." index="3"]
-position = Vector2(389.00003, -29.000004)
+position = Vector2(389, -29)
 scale = Vector2(0.234, 0.234)
 texture = ExtResource("2_iigqp")

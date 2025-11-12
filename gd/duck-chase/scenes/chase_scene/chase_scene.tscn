@@ -25,7 +25,7 @@
 [ext_resource type="PackedScene" uid="uid://c0h0c0n624xcm" path="res://scenes/treadmill/treadmill_item/item_variations/tm_two_fences_and_sign.tscn" id="14_4yt5v"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a4cdl"]
-size = Vector2(2692, 110.00009)
+size = Vector2(2692, 110)
 
 [node name="root" type="Node2D"]
 script = ExtResource("1_8pw8v")
@@ -34,7 +34,7 @@ starting_world_speed = 1800
 [node name="sky_polygon" type="Polygon2D" parent="."]
 texture = ExtResource("2_b8in7")
 polygon = PackedVector2Array(1, -1, -2, 553, 2730, 552, 2726, 3)
-uv = PackedVector2Array(1, -1, -2, 1041.4167, 3847.2463, 1025.1364, 3839.1062, -6.1402807)
+uv = PackedVector2Array(1, -1, -2, 1041.42, 3847.25, 1025.14, 3839.11, -6.14028)
 
 [node name="treadmill_clouds" type="Node2D" parent="."]
 position = Vector2(0, 269)
@@ -93,15 +93,15 @@ metadata/_custom_type_script = "uid://beehhs7t2qyd"
 position = Vector2(0, -118)
 
 [node name="collision_shape" type="CollisionShape2D" parent="road/road_collision"]
-position = Vector2(1347, 61.00006)
+position = Vector2(1347, 61.0001)
 shape = SubResource("RectangleShape2D_a4cdl")
 
 [node name="pavement_visual" type="Polygon2D" parent="road"]
-position = Vector2(9, -208.88794)
-scale = Vector2(1, 2.0086207)
+position = Vector2(9, -208.888)
+scale = Vector2(1, 2.00862)
 texture = ExtResource("2_ucmrg")
-polygon = PackedVector2Array(-9, -136.96565, 2677, -136.96565, 2679, 162.24754, -8, 162.24754)
-uv = PackedVector2Array(-2.884087, 1.2191811, 3841.9077, 7.3350945, 3845.9077, 1179.259, 3.2318268, 1197.1089)
+polygon = PackedVector2Array(-9, -136.966, 2677, -136.966, 2679, 162.248, -8, 162.248)
+uv = PackedVector2Array(-2.88409, 1.21918, 3841.91, 7.33509, 3845.91, 1179.26, 3.23183, 1197.11)
 
 [node name="sidewalk_top" type="Node2D" parent="road"]
 position = Vector2(0, -441)
@@ -217,10 +217,10 @@ show_percentage = false
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -420.89502
+offset_left = -420.895
 offset_top = 145.485
-offset_right = -236.89502
-offset_bottom = 287.48505
+offset_right = -236.895
+offset_bottom = 287.485
 grow_horizontal = 0
 
 [node name="live_label" type="TextureRect" parent="ui/top_right_widget"]

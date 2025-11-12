@@ -7,11 +7,11 @@
 bounds = Vector2(778.02, 63.3)
 
 [node name="fence4" type="Sprite2D" parent="." index="4"]
-position = Vector2(544, -29.000004)
+position = Vector2(544, -29)
 scale = Vector2(0.234, 0.234)
 texture = ExtResource("2_4yk4b")
 
 [node name="fence5" type="Sprite2D" parent="." index="5"]
-position = Vector2(699, -29.000004)
+position = Vector2(699, -29)
 scale = Vector2(0.234, 0.234)
 texture = ExtResource("2_4yk4b")
