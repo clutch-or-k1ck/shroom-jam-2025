@@ -301,7 +301,7 @@ func _process(delta: float) -> void:
 
 
 func _physics_process(delta: float) -> void:
-	run_state_machine(delta)
+	run_state_machine(delta) # this defines which state the character is in
 	set_hvelocity()
 	set_vvelocity(delta)
 	move_and_slide()

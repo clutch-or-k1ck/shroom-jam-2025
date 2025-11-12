@@ -47,6 +47,9 @@ var items: Array[TreadmillItem] = []
 ## this is a single item displayed in the editor to get an idea about sizes and scales
 var editor_item: TreadmillItem
 
+## treadmill will be spawning items only if this is true
+var active := true
+
 ## moves all the elements that are currently on the treadmill
 func move_treadmill(delta: float) -> void:
 	for item in items:
@@ -176,7 +179,7 @@ func fill_with_treadmill_items() -> void:
 func spawn_loop() -> void:
 	while true:
 		await get_tree().create_timer(1.).timeout
-		if randf() < spawn_probability:
+		if randf() < spawn_probability and active:
 			spawn_outside_screen_boundaries()
 
 
@@ -197,6 +200,6 @@ func _process(delta: float) -> void:
 			editor_item = stack_new_treadmill_item()
 	else:
 		despawn_out_of_bounds_elements()
-		if spawn_method == eTreadmillSpawnMethod.FillViewport:
+		if spawn_method == eTreadmillSpawnMethod.FillViewport and active:
 			fill_with_treadmill_items()
 		move_treadmill(delta)

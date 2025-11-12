@@ -170,6 +170,7 @@ spawn_probability = 0.4
 metadata/_custom_type_script = "uid://beehhs7t2qyd"
 
 [node name="duck_character" parent="." node_paths=PackedStringArray("ground_reference") instance=ExtResource("1_m83pa")]
+z_index = 2
 position = Vector2(288, 0)
 stamina_regeneration_rate = 25.0
 jump_velocity = -2000
