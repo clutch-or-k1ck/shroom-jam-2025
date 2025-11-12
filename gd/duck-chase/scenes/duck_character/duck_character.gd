@@ -51,6 +51,7 @@ enum eFallVelocityCalculationMethod {Constant, Gravity}
 @export var ground_reference: Node2D
 
 @onready var sprite := $duck_sprite
+@onready var standing_collision := $duck_collision_standing
 
 var stamina := max_stamina
 var lives := max_lives
@@ -86,7 +87,6 @@ func set_character_movement_state(new_state: eCharacterMovementState):
 func drain_stamina(amount: float) -> void:
 	stamina = max(0., stamina - amount)
 	stamina_updated.emit()
-	sprite.set_time_scale(2.)
 
 
 ## one-time increase to stamina
@@ -292,6 +292,20 @@ func set_hvelocity() -> void:
 		velocity.x = 0.
 
 
+## plays duck animation and reduces the hitbox
+func duck() -> void:
+	var anim_state := sprite.get_animation_state() as SpineAnimationState
+	anim_state.set_animation('crowl', true, 1)
+	standing_collision.set_deferred('disabled', true)
+
+
+## stop playing duck animation and enlarges the hitbox
+func unduck() -> void:
+	var anim_state := sprite.get_animation_state() as SpineAnimationState
+	anim_state.set_empty_animation(1, 0.1)
+	standing_collision.set_deferred('disabled', false)
+
+
 func _ready() -> void:
 	update_animation(character_movement_state)
 
@@ -308,6 +322,10 @@ func _physics_process(delta: float) -> void:
 
 
 func update_animation(new_state: eCharacterMovementState):
+	# NOTE ducked animation is handled in the duck/unduck functions
+	if new_state == eCharacterMovementState.RunningDucked:
+		return
+	
 	var anim_state := sprite.get_animation_state() as SpineAnimationState
 	anim_state.set_animation(animation_map[new_state])
 		
@@ -324,12 +342,25 @@ func _on_character_movement_state_updated(old: MrDuck.eCharacterMovementState, n
 	# NOTE sometimes a clean-up is needed when a state is removed
 	match old:
 		eCharacterMovementState.RunningDucked:
-			pass # need to unduck
+			unduck()
 			
 	match new:
 		eCharacterMovementState.Dashing:
 			_distance_covered_in_dash = 0.
 		eCharacterMovementState.ZeroG:
 			_time_elapsed_in_zero_g = 0.
+		eCharacterMovementState.RunningDucked:
+			duck()
 			
 	update_animation(new)
+
+
+## duck handling its own damage received event - play animation etc.
+func _on_lives_updated() -> void:
+	var anim_state := sprite.get_animation_state() as SpineAnimationState
+	anim_state.set_animation('hit', false, 0)
+
+
+func _on_duck_sprite_animation_completed(spine_sprite: Object, animation_state: Object, track_entry: Object) -> void:
+	if (track_entry as SpineTrackEntry).get_animation().get_name() == 'hit':
+		update_animation(character_movement_state)

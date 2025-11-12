@@ -1,4 +1,4 @@
-[gd_resource type="SpineSkeletonDataResource" load_steps=6 format=3 uid="uid://c7a01j6kwxjvp"]
+[gd_resource type="SpineSkeletonDataResource" load_steps=8 format=3 uid="uid://c7a01j6kwxjvp"]
 
 [ext_resource type="SpineAtlasResource" uid="uid://dv4kcwr3pjo4q" path="res://assets/spine/Duck_Cut.atlas" id="1_srg4h"]
 [ext_resource type="SpineSkeletonFileResource" uid="uid://cuc3r0juecvmg" path="res://assets/spine/Duck_Cut.skel" id="2_asepf"]
@@ -18,7 +18,17 @@ from = "run"
 to = "dash"
 mix = 0.1
 
+[sub_resource type="SpineAnimationMix" id="SpineAnimationMix_uw7hd"]
+from = "hit"
+to = "run"
+mix = 0.1
+
+[sub_resource type="SpineAnimationMix" id="SpineAnimationMix_v5llt"]
+from = "run"
+to = "hit"
+mix = 0.1
+
 [resource]
 atlas_res = ExtResource("1_srg4h")
 skeleton_file_res = ExtResource("2_asepf")
-animation_mixes = [SubResource("SpineAnimationMix_srg4h"), SubResource("SpineAnimationMix_asepf"), SubResource("SpineAnimationMix_ejn7o")]
+animation_mixes = [SubResource("SpineAnimationMix_srg4h"), SubResource("SpineAnimationMix_asepf"), SubResource("SpineAnimationMix_ejn7o"), SubResource("SpineAnimationMix_uw7hd"), SubResource("SpineAnimationMix_v5llt")]
