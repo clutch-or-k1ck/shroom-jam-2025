@@ -1,4 +1,10 @@
-chase scene is instantiated dynamically in the tv overlay, not statically attached
+treadmills can be optionally shut down
+
+random items are spawned more frequently than every second (every second makes items follow at an interval) - maybe decrease timer interval or do per-frame
+
+character ducking!
+
+character damage!
 
 chase_scene game loop etc:
 	- end game sequence
@@ -10,6 +16,6 @@ chase_scene game loop etc:
 	- death_stops_game - a bool for debugging purposes
 	- game_loop_time_scale - to speed up the entire game loop
 
-a couple more shaders
+chase scene is instantiated dynamically in the tv overlay, not statically attached
 
-random items are spawned more frequently than every second (every second makes items follow at an interval) - maybe decrease timer interval or do per-frame
+a couple more shaders
