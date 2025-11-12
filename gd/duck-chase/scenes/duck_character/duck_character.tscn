@@ -7,15 +7,21 @@
 
 [node name="duck_character" type="CharacterBody2D"]
 script = ExtResource("1_fkuwv")
+jump_velocity = -800
+fall_gravity_scale_factor = 8.0
+dashing_distance = 300.0
+dashing_velocity = 3000.0
 
 [node name="duck_collision" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_fkuwv")
 
 [node name="duck_sprite" type="SpineSprite" parent="."]
-position = Vector2(157.046, -142.75)
-scale = Vector2(0.476549, 0.476549)
+position = Vector2(116.328, -105.75)
+scale = Vector2(0.352596, 0.352596)
 skeleton_data_res = ExtResource("3_s0yet")
 preview_skin = "Default"
 preview_animation = "death"
 preview_frame = false
 preview_time = 0.0
+
+[connection signal="character_movement_state_updated" from="." to="." method="_on_character_movement_state_updated"]

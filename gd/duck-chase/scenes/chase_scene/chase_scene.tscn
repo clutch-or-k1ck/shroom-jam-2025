@@ -169,11 +169,19 @@ spawn_method = 1
 spawn_probability = 0.4
 metadata/_custom_type_script = "uid://beehhs7t2qyd"
 
-[node name="duck_character" parent="." instance=ExtResource("1_m83pa")]
+[node name="duck_character" parent="." node_paths=PackedStringArray("ground_reference") instance=ExtResource("1_m83pa")]
 position = Vector2(288, 0)
-jump_velocity = -900
-speed = 400
 stamina_regeneration_rate = 25.0
+jump_velocity = -2000
+jump_velocity_calibration_coef = 0.5
+zero_g_velocity_tolerance = 0.001
+air_dash_zone = 0.08
+speed = 400
+zero_g_grace_period = 0.1
+left_strafe_speed_scale_factor = 2.5
+dashing_distance = 500.0
+dashing_velocity = 1900.0
+ground_reference = NodePath("../road/road_collision")
 
 [node name="ui" type="CanvasLayer" parent="."]
 
