@@ -1,0 +1,14 @@
+[remap]
+
+importer="spine.skel"
+type="SpineSkeletonFileResource"
+uid="uid://cuc3r0juecvmg"
+path="res://.godot/imported/Duck_Cut.skel-57b11f81996a497db06e54ce82e1d233.spskel"
+
+[deps]
+
+source_file="res://assets/spine/Duck_Cut.skel"
+dest_files=["res://.godot/imported/Duck_Cut.skel-57b11f81996a497db06e54ce82e1d233.spskel"]
+
+[params]
+
