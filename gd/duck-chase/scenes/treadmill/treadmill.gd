@@ -175,19 +175,15 @@ func fill_with_treadmill_items() -> void:
 		stack_new_treadmill_item()
 
 
-## spawn something or not (ticks every second)
-func spawn_loop() -> void:
-	while true:
-		await get_tree().create_timer(1.).timeout
-		if randf() < spawn_probability and active:
-			spawn_outside_screen_boundaries()
+## we test if to randomly spawn every frame with this function
+func per_frame_outside_screen_boundaries_random_spawn(delta: float) -> void:
+	var per_frame_probability := spawn_probability * delta # NOTE this is incorrect from probability theory standpoint but maybe?
+	if randf() < per_frame_probability:
+		spawn_outside_screen_boundaries()
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	if not Engine.is_editor_hint() and spawn_method == eTreadmillSpawnMethod.Random:
-		spawn_loop()
-		
 	if not Engine.is_editor_hint() and enable_prespawn:
 		prespawn()
 
@@ -200,6 +196,9 @@ func _process(delta: float) -> void:
 			editor_item = stack_new_treadmill_item()
 	else:
 		despawn_out_of_bounds_elements()
-		if spawn_method == eTreadmillSpawnMethod.FillViewport and active:
-			fill_with_treadmill_items()
+		if active: # spawn items
+			if spawn_method == eTreadmillSpawnMethod.FillViewport:
+				fill_with_treadmill_items()
+			else:
+				per_frame_outside_screen_boundaries_random_spawn(delta)
 		move_treadmill(delta)
