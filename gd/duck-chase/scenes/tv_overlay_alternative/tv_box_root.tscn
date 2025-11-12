@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://bl0sue444624c" path="res://assets/2d/tv_frame_overlay_2.png" id="1_gprme"]
 [ext_resource type="PackedScene" uid="uid://bqnhgrmahpp44" path="res://scenes/chase_scene/chase_scene.tscn" id="2_4s6tu"]
-[ext_resource type="Shader" uid="uid://bembr3fsdxaku" path="res://assets/shaders/interlaced_glitch.gdshader" id="2_nhnna"]
+[ext_resource type="Shader" uid="uid://bembr3fsdxaku" path="res://shaders/interlaced_glitch.gdshader" id="2_nhnna"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_u73fl"]
 shader = ExtResource("2_nhnna")
