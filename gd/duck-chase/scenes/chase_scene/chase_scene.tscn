@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://bqnhgrmahpp44"]
+[gd_scene load_steps=26 format=3 uid="uid://bqnhgrmahpp44"]
 
 [ext_resource type="Script" uid="uid://cc7qw8macbkml" path="res://scenes/chase_scene/chase_scene.gd" id="1_8pw8v"]
 [ext_resource type="PackedScene" uid="uid://y4on5eclsc2c" path="res://scenes/duck_character/duck_character.tscn" id="1_m83pa"]
@@ -23,6 +23,7 @@
 [ext_resource type="PackedScene" uid="uid://bsrnp6eyr2j8t" path="res://scenes/treadmill/treadmill_item/item_variations/tm_cones_1.tscn" id="12_w4tmd"]
 [ext_resource type="PackedScene" uid="uid://ctsesmh2kgbr6" path="res://scenes/treadmill/treadmill_item/item_variations/tm_barrel_obstacle_2.tscn" id="13_01fa4"]
 [ext_resource type="PackedScene" uid="uid://c0h0c0n624xcm" path="res://scenes/treadmill/treadmill_item/item_variations/tm_two_fences_and_sign.tscn" id="14_4yt5v"]
+[ext_resource type="AudioStream" uid="uid://coqowv0r6vkmm" path="res://assets/sounds/Joker Dance.ogg" id="24_qrt7r"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a4cdl"]
 size = Vector2(2692, 110)
@@ -277,5 +278,11 @@ texture = ExtResource("11_q31dt")
 expand_mode = 1
 stretch_mode = 5
 
+[node name="music_player" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("24_qrt7r")
+autoplay = true
+parameters/looping = true
+
+[connection signal="dead" from="duck_character" to="." method="_on_duck_character_dead"]
 [connection signal="lives_updated" from="duck_character" to="." method="_on_duck_character_lives_updated"]
 [connection signal="stamina_updated" from="duck_character" to="." method="_on_duck_character_stamina_updated"]

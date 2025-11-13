@@ -7,11 +7,38 @@ extends Node2D
 @onready var hearts_box := $ui/top_right_widget/hearts
 @export var starting_world_speed := 300
 
+## can optionally ignore death (for testing purposes)
+@export var death_ends_game := true
+
+enum eGameResult {Victory, Defeat}
+signal game_end(game_result: eGameResult)
+
+#region Game scenario
+
+@onready var obstacles_line := $road/obstacles
+
+## wait n seconds
+func secs(time: float) -> void:
+	await get_tree().create_timer(time).timeout
+
+
+## this will play through game events, speed up treadmills, send game life-cycle events etc.
+func reproduce_game_scenario() -> void:
+	# phase 1: lower speed, scarce object spawn
+	obstacles_line.spawn_probability = 0.5
+	Globals.set_global_world_speed(1200)
+	
+	# increase spawn rate slightly
+	await secs(15)
+	obstacles_line.spawn_probability = 0.7
+	
+#endregion
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	running_text.add_new_running_text_line()
-	Globals.set_global_world_speed(starting_world_speed)
+	running_text.add_new_running_text_line() # initialize the running text immediately (otherwise text is spawned in next frame)
+	reproduce_game_scenario()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -35,3 +62,11 @@ func _on_duck_character_lives_updated() -> void:
 			heart.texture = normal_texture
 		else:
 			heart.texture = empty_texture
+
+
+func _on_duck_character_dead() -> void:
+	if death_ends_game:
+		Globals.set_global_world_speed(0.)
+		(duck.sprite as SpineSprite).get_animation_state().set_animation('death', false, 0)
+		await get_tree().create_timer(2.).timeout
+		game_end.emit(eGameResult.Defeat)
