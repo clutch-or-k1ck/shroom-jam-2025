@@ -19,6 +19,9 @@ enum eTreadmillSpawnMethod {FillViewport, Random}
 ## treadmills belonging to one group act as one when it comes to no-spawn areas
 @export var treadmill_group := -1
 
+## if this treadmill spawns something or is 'sleeping' when it enters the node tree
+@export var start_active := true
+
 ## randomization (random displacement and scaling)
 @export_category('Randomization')
 
@@ -75,7 +78,7 @@ var items: Array[TreadmillItem] = []
 var editor_item: TreadmillItem
 
 ## treadmill will be spawning items only if this is true
-var active := true
+var active := start_active
 
 ## moves all the elements that are currently on the treadmill
 func move_treadmill(delta: float) -> void:
