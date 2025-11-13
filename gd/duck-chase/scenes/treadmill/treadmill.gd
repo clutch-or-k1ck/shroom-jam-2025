@@ -78,7 +78,7 @@ var items: Array[TreadmillItem] = []
 var editor_item: TreadmillItem
 
 ## treadmill will be spawning items only if this is true
-var active := start_active
+var active: bool
 
 ## moves all the elements that are currently on the treadmill
 func move_treadmill(delta: float) -> void:
@@ -225,6 +225,8 @@ func _ready() -> void:
 		prespawn()
 	if not Engine.is_editor_hint() and treadmill_group != -1:
 		Globals.add_treadmill_to_group(self, treadmill_group)
+	if not Engine.is_editor_hint():
+		active = self.start_active
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -236,6 +238,7 @@ func _process(delta: float) -> void:
 	else:
 		despawn_out_of_bounds_elements()
 		if active: # spawn items
+			print('I am active')
 			if spawn_method == eTreadmillSpawnMethod.FillViewport:
 				fill_with_treadmill_items()
 			else:
