@@ -311,10 +311,16 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	_tick_stamina(delta)
+	## we ever want to do something on tick-by-tick if the game phase is GameLoop
+	if Globals.game_phase == Globals.eGamePhase.GameLoop:
+		_tick_stamina(delta)
 
 
 func _physics_process(delta: float) -> void:
+	## we ever want to do something on tick-by-tick if the game phase is GameLoop
+	if not Globals.game_phase == Globals.eGamePhase.GameLoop:
+		return
+		
 	run_state_machine(delta) # this defines which state the character is in
 	set_hvelocity()
 	set_vvelocity(delta)

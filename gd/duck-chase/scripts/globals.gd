@@ -8,6 +8,10 @@ var _global_world_speed: int
 var _treadmill_groups: Dictionary[int, Array]
 
 
+enum eGamePhase {Menu, GameLoop}
+var game_phase: eGamePhase
+
+
 func add_treadmill_to_group(treadmill: Treadmill, group: int) -> void:
 	if group not in _treadmill_groups:
 		_treadmill_groups[group] = []

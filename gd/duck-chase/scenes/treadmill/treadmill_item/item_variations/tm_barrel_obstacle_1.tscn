@@ -16,22 +16,23 @@ damage_dealt = 1
 
 [node name="hitbox" parent="." index="0"]
 position = Vector2(10, -10)
+monitoring = true
 
 [node name="hitbox_shape" parent="hitbox" index="0"]
 position = Vector2(135.5, -56.5)
 shape = SubResource("RectangleShape2D_jfdbs")
 
 [node name="cone1" type="Sprite2D" parent="." index="1"]
-position = Vector2(66.713974, -23.507221)
-scale = Vector2(0.20961395, 0.20961395)
+position = Vector2(66.714, -23.5072)
+scale = Vector2(0.209614, 0.209614)
 texture = ExtResource("2_omi1v")
 
 [node name="barrel1" type="Sprite2D" parent="." index="2"]
-position = Vector2(140.71397, -60.507217)
-scale = Vector2(0.31588447, 0.31588447)
+position = Vector2(140.714, -60.5072)
+scale = Vector2(0.315884, 0.315884)
 texture = ExtResource("3_qxmn7")
 
 [node name="cone2" type="Sprite2D" parent="." index="3"]
-position = Vector2(180.71394, -29.507202)
-scale = Vector2(0.25555557, 0.25555554)
+position = Vector2(180.714, -29.5072)
+scale = Vector2(0.255556, 0.255556)
 texture = ExtResource("4_1yn2b")

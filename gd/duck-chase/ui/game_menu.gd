@@ -20,8 +20,9 @@ func _ready() -> void:
 
 ## handle input
 func _process(delta: float) -> void:
-	if Input.is_anything_pressed():
-		print('pressed')
+	# only receive input if we are actually in the menu mode
+	if Globals.game_phase != Globals.eGamePhase.Menu:
+		return
 		
 	if Input.is_action_just_pressed('menu_down') or \
 			Input.is_action_just_pressed('menu_up') or \

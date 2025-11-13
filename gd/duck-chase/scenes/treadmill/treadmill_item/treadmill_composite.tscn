@@ -9,6 +9,7 @@ bounds = Vector2(0, 0)
 no_spawn_buffer = 372
 deals_damage = false
 damage_dealt = 0
+restores_life = false
 
 [node name="hitbox" type="Area2D" parent="." index="0"]
 monitoring = false

@@ -14,6 +14,12 @@ enum eGameResult {Victory, Defeat}
 signal game_end(game_result: eGameResult)
 
 @onready var bombardier := $bombardier
+@onready var music_player := $music_player
+@onready var character_spawn := $character_spawn
+@onready var main_menu := $ui/game_menu
+@onready var obstacles_treadmill := $road/obstacles
+@onready var policemen_treadmill := $road/policemen
+@onready var heal_items_treadmill := $road/heal_items_treadmill
 
 
 #region Game scenario
@@ -29,13 +35,42 @@ func secs(time: float) -> void:
 
 ## this will play through game events, speed up treadmills, send game life-cycle events etc.
 func reproduce_game_scenario() -> void:
-	# phase 1: lower speed, scarce object spawn
-	obstacles_line.spawn_probability = 0.5
-	Globals.set_global_world_speed(1200)
+	# start playing the music and reset the character position and stats
+	music_player.play()
+	duck.position = character_spawn.position
+	duck.lives = duck.max_lives
+	duck.stamina = duck.max_stamina
 	
-	# increase spawn rate slightly
+	# set the game phase
+	Globals.game_phase = Globals.eGamePhase.GameLoop
+	
+	# launch the world
+	Globals.set_global_world_speed(1200.)
+	obstacles_treadmill.active = true
+	
+	# launch simple obstacles
+	obstacles_treadmill.spawn_probability = 0.5
+	
+	# start spawning heals at low probability
 	await secs(15)
-	obstacles_line.spawn_probability = 0.7
+	print('start spawning heal items')
+	heal_items_treadmill.active = true
+	
+	# increase the object spawn probability slightly
+	await secs(15)
+	print('spawn probability increased')
+	obstacles_treadmill.spawn_probability = 0.9
+	
+	# start spawning heals at low probability
+	await secs(5)
+	print('start spawning heal items')
+	heal_items_treadmill.active = true
+	
+	# launch the police cars treadmill and speed up everything
+	await secs(15)
+	print('start launching police cars')
+	# TODO create the police car
+	# TODO create the police car treadmill
 	
 #endregion
 
@@ -49,11 +84,10 @@ func barrage(sec: float) -> void:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	main_menu.visible = true
 	running_text.add_new_running_text_line() # initialize the running text immediately (otherwise text is spawned in next frame)
-	reproduce_game_scenario()
-	
-	# TODO debugging only, have to delete later
-	barrage(15.)
+	# we start in the main game menu when this scene begins play - nothing happens on the treadmill so far
+	Globals.game_phase = Globals.eGamePhase.Menu
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -84,3 +118,12 @@ func _on_duck_character_dead() -> void:
 		(duck.sprite as SpineSprite).get_animation_state().set_animation('death', false, 0)
 		await get_tree().create_timer(2.).timeout
 		game_end.emit(eGameResult.Defeat)
+
+
+func _on_game_menu_begin_game_pressed() -> void:
+	main_menu.visible = false
+	reproduce_game_scenario()
+
+
+func _on_game_menu_exit_game_pressed() -> void:
+	get_tree().quit()

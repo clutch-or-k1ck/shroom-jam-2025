@@ -20,6 +20,10 @@ var bounds_: Vector2
 ## number of lives this group takes if duck collides with it
 @export var damage_dealt: int
 
+## if this item can heal the duck
+@export var restores_life := false
+
+
 # --------------
 
 @onready var hitbox := $hitbox
@@ -49,7 +53,7 @@ func get_no_spawn_area() -> int:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	if deals_damage:
+	if deals_damage or restores_life:
 		hitbox.monitoring = true
 	else:
 		hitbox.monitoring = false
@@ -65,3 +69,6 @@ func _draw() -> void:
 func _on_hitbox_body_entered(body: Node2D) -> void:
 	if deals_damage and body is MrDuck:
 		(body as MrDuck).lose_life() # TODO lose as many lives as damage dealt by the thing
+	if restores_life and body is MrDuck:
+		(body as MrDuck).get_life()
+		self.visible = false

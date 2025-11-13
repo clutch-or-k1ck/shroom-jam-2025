@@ -22,6 +22,13 @@ enum eTreadmillSpawnMethod {FillViewport, Random}
 ## if this treadmill spawns something or is 'sleeping' when it enters the node tree
 @export var start_active := true
 
+# CAUTION this is not implemented for FillWorld spawn type, only random spawn
+## if true, this treadmill does not rely on world speed and lives its own life instead
+@export var use_own_speed := false
+
+## if using its own speed, than what speed
+@export var own_speed: float
+
 ## randomization (random displacement and scaling)
 @export_category('Randomization')
 
@@ -83,13 +90,22 @@ var active: bool
 ## moves all the elements that are currently on the treadmill
 func move_treadmill(delta: float) -> void:
 	for item in items:
-		item.position += Vector2(-1. * Globals.get_global_world_speed() * global_speed_multiplier * delta, 0.)
+		if use_own_speed:
+			item.position += Vector2(own_speed * delta, 0.)
+		else:
+			item.position += Vector2(-1. * Globals.get_global_world_speed() * global_speed_multiplier * delta, 0.)
 
 
 ## despawn elements that have passed beyound the left screen border
 func despawn_out_of_bounds_elements() -> void:
-	## TODO scaling factor will affect get_bounding_rect value in global space...
-	while items.size() > 0 and items[0].position.x + items[0].get_bounding_rect().end.x < 0.:
+	# NOTE the despawn condition depends on the movement direction!
+	var dispawn_condition_identifier := func dispawn_condition(items_) -> bool:
+		if use_own_speed and own_speed > 0.:
+			return items_.size() > 0 and items_[0].position.x + items_[0].get_bounding_rect().size.x > get_viewport_rect().size.x + 250. # give a small buffer
+		else:
+			return items_.size() > 0 and items_[0].position.x + items_[0].get_bounding_rect().size.x < 0. - 250. # give a small buffer
+			
+	while dispawn_condition_identifier.call(items): # give a small buffer for despawn
 		self.remove_child(items[0]) # CAUTION does this truly free the child?
 		items.remove_at(0)
 
@@ -130,8 +146,12 @@ func resolve_position(method: eTargetPositionResolutionMethod, fixed_position: V
 			spawn_at = Vector2(0., 0.) if items.size() == 1 else \
 				Vector2(items[-2].position.x + items[-2].get_bounding_rect().end.x, items[-2].position.y)
 		eTargetPositionResolutionMethod.OutsideScreenBoundaries:
-			# NOTE spawn a bit further than the screen boundary
-			spawn_at = Vector2(get_viewport_rect().size.x * 1.1, 0.)
+			# NOTE if we use own speed and treadmill is moving to the RIGHT, items should appear on the LEFT
+			if use_own_speed and own_speed > 0.:
+				spawn_at = Vector2(-get_viewport_rect().size.x*0.1, 0.)
+			else: # in other cases they are allowed to appear on the right
+				# NOTE spawn a bit further than the screen boundary
+				spawn_at = Vector2(get_viewport_rect().size.x * 1.1, 0.)
 		eTargetPositionResolutionMethod.FixedPosition:
 			spawn_at = fixed_position
 			
@@ -168,8 +188,14 @@ func is_overlapping_no_spawn_areas(position: Vector2) -> bool:
 		
 	for treadmill in treadmills_to_check:
 		if not treadmill.items.is_empty():
-			if position.x <= treadmill.items[-1].position.x + treadmill.items[-1].get_bounding_rect().end.x + treadmill.items[-1].get_no_spawn_area():
-				return true
+			# NOTE if we move to the right at our own speed, we are allowed to spawn LEFT
+			if use_own_speed and own_speed > 0.:
+				# NOTE HACK treadmill items that move to the right have their origin differently than normal items
+				if position.x <= treadmill.items[-1].position.x - treadmill.items[-1].get_bounding_rect().size.x - treadmill.items[-1].get_no_spawn_area():
+						return true
+			else:
+				if position.x <= treadmill.items[-1].position.x + treadmill.items[-1].get_bounding_rect().end.x + treadmill.items[-1].get_no_spawn_area():
+					return true
 	return false
 
 
@@ -238,7 +264,6 @@ func _process(delta: float) -> void:
 	else:
 		despawn_out_of_bounds_elements()
 		if active: # spawn items
-			print('I am active')
 			if spawn_method == eTreadmillSpawnMethod.FillViewport:
 				fill_with_treadmill_items()
 			else:
