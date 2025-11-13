@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://bqnhgrmahpp44"]
+[gd_scene load_steps=27 format=3 uid="uid://bqnhgrmahpp44"]
 
 [ext_resource type="Script" uid="uid://cc7qw8macbkml" path="res://scenes/chase_scene/chase_scene.gd" id="1_8pw8v"]
 [ext_resource type="PackedScene" uid="uid://y4on5eclsc2c" path="res://scenes/duck_character/duck_character.tscn" id="1_m83pa"]
@@ -23,6 +23,7 @@
 [ext_resource type="PackedScene" uid="uid://bsrnp6eyr2j8t" path="res://scenes/treadmill/treadmill_item/item_variations/tm_cones_1.tscn" id="12_w4tmd"]
 [ext_resource type="PackedScene" uid="uid://ctsesmh2kgbr6" path="res://scenes/treadmill/treadmill_item/item_variations/tm_barrel_obstacle_2.tscn" id="13_01fa4"]
 [ext_resource type="PackedScene" uid="uid://c0h0c0n624xcm" path="res://scenes/treadmill/treadmill_item/item_variations/tm_two_fences_and_sign.tscn" id="14_4yt5v"]
+[ext_resource type="PackedScene" uid="uid://bti58niu6f3dw" path="res://scenes/treadmill/treadmill_item/item_variations/tm_policeman.tscn" id="18_gxndn"]
 [ext_resource type="AudioStream" uid="uid://coqowv0r6vkmm" path="res://assets/sounds/Joker Dance.ogg" id="24_qrt7r"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a4cdl"]
@@ -31,6 +32,7 @@ size = Vector2(2692, 110)
 [node name="root" type="Node2D"]
 script = ExtResource("1_8pw8v")
 starting_world_speed = 1800
+death_ends_game = false
 
 [node name="sky_polygon" type="Polygon2D" parent="."]
 texture = ExtResource("2_b8in7")
@@ -151,6 +153,17 @@ item_types = Array[PackedScene]([ExtResource("11_4yt5v"), ExtResource("12_w4tmd"
 global_speed_multiplier = 0.9
 spawn_method = 1
 spawn_probability = 1.0
+treadmill_group = 1
+metadata/_custom_type_script = "uid://beehhs7t2qyd"
+
+[node name="policemen" type="Node2D" parent="road"]
+position = Vector2(0, -859)
+script = ExtResource("4_myeqy")
+item_types = Array[PackedScene]([ExtResource("18_gxndn")])
+global_speed_multiplier = 0.9
+spawn_method = 1
+spawn_probability = 0.4
+treadmill_group = 1
 metadata/_custom_type_script = "uid://beehhs7t2qyd"
 
 [node name="sidewalk_bottom" type="Node2D" parent="road"]

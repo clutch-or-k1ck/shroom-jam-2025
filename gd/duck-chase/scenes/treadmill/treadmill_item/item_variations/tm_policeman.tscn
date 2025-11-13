@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://bti58niu6f3dw"]
+
+[ext_resource type="PackedScene" uid="uid://ccc8nqq4x5n21" path="res://scenes/treadmill/treadmill_item/treadmill_composite.tscn" id="1_pmiaj"]
+[ext_resource type="Texture2D" uid="uid://iicnvnskgiv6" path="res://assets/2d/Policeman_on_Rope.png" id="2_vtrjc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3gm1n"]
+size = Vector2(196, 334)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lelhc"]
+size = Vector2(122, 80)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l1sue"]
+size = Vector2(81, 209)
+
+[node name="root" instance=ExtResource("1_pmiaj")]
+bounds = Vector2(327.657, -623.724)
+no_spawn_buffer = 200
+deals_damage = true
+damage_dealt = 1
+
+[node name="policeman_sprite" type="Sprite2D" parent="." index="0"]
+position = Vector2(160.5, 303.663)
+scale = Vector2(0.511218, 0.511218)
+texture = ExtResource("2_vtrjc")
+
+[node name="hitbox_shape" parent="hitbox" index="0"]
+position = Vector2(222, 330)
+shape = SubResource("RectangleShape2D_3gm1n")
+
+[node name="hitbox_legs1" type="CollisionShape2D" parent="hitbox" index="1"]
+position = Vector2(71, 452)
+shape = SubResource("RectangleShape2D_lelhc")
+
+[node name="hitbox_legs2" type="CollisionShape2D" parent="hitbox" index="2"]
+position = Vector2(130.5, 507.5)
+shape = SubResource("RectangleShape2D_l1sue")
