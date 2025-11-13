@@ -157,12 +157,22 @@ treadmill_group = 1
 metadata/_custom_type_script = "uid://beehhs7t2qyd"
 
 [node name="policemen" type="Node2D" parent="road"]
-position = Vector2(0, -859)
+position = Vector2(0, -722)
 script = ExtResource("4_myeqy")
 item_types = Array[PackedScene]([ExtResource("18_gxndn")])
 global_speed_multiplier = 0.9
 spawn_method = 1
-spawn_probability = 0.4
+spawn_probability = 0.2
+treadmill_group = 1
+metadata/_custom_type_script = "uid://beehhs7t2qyd"
+
+[node name="policemen2" type="Node2D" parent="road"]
+position = Vector2(0, -531)
+script = ExtResource("4_myeqy")
+item_types = Array[PackedScene]([ExtResource("18_gxndn")])
+global_speed_multiplier = 0.9
+spawn_method = 1
+spawn_probability = 0.2
 treadmill_group = 1
 metadata/_custom_type_script = "uid://beehhs7t2qyd"
 

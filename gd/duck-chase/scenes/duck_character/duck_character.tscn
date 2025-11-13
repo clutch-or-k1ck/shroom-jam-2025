@@ -4,10 +4,10 @@
 [ext_resource type="SpineSkeletonDataResource" uid="uid://c7a01j6kwxjvp" path="res://spine-anim/duck_spine_resource.tres" id="3_s0yet"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s0yet"]
-size = Vector2(178, 134)
+size = Vector2(118, 134)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fkuwv"]
-size = Vector2(166, 77)
+size = Vector2(115, 77)
 
 [node name="duck_character" type="CharacterBody2D"]
 script = ExtResource("1_fkuwv")
@@ -18,12 +18,12 @@ dashing_velocity = 3000.0
 
 [node name="duck_collision_base" type="CollisionShape2D" parent="."]
 show_behind_parent = true
-position = Vector2(-3, -68)
+position = Vector2(27, -68)
 shape = SubResource("RectangleShape2D_s0yet")
 
 [node name="duck_collision_standing" type="CollisionShape2D" parent="."]
 show_behind_parent = true
-position = Vector2(4, -175.5)
+position = Vector2(29.5, -175.5)
 shape = SubResource("RectangleShape2D_fkuwv")
 
 [node name="duck_sprite" type="SpineSprite" parent="."]
@@ -31,7 +31,7 @@ position = Vector2(-7, -106)
 scale = Vector2(0.352596, 0.352596)
 skeleton_data_res = ExtResource("3_s0yet")
 preview_skin = "Default"
-preview_animation = "hit"
+preview_animation = "-- Empty --"
 preview_frame = false
 preview_time = 0.0
 
