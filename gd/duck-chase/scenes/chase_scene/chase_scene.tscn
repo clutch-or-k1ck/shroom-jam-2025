@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://bqnhgrmahpp44"]
+[gd_scene load_steps=28 format=3 uid="uid://bqnhgrmahpp44"]
 
 [ext_resource type="Script" uid="uid://cc7qw8macbkml" path="res://scenes/chase_scene/chase_scene.gd" id="1_8pw8v"]
 [ext_resource type="PackedScene" uid="uid://y4on5eclsc2c" path="res://scenes/duck_character/duck_character.tscn" id="1_m83pa"]
@@ -25,6 +25,7 @@
 [ext_resource type="PackedScene" uid="uid://c0h0c0n624xcm" path="res://scenes/treadmill/treadmill_item/item_variations/tm_two_fences_and_sign.tscn" id="14_4yt5v"]
 [ext_resource type="PackedScene" uid="uid://bti58niu6f3dw" path="res://scenes/treadmill/treadmill_item/item_variations/tm_policeman.tscn" id="18_gxndn"]
 [ext_resource type="AudioStream" uid="uid://coqowv0r6vkmm" path="res://assets/sounds/Joker Dance.ogg" id="24_qrt7r"]
+[ext_resource type="Script" uid="uid://ciq8odnuga3oh" path="res://scripts/bombardier.gd" id="26_sdicq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a4cdl"]
 size = Vector2(2692, 110)
@@ -33,6 +34,11 @@ size = Vector2(2692, 110)
 script = ExtResource("1_8pw8v")
 starting_world_speed = 1800
 death_ends_game = false
+
+[node name="bombardier" type="Node2D" parent="."]
+script = ExtResource("26_sdicq")
+bomb_spawn_delay = 1.0
+metadata/_custom_type_script = "uid://ciq8odnuga3oh"
 
 [node name="sky_polygon" type="Polygon2D" parent="."]
 texture = ExtResource("2_b8in7")

@@ -13,6 +13,9 @@ extends Node2D
 enum eGameResult {Victory, Defeat}
 signal game_end(game_result: eGameResult)
 
+@onready var bombardier := $bombardier
+
+
 #region Game scenario
 
 @onready var obstacles_line := $road/obstacles
@@ -39,7 +42,12 @@ func reproduce_game_scenario() -> void:
 func _ready() -> void:
 	running_text.add_new_running_text_line() # initialize the running text immediately (otherwise text is spawned in next frame)
 	reproduce_game_scenario()
-
+	
+	# TODO debugging only, have to delete later
+	bombardier.throw_bombs({
+		0.5: [0.2, 0.4],
+		1.2: [0.5, 0.8]
+	})
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
