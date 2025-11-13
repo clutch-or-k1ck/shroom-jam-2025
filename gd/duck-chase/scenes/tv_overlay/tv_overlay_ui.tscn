@@ -15,11 +15,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_a6fob")
-region_rect = Rect2(0, 0, 3840, 2160)
-patch_margin_left = 326
-patch_margin_top = 261
-patch_margin_right = 342
-patch_margin_bottom = 313
+region_rect = Rect2(598, 407, 3811, 2206)
+patch_margin_left = 13
+patch_margin_top = 12
+patch_margin_right = 13
+patch_margin_bottom = 12
 script = ExtResource("2_a6fob")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
