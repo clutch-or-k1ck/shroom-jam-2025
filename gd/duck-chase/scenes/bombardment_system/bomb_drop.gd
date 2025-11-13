@@ -20,6 +20,8 @@ it renders a growing shadow and then drops the bomb
 ## of the drop delay, how much had already elapsed
 var drop_delay_time_elapsed := 0.
 
+# HACK keep track of the sprite scale set via editor
+var reference_scale: Vector2
 
 ## destroy self when child bomb exploded
 func handle_child_bomb_explosion() -> void:
@@ -50,10 +52,11 @@ func _process(delta: float) -> void:
 		drop_delay_time_elapsed += delta
 		# grow the shadow
 		var scale_interp := drop_delay_time_elapsed / drop_delay
-		shadow_sprite.scale = Vector2(scale_interp, scale_interp)
+		shadow_sprite.scale = Vector2(reference_scale.x * scale_interp, reference_scale.y * scale_interp)
 		
 		if drop_delay_time_elapsed > drop_delay:
 			drop_bomb()
 
 func _ready() -> void:
+	reference_scale = shadow_sprite.scale
 	shadow_sprite.scale = Vector2(0., 0.)
