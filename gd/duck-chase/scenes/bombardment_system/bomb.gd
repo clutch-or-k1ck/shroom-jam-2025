@@ -28,5 +28,4 @@ func _on_body_entered(body: Node) -> void:
 
 ## when the explosion vfs finishes, we can simply destroy the whole thing
 func _on_explosion_anim_animation_finished() -> void:
-	print('finished')
 	self.queue_free()

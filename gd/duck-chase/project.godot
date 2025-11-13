@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="duck-chase"
-run/main_scene="uid://bjt1nuusy2kll"
+run/main_scene="uid://cxla1ua1rcufk"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 

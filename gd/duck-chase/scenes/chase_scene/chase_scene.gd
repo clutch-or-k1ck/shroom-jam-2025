@@ -38,19 +38,20 @@ func reproduce_game_scenario() -> void:
 #endregion
 
 
+## throws bombs every n seconds
+func barrage(sec: float) -> void:
+	while true:
+		bombardier.throw_bombs(bombardier.Patterns.new().get_random_pattern())
+		await get_tree().create_timer(sec).timeout
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	running_text.add_new_running_text_line() # initialize the running text immediately (otherwise text is spawned in next frame)
 	reproduce_game_scenario()
 	
 	# TODO debugging only, have to delete later
-	bombardier.throw_bombs({
-		0.1: [0.1],
-		0.2: [0.2],
-		0.3: [0.3],
-		0.4: [0.4],
-		0.5: [0.5]
-	})
+	barrage(15.)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
