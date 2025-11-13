@@ -162,6 +162,7 @@ global_speed_multiplier = 0.9
 spawn_method = 1
 spawn_probability = 1.0
 treadmill_group = 1
+start_active = false
 metadata/_custom_type_script = "uid://beehhs7t2qyd"
 
 [node name="policemen" type="Node2D" parent="road"]
@@ -172,28 +173,13 @@ global_speed_multiplier = 0.9
 spawn_method = 1
 spawn_probability = 0.2
 treadmill_group = 1
+start_active = false
 apply_random_scaling = true
 random_scale_min = 0.95
 random_scale_max = 1.05
 apply_random_displacement = true
 random_displacement_min = Vector2(0, -5)
 random_displacement_max = Vector2(0, 5)
-metadata/_custom_type_script = "uid://beehhs7t2qyd"
-
-[node name="policemen_lower_row" type="Node2D" parent="road"]
-position = Vector2(0, -531)
-script = ExtResource("4_myeqy")
-item_types = Array[PackedScene]([ExtResource("18_gxndn")])
-global_speed_multiplier = 0.9
-spawn_method = 1
-spawn_probability = 0.2
-treadmill_group = 1
-apply_random_scaling = true
-random_scale_min = 0.9
-random_scale_max = 1.1
-apply_random_displacement = true
-random_displacement_min = Vector2(0, -20)
-random_displacement_max = Vector2(0, 20)
 metadata/_custom_type_script = "uid://beehhs7t2qyd"
 
 [node name="sidewalk_bottom" type="Node2D" parent="road"]
@@ -311,6 +297,7 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="game_menu" parent="ui" instance=ExtResource("26_m2ntv")]
+visible = false
 
 [node name="running_text" parent="ui" instance=ExtResource("2_a4cdl")]
 z_index = 1
