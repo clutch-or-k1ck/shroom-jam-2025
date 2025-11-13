@@ -1,20 +1,17 @@
-treadmills can be optionally shut down
-
-random items are spawned more frequently than every second (every second makes items follow at an interval) - maybe decrease timer interval or do per-frame
-
-character ducking!
-
-character damage!
-
-chase_scene game loop etc:
+base_scene game loop etc:
 	- end game sequence
 		- stop rolling the world
 		- fall down and play death anim
 		- alternative death shader? bw? camera zoom? only as potential improvements
-		- emit a signal about the game results
-	- game plot - a script that adjusts parameters of treadmills, world speed etc.
+		- emit a signal with the game session result
 	- death_stops_game - a bool for debugging purposes
-	- game_loop_time_scale - to speed up the entire game loop
+	
+improvements to make game plot possible:
+- check that treadmills can accept and throw away new scenes to spawn
+- create a building and a large building
+- create the trash box
+- puddles and uncontrollabel dash mechanics
+write the game plot
 
 chase scene is instantiated dynamically in the tv overlay, not statically attached
 
