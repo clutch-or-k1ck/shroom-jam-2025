@@ -16,6 +16,9 @@ enum eTreadmillSpawnMethod {FillViewport, Random}
 ## probability to spawn a random element (this ticks once per second and only applies if spawn_method == Random)
 @export var spawn_probability: float
 
+## treadmills belonging to one group act as one when it comes to no-spawn areas
+@export var treadmill_group := -1
+
 ## randomization (random displacement and scaling)
 @export_category('Randomization')
 
@@ -156,9 +159,14 @@ func select_random_treadmill_item_type() -> int:
 
 func is_overlapping_no_spawn_areas(position: Vector2) -> bool:
 	# is there a treadmill item that prohibits spawning due to its no-spawn area?
-	if not items.is_empty():
-		if position.x <= items[-1].position.x + items[-1].get_bounding_rect().end.x + items[-1].get_no_spawn_area():
-			return true
+	# NOTE we check this for all treadmills in the group
+	var treadmills_to_check := Globals.get_all_treadmills_in_group(treadmill_group) if \
+		treadmill_group != -1 else [self]
+		
+	for treadmill in treadmills_to_check:
+		if not treadmill.items.is_empty():
+			if position.x <= treadmill.items[-1].position.x + treadmill.items[-1].get_bounding_rect().end.x + treadmill.items[-1].get_no_spawn_area():
+				return true
 	return false
 
 
@@ -212,6 +220,8 @@ func per_frame_outside_screen_boundaries_random_spawn(delta: float) -> void:
 func _ready() -> void:
 	if not Engine.is_editor_hint() and enable_prespawn:
 		prespawn()
+	if not Engine.is_editor_hint() and treadmill_group != -1:
+		Globals.add_treadmill_to_group(self, treadmill_group)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
