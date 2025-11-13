@@ -148,6 +148,7 @@ script = ExtResource("4_myeqy")
 item_types = Array[PackedScene]([ExtResource("14_uha6m")])
 spawn_method = 1
 spawn_probability = 1.0
+start_active = false
 use_own_speed = true
 own_speed = 150.0
 apply_random_displacement = true
