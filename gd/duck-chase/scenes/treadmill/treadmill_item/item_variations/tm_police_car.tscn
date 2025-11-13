@@ -7,12 +7,12 @@
 
 [node name="root" instance=ExtResource("1_xraqj")]
 bounds = Vector2(-409.925, 146.831)
-no_spawn_buffer = 150
+no_spawn_buffer = 0
 
 [node name="hitbox_shape" parent="hitbox" index="0"]
 shape = SubResource("RectangleShape2D_xraqj")
 
 [node name="car_sprite" type="Sprite2D" parent="." index="1"]
-position = Vector2(-203.475, -72.75)
-scale = Vector2(0.33688, 0.33688)
+position = Vector2(-296.288, -105.25)
+scale = Vector2(0.490544, 0.490544)
 texture = ExtResource("2_jdh6g")

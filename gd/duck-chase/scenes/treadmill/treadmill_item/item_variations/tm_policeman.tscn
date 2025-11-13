@@ -4,26 +4,27 @@
 [ext_resource type="Texture2D" uid="uid://iicnvnskgiv6" path="res://assets/2d/Policeman_on_Rope.png" id="2_vtrjc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3gm1n"]
-size = Vector2(110, 183)
+size = Vector2(146, 439)
 
 [node name="root" instance=ExtResource("1_pmiaj")]
-bounds = Vector2(239.449, -455.934)
+bounds = Vector2(256.7, -515.845)
 no_spawn_buffer = 300
 deals_damage = true
 damage_dealt = 1
 
 [node name="rope_continuation" type="Polygon2D" parent="." index="0"]
+position = Vector2(16, 0)
 color = Color(0.490196, 0.32549, 0.278431, 1)
 polygon = PackedVector2Array(130, 2, 141, 2, 147, -114, 143, -249, 136, -429, 143, -560, 131, -566, 128, -429, 136, -245, 138, -116)
 
 [node name="policeman_sprite" type="Sprite2D" parent="." index="1"]
-position = Vector2(121, 229)
-scale = Vector2(0.383013, 0.383013)
+position = Vector2(135.25, 256.13)
+scale = Vector2(0.428686, 0.428686)
 texture = ExtResource("2_vtrjc")
 
 [node name="hitbox" parent="." index="2"]
 monitoring = true
 
 [node name="hitbox_shape" parent="hitbox" index="0"]
-position = Vector2(122, 289.5)
+position = Vector2(154, 290)
 shape = SubResource("RectangleShape2D_3gm1n")

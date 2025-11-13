@@ -1,14 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://ctsesmh2kgbr6"]
+[gd_scene load_steps=5 format=3 uid="uid://ctsesmh2kgbr6"]
 
 [ext_resource type="PackedScene" uid="uid://ccc8nqq4x5n21" path="res://scenes/treadmill/treadmill_item/treadmill_composite.tscn" id="1_de247"]
 [ext_resource type="Texture2D" uid="uid://dptiar8w4814k" path="res://assets/2d/Barrel_3.png" id="2_rljku"]
 [ext_resource type="Texture2D" uid="uid://uspfmm2p8yrv" path="res://assets/2d/Barrel_2.png" id="3_fbl4u"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_aoh8l"]
-size = Vector2(89, 130)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_4tsn7"]
-size = Vector2(173, 88)
+size = Vector2(95, 182)
 
 [node name="root" instance=ExtResource("1_de247")]
 bounds = Vector2(178.02, 130.2)
@@ -16,21 +13,20 @@ no_spawn_buffer = 100
 deals_damage = true
 damage_dealt = 1
 
+[node name="hitbox" parent="." index="0"]
+monitoring = true
+
 [node name="hitbox_shape" parent="hitbox" index="0"]
-position = Vector2(44.5, -65)
+position = Vector2(48.5, -91)
 shape = SubResource("RectangleShape2D_aoh8l")
 
-[node name="hitbox_shape2" type="CollisionShape2D" parent="hitbox" index="1"]
-position = Vector2(90.5, -54)
-shape = SubResource("RectangleShape2D_4tsn7")
-
 [node name="barrel2" type="Sprite2D" parent="." index="1"]
-position = Vector2(112.76601, -52.484005)
-rotation = 1.5779349
-scale = Vector2(0.316, 0.316)
+position = Vector2(130.325, -84.55)
+rotation = 1.57793
+scale = Vector2(0.45, 0.45)
 texture = ExtResource("2_rljku")
 
 [node name="barrel1" type="Sprite2D" parent="." index="2"]
-position = Vector2(43.766003, -59.483997)
-scale = Vector2(0.316, 0.316)
+position = Vector2(61.325, -91.55)
+scale = Vector2(0.45, 0.45)
 texture = ExtResource("3_fbl4u")

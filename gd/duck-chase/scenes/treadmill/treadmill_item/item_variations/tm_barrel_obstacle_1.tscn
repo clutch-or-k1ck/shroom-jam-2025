@@ -6,10 +6,10 @@
 [ext_resource type="Texture2D" uid="uid://bgnyry7bpkvut" path="res://assets/2d/Cone_1.png" id="4_1yn2b"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jfdbs"]
-size = Vector2(123, 133)
+size = Vector2(92.5, 133)
 
 [node name="root" instance=ExtResource("1_jly4t")]
-bounds = Vector2(209.28, 134.58)
+bounds = Vector2(332.966, 207.644)
 no_spawn_buffer = 100
 deals_damage = true
 damage_dealt = 1
@@ -19,20 +19,20 @@ position = Vector2(10, -10)
 monitoring = true
 
 [node name="hitbox_shape" parent="hitbox" index="0"]
-position = Vector2(135.5, -56.5)
+position = Vector2(211.75, -97)
 shape = SubResource("RectangleShape2D_jfdbs")
 
 [node name="cone1" type="Sprite2D" parent="." index="1"]
-position = Vector2(66.714, -23.5072)
-scale = Vector2(0.209614, 0.209614)
+position = Vector2(160.75, -74.55)
+scale = Vector2(0.45, 0.45)
 texture = ExtResource("2_omi1v")
 
 [node name="barrel1" type="Sprite2D" parent="." index="2"]
-position = Vector2(140.714, -60.5072)
-scale = Vector2(0.315884, 0.315884)
+position = Vector2(234.75, -111.55)
+scale = Vector2(0.45, 0.45)
 texture = ExtResource("3_qxmn7")
 
 [node name="cone2" type="Sprite2D" parent="." index="3"]
-position = Vector2(180.714, -29.5072)
-scale = Vector2(0.255556, 0.255556)
+position = Vector2(274.75, -80.55)
+scale = Vector2(0.45, 0.45)
 texture = ExtResource("4_1yn2b")

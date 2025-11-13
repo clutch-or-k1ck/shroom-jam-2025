@@ -8,6 +8,7 @@ scale = Vector2(0.244, 0.244)
 no_spawn_buffer = 0
 
 [node name="treadmill_item_sprite" parent="." index="0"]
-position = Vector2(0, -1.0842022e-19)
+position = Vector2(-1.84898, -1.0842e-19)
+scale = Vector2(2.84898, 2.84898)
 texture = ExtResource("2_730in")
 offset = Vector2(418, -519)
