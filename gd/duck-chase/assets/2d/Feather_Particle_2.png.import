@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://nlp7x7wcx5qh"
-path="res://.godot/imported/UI_Heart.png-d01b02fe1068328e0f295c23da8a860f.ctex"
+uid="uid://bvmw05ibvrmhp"
+path="res://.godot/imported/Feather_Particle_2.png-55db2322e0d5849239d78bb05e65df20.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/2d/UI_Heart.png"
-dest_files=["res://.godot/imported/UI_Heart.png-d01b02fe1068328e0f295c23da8a860f.ctex"]
+source_file="res://assets/2d/Feather_Particle_2.png"
+dest_files=["res://.godot/imported/Feather_Particle_2.png-55db2322e0d5849239d78bb05e65df20.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://nlp7x7wcx5qh"
-path="res://.godot/imported/UI_Heart.png-d01b02fe1068328e0f295c23da8a860f.ctex"
+uid="uid://c6notxinai2ji"
+path="res://.godot/imported/Bomb_Warning.png-481b7ca3cfc6d7e829d106d5b6731a4d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/2d/UI_Heart.png"
-dest_files=["res://.godot/imported/UI_Heart.png-d01b02fe1068328e0f295c23da8a860f.ctex"]
+source_file="res://assets/2d/Bomb_Warning.png"
+dest_files=["res://.godot/imported/Bomb_Warning.png-481b7ca3cfc6d7e829d106d5b6731a4d.ctex"]
 
 [params]
 

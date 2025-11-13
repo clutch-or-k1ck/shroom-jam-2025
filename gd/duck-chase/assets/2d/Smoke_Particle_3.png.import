@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://nlp7x7wcx5qh"
-path="res://.godot/imported/UI_Heart.png-d01b02fe1068328e0f295c23da8a860f.ctex"
+uid="uid://be1qeq7ss5ni5"
+path="res://.godot/imported/Smoke_Particle_3.png-3497788ceb5da8b2bf3fd283d17d2586.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/2d/UI_Heart.png"
-dest_files=["res://.godot/imported/UI_Heart.png-d01b02fe1068328e0f295c23da8a860f.ctex"]
+source_file="res://assets/2d/Smoke_Particle_3.png"
+dest_files=["res://.godot/imported/Smoke_Particle_3.png-3497788ceb5da8b2bf3fd283d17d2586.ctex"]
 
 [params]
 
