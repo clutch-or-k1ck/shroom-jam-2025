@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://d3lhbjdhaci7o"
+path="res://.godot/imported/Mac Quack - QuickSounds.com.mp3-71f80f82fd6660a4113ffaf7c1047b37.mp3str"
+
+[deps]
+
+source_file="res://assets/sounds/Mac Quack - QuickSounds.com.mp3"
+dest_files=["res://.godot/imported/Mac Quack - QuickSounds.com.mp3-71f80f82fd6660a4113ffaf7c1047b37.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

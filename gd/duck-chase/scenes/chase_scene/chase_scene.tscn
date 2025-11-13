@@ -345,7 +345,6 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="game_menu" parent="ui" instance=ExtResource("26_m2ntv")]
-visible = false
 
 [node name="running_text" parent="ui" instance=ExtResource("2_a4cdl")]
 z_index = 1

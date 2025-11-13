@@ -1,23 +1,16 @@
-[gd_scene load_steps=9 format=3 uid="uid://c416uit0sv5f2"]
+[gd_scene load_steps=10 format=3 uid="uid://c416uit0sv5f2"]
 
 [ext_resource type="Texture2D" uid="uid://cuxpgslgnb0tm" path="res://assets/2d/News.png" id="1_3ptas"]
 [ext_resource type="Script" uid="uid://ba8030vx5h1e1" path="res://ui/game_menu.gd" id="2_krv3x"]
 [ext_resource type="Texture2D" uid="uid://c72fas6145wbx" path="res://assets/2d/Controls_UI.png" id="2_vthkq"]
 [ext_resource type="Texture2D" uid="uid://donn5i58rhhb5" path="res://assets/2d/Button.png" id="3_5b8aq"]
 [ext_resource type="Theme" uid="uid://bq1lvrvb3ecum" path="res://ui/menu_button_theme.tres" id="3_7t6nk"]
+[ext_resource type="FontFile" uid="uid://bxwb6sqycukpt" path="res://assets/fonts/SuperNormal-xRoj5.ttf" id="4_kv4u0"]
 [ext_resource type="Texture2D" uid="uid://dj61cj3jn0o88" path="res://assets/2d/Credits_UI.png" id="5_7tyxs"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7t6nk"]
-bg_color = Color(0.172549, 0.172549, 0.172549, 0.866667)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
+bg_color = Color(0, 0, 0, 0.458824)
 border_color = Color(0.760784, 0.32549, 0.219608, 1)
-corner_radius_top_left = 50
-corner_radius_top_right = 50
-corner_radius_bottom_right = 50
-corner_radius_bottom_left = 50
 corner_detail = 10
 
 [sub_resource type="Theme" id="Theme_7tyxs"]
@@ -31,7 +24,6 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_3ptas")
 expand_mode = 1
-stretch_mode = 4
 script = ExtResource("2_krv3x")
 
 [node name="global_margins" type="MarginContainer" parent="."]
@@ -82,7 +74,7 @@ layout_mode = 2
 [node name="controls_panel_margin" type="MarginContainer" parent="global_margins/vertical_layout/main_panel/controls_section"]
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 4.15
+size_flags_stretch_ratio = 6.0
 theme_override_constants/margin_left = 35
 theme_override_constants/margin_right = 10
 
@@ -106,11 +98,18 @@ theme_override_constants/margin_bottom = 20
 
 [node name="controls_description" type="RichTextLabel" parent="global_margins/vertical_layout/main_panel/controls_section/controls_panel_margin/controls_description_panel/text_margins"]
 layout_mode = 2
-theme_override_font_sizes/normal_font_size = 30
+theme_override_fonts/normal_font = ExtResource("4_kv4u0")
+theme_override_font_sizes/normal_font_size = 37
 bbcode_enabled = true
-text = "[color=green]Move[/color]: Gamepad Left Stick / Keyboard A/D
+text = "[color=orange]Move[/color]: Gamepad [color=yellow]Left Stick[/color] / Keyboard [color=yellow]A / D[/color]
 
-and others"
+[color=orange]Jump[/color]: Gamepad [color=yellow]A[/color] / Keyboard [color=yellow]Space[/color]
+
+[color=orange]Dash[/color]: Gamepad [color=yellow]X[/color] / Keyboard [color=yellow]R[/color]
+
+[color=orange]Fly[/color]: Gamepad [color=yellow]A[/color] / Keyboard [color=yellow]Space[/color] while in the air
+
+[color=orange]Duck[/color]: Gamepad [color=yellow]B[/color] / Keyboard [color=yellow]R[/color]"
 
 [node name="buttons_section" type="VBoxContainer" parent="global_margins/vertical_layout/main_panel"]
 layout_mode = 2
@@ -186,17 +185,17 @@ layout_mode = 2
 [node name="credits_panel_margins" type="MarginContainer" parent="global_margins/vertical_layout/main_panel/credits_section"]
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 4.15
+size_flags_stretch_ratio = 6.0
 theme_override_constants/margin_left = 15
 theme_override_constants/margin_right = 35
 
-[node name="controls_description_panel" type="Panel" parent="global_margins/vertical_layout/main_panel/credits_section/credits_panel_margins"]
+[node name="credits_panel" type="Panel" parent="global_margins/vertical_layout/main_panel/credits_section/credits_panel_margins"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 4.15
 theme = SubResource("Theme_7tyxs")
 
-[node name="text_margins" type="MarginContainer" parent="global_margins/vertical_layout/main_panel/credits_section/credits_panel_margins/controls_description_panel"]
+[node name="text_margins" type="MarginContainer" parent="global_margins/vertical_layout/main_panel/credits_section/credits_panel_margins/credits_panel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -208,13 +207,19 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="controls_description" type="RichTextLabel" parent="global_margins/vertical_layout/main_panel/credits_section/credits_panel_margins/controls_description_panel/text_margins"]
+[node name="controls_description" type="RichTextLabel" parent="global_margins/vertical_layout/main_panel/credits_section/credits_panel_margins/credits_panel/text_margins"]
 layout_mode = 2
-theme_override_font_sizes/normal_font_size = 30
+theme_override_fonts/normal_font = ExtResource("4_kv4u0")
+theme_override_font_sizes/normal_font_size = 37
 bbcode_enabled = true
-text = "TODO"
+text = "[color=green]Danylo Yanovskiy[/color] - 2D Animations
+[color=green]elizar525[/color] - 2D Art
+[color=green]clutchOrKick[/color] - Godot development
+
+Music: [color=green]Swngyill YOON[/color] - @yyyn0889 (Twitter)
+Song - Joker Dance"
 
 [node name="spacer2" type="Control" parent="global_margins/vertical_layout"]
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 4.08
+size_flags_stretch_ratio = 1.97
