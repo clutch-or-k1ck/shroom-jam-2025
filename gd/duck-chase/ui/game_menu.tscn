@@ -1,0 +1,210 @@
+[gd_scene load_steps=8 format=3 uid="uid://c416uit0sv5f2"]
+
+[ext_resource type="Texture2D" uid="uid://cuxpgslgnb0tm" path="res://assets/2d/News.png" id="1_3ptas"]
+[ext_resource type="Texture2D" uid="uid://c72fas6145wbx" path="res://assets/2d/Controls_UI.png" id="2_vthkq"]
+[ext_resource type="Texture2D" uid="uid://donn5i58rhhb5" path="res://assets/2d/Button.png" id="3_5b8aq"]
+[ext_resource type="Theme" uid="uid://bq1lvrvb3ecum" path="res://ui/menu_button_theme.tres" id="3_7t6nk"]
+[ext_resource type="Texture2D" uid="uid://dj61cj3jn0o88" path="res://assets/2d/Credits_UI.png" id="5_7tyxs"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7t6nk"]
+bg_color = Color(0.172549, 0.172549, 0.172549, 0.866667)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.760784, 0.32549, 0.219608, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+corner_detail = 10
+
+[sub_resource type="Theme" id="Theme_7tyxs"]
+Panel/styles/panel = SubResource("StyleBoxFlat_7t6nk")
+
+[node name="game_menu" type="TextureRect"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_3ptas")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="vertical_layout" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="spacer1" type="Control" parent="vertical_layout"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 4.81
+
+[node name="main_panel" type="HBoxContainer" parent="vertical_layout"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 10.0
+
+[node name="controls_section" type="VBoxContainer" parent="vertical_layout/main_panel"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="margins" type="MarginContainer" parent="vertical_layout/main_panel/controls_section"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 43
+
+[node name="controls_label" type="TextureRect" parent="vertical_layout/main_panel/controls_section/margins"]
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("2_vthkq")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="spacer" type="Control" parent="vertical_layout/main_panel/controls_section"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="vertical_layout/main_panel/controls_section"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 4.15
+theme_override_constants/margin_left = 35
+theme_override_constants/margin_right = 35
+
+[node name="controls_description_panel" type="Panel" parent="vertical_layout/main_panel/controls_section/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 4.15
+theme = SubResource("Theme_7tyxs")
+
+[node name="text_margins" type="MarginContainer" parent="vertical_layout/main_panel/controls_section/MarginContainer/controls_description_panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="controls_description" type="RichTextLabel" parent="vertical_layout/main_panel/controls_section/MarginContainer/controls_description_panel/text_margins"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 30
+bbcode_enabled = true
+text = "[color=green]Move[/color]: Gamepad Left Stick / Keyboard A/D
+
+and others"
+
+[node name="buttons_section" type="VBoxContainer" parent="vertical_layout/main_panel"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="margins" type="MarginContainer" parent="vertical_layout/main_panel/buttons_section"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 30
+
+[node name="buttons" type="VBoxContainer" parent="vertical_layout/main_panel/buttons_section/margins"]
+layout_mode = 2
+
+[node name="top_spacer" type="Control" parent="vertical_layout/main_panel/buttons_section/margins/buttons"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.61
+
+[node name="play_btn" type="Button" parent="vertical_layout/main_panel/buttons_section/margins/buttons"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("3_7t6nk")
+text = "PLAY"
+icon = ExtResource("3_5b8aq")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="middle_spacer" type="Control" parent="vertical_layout/main_panel/buttons_section/margins/buttons"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.05
+
+[node name="exit_btn" type="Button" parent="vertical_layout/main_panel/buttons_section/margins/buttons"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("3_7t6nk")
+text = "EXIT"
+icon = ExtResource("3_5b8aq")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="bottom_spacer" type="Control" parent="vertical_layout/main_panel/buttons_section/margins/buttons"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.71
+
+[node name="credits_section" type="VBoxContainer" parent="vertical_layout/main_panel"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="margins" type="MarginContainer" parent="vertical_layout/main_panel/credits_section"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 43
+
+[node name="credits_label" type="TextureRect" parent="vertical_layout/main_panel/credits_section/margins"]
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("5_7tyxs")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="spacer" type="Control" parent="vertical_layout/main_panel/credits_section"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="vertical_layout/main_panel/credits_section"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 4.15
+theme_override_constants/margin_left = 35
+theme_override_constants/margin_right = 35
+
+[node name="controls_description_panel" type="Panel" parent="vertical_layout/main_panel/credits_section/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 4.15
+theme = SubResource("Theme_7tyxs")
+
+[node name="text_margins" type="MarginContainer" parent="vertical_layout/main_panel/credits_section/MarginContainer/controls_description_panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 0
+
+[node name="controls_description" type="RichTextLabel" parent="vertical_layout/main_panel/credits_section/MarginContainer/controls_description_panel/text_margins"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 30
+bbcode_enabled = true
+text = "TODO"
+
+[node name="spacer2" type="Control" parent="vertical_layout"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 4.08
