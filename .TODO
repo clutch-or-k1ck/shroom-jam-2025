@@ -1,18 +1,17 @@
-base_scene game loop etc:
-	- end game sequence
-		- stop rolling the world
-		- fall down and play death anim
-		- alternative death shader? bw? camera zoom? only as potential improvements
-		- emit a signal with the game session result
-	- death_stops_game - a bool for debugging purposes
-	
 improvements to make game plot possible:
-- check that treadmills can accept and throw away new scenes to spawn
-- create a building and a large building
-- create the trash box
-- puddles and uncontrollabel dash mechanics
+- create the bombs patterning
+- create the tunnel at the end
+
 write the game plot
+
+bug: damage animation is drawn on top of other animations - that is wrong
+bug: it seems policmen can even spawn right after the barrel in which case it is impossible to win...
+bug: duck collision box is too unforgiving. maybe barrels need fixing, too...
+bug: proportions are going crazy
+bug: probably need to relax hitboxes of literally everyone because the difficulty is crazy rn
+
+
 
 chase scene is instantiated dynamically in the tv overlay, not statically attached
 
-a couple more shaders
+MORE SHADERS
