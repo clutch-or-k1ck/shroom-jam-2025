@@ -230,17 +230,6 @@ ground_reference = NodePath("../road/road_collision")
 
 [node name="ui" type="CanvasLayer" parent="."]
 
-[node name="running_text" parent="ui" instance=ExtResource("2_a4cdl")]
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_top = -138.0
-offset_bottom = -98.0
-grow_vertical = 0
-breaking_news = Array[String](["[color=orange]BREAKING NEWS[/color] [color=red]AI[/color] IS TAKING OVER. YOU, ME, EVERYBODY IS SOON GOING TO BE REPLACED BY [color=red]AI[/color].", "BREAKING NEWS", "BREAKING NEWS", "BREAKING NEWS", "BREAKING NEWS", "BREAKING NEWS", "BREAKING NEWS", "BREAKING NEWS", "BREAKING NEWS"])
-running_text_speed = -250
-running_text_font_size = 60
-
 [node name="top_left_widget" type="VBoxContainer" parent="ui"]
 offset_left = 206.95
 offset_top = 130.0
@@ -322,6 +311,18 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="game_menu" parent="ui" instance=ExtResource("26_m2ntv")]
+
+[node name="running_text" parent="ui" instance=ExtResource("2_a4cdl")]
+z_index = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -194.0
+offset_bottom = -154.0
+grow_vertical = 0
+breaking_news = Array[String](["[color=orange]BREAKING NEWS[/color] [color=red]AI[/color] IS TAKING OVER. YOU, ME, EVERYBODY IS SOON GOING TO BE REPLACED BY [color=red]AI[/color].", "BREAKING NEWS", "BREAKING NEWS", "BREAKING NEWS", "BREAKING NEWS", "BREAKING NEWS", "BREAKING NEWS", "BREAKING NEWS", "BREAKING NEWS"])
+running_text_speed = -250
+running_text_font_size = 60
 
 [node name="music_player" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("24_qrt7r")

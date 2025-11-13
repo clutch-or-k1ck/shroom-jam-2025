@@ -20,6 +20,8 @@ signal game_end(game_result: eGameResult)
 
 @onready var obstacles_line := $road/obstacles
 
+var bombing_overrides := {}
+
 ## wait n seconds
 func secs(time: float) -> void:
 	await get_tree().create_timer(time).timeout
