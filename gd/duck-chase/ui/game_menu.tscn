@@ -196,7 +196,7 @@ grow_vertical = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 0
+theme_override_constants/margin_bottom = 20
 
 [node name="controls_description" type="RichTextLabel" parent="vertical_layout/main_panel/credits_section/MarginContainer/controls_description_panel/text_margins"]
 layout_mode = 2
