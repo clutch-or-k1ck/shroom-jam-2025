@@ -41,6 +41,30 @@ enum eTreadmillSpawnMethod {FillViewport, Random}
 ## probability on each random toss
 @export var prespawn_probability := 0.05
 
+#region Adding item types at runtime!
+
+## you should use this dictionary to push item types to spawn at runtime
+var _dynamic_item_types: Dictionary[String, PackedScene]
+
+func start_spawning(id: String, scene: PackedScene) -> void:
+	_dynamic_item_types[id] = scene
+
+
+func stop_spawning(id: String) -> void:
+	_dynamic_item_types.erase(id)
+
+
+## this returns both editor-defined treadmill item types and item types added at runtime
+func get_item_types_for_spawn() -> Array[PackedScene]:
+	var return_value: Array[PackedScene] = []
+	return_value.append_array(item_types)
+	for key in _dynamic_item_types:
+		return_value.append(_dynamic_item_types[key])
+	return return_value
+
+
+#endregion
+
 ## here we keep track of all treadmill items currently present on the treadmill
 var items: Array[TreadmillItem] = []
 
@@ -66,11 +90,13 @@ func despawn_out_of_bounds_elements() -> void:
 
 ## picks a new treadmill item at a given index, instantiates it, adds to children
 func create_new_treadmill_item(idx: int) -> TreadmillItem:
-	if idx >= item_types.size():
+	var _all_item_types := get_item_types_for_spawn()
+	
+	if idx >= _all_item_types.size():
 		push_error('no treadmill item type at idx=' + str(idx))
 		return null
 	
-	var new_treadmill_item := item_types[idx].instantiate()
+	var new_treadmill_item := _all_item_types[idx].instantiate()
 	self.add_child(new_treadmill_item)
 	items.append(new_treadmill_item)
 	
@@ -125,7 +151,7 @@ func stack_new_treadmill_item() -> TreadmillItem:
 
 ## select a random treadmill item type from collection 
 func select_random_treadmill_item_type() -> int:
-	return randi_range(0, item_types.size() - 1) # TODO more interesting selection methods?
+	return randi_range(0, get_item_types_for_spawn().size() - 1) # TODO more interesting selection methods?
 
 
 func is_overlapping_no_spawn_areas(position: Vector2) -> bool:
