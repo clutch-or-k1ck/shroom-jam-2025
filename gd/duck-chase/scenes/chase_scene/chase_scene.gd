@@ -45,8 +45,11 @@ func _ready() -> void:
 	
 	# TODO debugging only, have to delete later
 	bombardier.throw_bombs({
-		0.5: [0.2, 0.4],
-		1.2: [0.5, 0.8]
+		0.1: [0.1],
+		0.2: [0.2],
+		0.3: [0.3],
+		0.4: [0.4],
+		0.5: [0.5]
 	})
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

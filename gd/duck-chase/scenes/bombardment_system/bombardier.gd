@@ -9,18 +9,6 @@ the bomb spawner first spawns the shadow of the bomb (if available), then it spa
 the bomb is always spawned right outside the screen boundary
 """
 
-## this bomb will be spawned by the bombardier
-@export var bomb_spawnable: PackedScene
-
-## this thing will be spawned as shadow for the falling bomb
-@export var shadow_spawnable: PackedScene
-
-## bombs will be spawned this many seconds after the shadow had spawned
-@export var bomb_spawn_delay: float
-
-## bombs will be spawned at this initial velocity, then normal gravity will be applied
-@export var initial_bomb_velocity: float
-
 ## this sfx will be played when the new bombing starts
 @export var sfx: Resource
 
@@ -32,15 +20,15 @@ signal bombardment_finished
 var _elapsed_bombing_time := 0.
 var _active_pattern: Dictionary = {}
 
+@onready var bomb_drop_scene := preload('res://scenes/bombardment_system/bomb_drop.tscn')
+
 
 func do_spawn(locations: Array) -> void:
 	for location_ratio in locations:
-		var global_loc = get_viewport_rect().size.x * location_ratio
-		print('spawning shadows at location: ' + str(location_ratio) + ', elapsed time is ' + str(_elapsed_bombing_time))
-	
-	await get_tree().create_timer(bomb_spawn_delay).timeout	
-	for location_ratio in locations:
-		print('spawning bombs at locations ' + str(location_ratio) + ', elapsed time is ' + str(_elapsed_bombing_time))
+		var global_loc_x = get_viewport_rect().size.x * location_ratio
+		var new_bomb_drop := bomb_drop_scene.instantiate()
+		add_child(new_bomb_drop)
+		new_bomb_drop.position = Vector2(global_loc_x, 0.)
 
 
 ## every tick, check if there are bombs to throw

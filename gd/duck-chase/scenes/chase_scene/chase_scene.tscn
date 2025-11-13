@@ -25,7 +25,7 @@
 [ext_resource type="PackedScene" uid="uid://c0h0c0n624xcm" path="res://scenes/treadmill/treadmill_item/item_variations/tm_two_fences_and_sign.tscn" id="14_4yt5v"]
 [ext_resource type="PackedScene" uid="uid://bti58niu6f3dw" path="res://scenes/treadmill/treadmill_item/item_variations/tm_policeman.tscn" id="18_gxndn"]
 [ext_resource type="AudioStream" uid="uid://coqowv0r6vkmm" path="res://assets/sounds/Joker Dance.ogg" id="24_qrt7r"]
-[ext_resource type="Script" uid="uid://ciq8odnuga3oh" path="res://scripts/bombardier.gd" id="26_sdicq"]
+[ext_resource type="Script" uid="uid://ciq8odnuga3oh" path="res://scenes/bombardment_system/bombardier.gd" id="26_sdicq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a4cdl"]
 size = Vector2(2692, 110)
@@ -36,8 +36,9 @@ starting_world_speed = 1800
 death_ends_game = false
 
 [node name="bombardier" type="Node2D" parent="."]
+z_index = 10
+position = Vector2(0, 816)
 script = ExtResource("26_sdicq")
-bomb_spawn_delay = 1.0
 metadata/_custom_type_script = "uid://ciq8odnuga3oh"
 
 [node name="sky_polygon" type="Polygon2D" parent="."]
@@ -163,16 +164,22 @@ treadmill_group = 1
 metadata/_custom_type_script = "uid://beehhs7t2qyd"
 
 [node name="policemen" type="Node2D" parent="road"]
-position = Vector2(0, -722)
+position = Vector2(0, -758)
 script = ExtResource("4_myeqy")
 item_types = Array[PackedScene]([ExtResource("18_gxndn")])
 global_speed_multiplier = 0.9
 spawn_method = 1
 spawn_probability = 0.2
 treadmill_group = 1
+apply_random_scaling = true
+random_scale_min = 0.95
+random_scale_max = 1.05
+apply_random_displacement = true
+random_displacement_min = Vector2(0, -5)
+random_displacement_max = Vector2(0, 5)
 metadata/_custom_type_script = "uid://beehhs7t2qyd"
 
-[node name="policemen2" type="Node2D" parent="road"]
+[node name="policemen_lower_row" type="Node2D" parent="road"]
 position = Vector2(0, -531)
 script = ExtResource("4_myeqy")
 item_types = Array[PackedScene]([ExtResource("18_gxndn")])
@@ -180,6 +187,12 @@ global_speed_multiplier = 0.9
 spawn_method = 1
 spawn_probability = 0.2
 treadmill_group = 1
+apply_random_scaling = true
+random_scale_min = 0.9
+random_scale_max = 1.1
+apply_random_displacement = true
+random_displacement_min = Vector2(0, -20)
+random_displacement_max = Vector2(0, 20)
 metadata/_custom_type_script = "uid://beehhs7t2qyd"
 
 [node name="sidewalk_bottom" type="Node2D" parent="road"]
