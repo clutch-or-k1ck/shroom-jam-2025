@@ -52,13 +52,15 @@ enum eFallVelocityCalculationMethod {Constant, Gravity}
 
 @onready var sprite := $duck_sprite
 @onready var standing_collision := $duck_collision_standing
+@onready var duck_voice := $duck_voice
+@onready var health_obtained := $health_obtained
 
 var stamina := max_stamina
 var lives := max_lives
 var _time_elapsed_in_zero_g := 0.
 var _distance_covered_in_dash := 0.
 
-signal lives_updated
+signal lives_updated(delta: int)
 signal stamina_updated
 signal dead
 signal character_movement_state_updated(old: eCharacterMovementState, new: eCharacterMovementState)
@@ -123,14 +125,14 @@ func _tick_stamina(delta: float) -> void:
 
 func lose_life():
 	lives = max(0, lives - 1)
-	lives_updated.emit()
+	lives_updated.emit(-1)
 	if lives == 0:
 		dead.emit()
 
 
 func get_life():
-	lives = min(3, lives + 1)
-	lives_updated.emit()
+	lives = min(4, lives + 1)
+	lives_updated.emit(1)
 
 
 ## whether we are past the period that we are allowed to 'freeze' in the air
@@ -362,9 +364,13 @@ func _on_character_movement_state_updated(old: MrDuck.eCharacterMovementState, n
 
 
 ## duck handling its own damage received event - play animation etc.
-func _on_lives_updated() -> void:
-	var anim_state := sprite.get_animation_state() as SpineAnimationState
-	anim_state.set_animation('hit', false, 0)
+func _on_lives_updated(delta: int) -> void:
+	if delta < 0: # damage taken
+		var anim_state := sprite.get_animation_state() as SpineAnimationState
+		anim_state.set_animation('hit', false, 0)
+		duck_voice.play()
+	else:
+		health_obtained.play()
 
 
 func _on_duck_sprite_animation_completed(spine_sprite: Object, animation_state: Object, track_entry: Object) -> void:

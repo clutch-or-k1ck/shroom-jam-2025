@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://y4on5eclsc2c"]
+[gd_scene load_steps=7 format=3 uid="uid://y4on5eclsc2c"]
 
 [ext_resource type="Script" uid="uid://cqhkxr2nncxxy" path="res://scenes/duck_character/duck_character.gd" id="1_fkuwv"]
+[ext_resource type="AudioStream" uid="uid://d3lhbjdhaci7o" path="res://assets/sounds/Mac Quack - QuickSounds.com.mp3" id="3_ahea1"]
 [ext_resource type="SpineSkeletonDataResource" uid="uid://c7a01j6kwxjvp" path="res://spine-anim/duck_spine_resource.tres" id="3_s0yet"]
+[ext_resource type="AudioStream" uid="uid://6g1hfvm7xw6f" path="res://assets/sounds/retro-coin-1-236677.mp3" id="4_ahea1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s0yet"]
 size = Vector2(118, 134)
@@ -34,6 +36,14 @@ preview_skin = "Default"
 preview_animation = "-- Empty --"
 preview_frame = false
 preview_time = 0.0
+
+[node name="duck_voice" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_ahea1")
+volume_db = 11.193
+autoplay = true
+
+[node name="health_obtained" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_ahea1")
 
 [connection signal="character_movement_state_updated" from="." to="." method="_on_character_movement_state_updated"]
 [connection signal="lives_updated" from="." to="." method="_on_lives_updated"]

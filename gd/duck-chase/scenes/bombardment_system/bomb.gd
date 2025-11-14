@@ -7,7 +7,7 @@ signal exploded
 
 @onready var explosion_anim := $explosion_anim
 @onready var bomb_sprite := $bomb_sprite
-
+@onready var explosion_sfx := $explosion_sfx
 
 func _ready() -> void:
 	explosion_anim.visible = false
@@ -18,6 +18,7 @@ func do_explode() -> void:
 	bomb_sprite.visible = false
 	explosion_anim.visible = true
 	explosion_anim.play('explosion3')
+	explosion_sfx.play()
 
 
 func _on_body_entered(body: Node) -> void:

@@ -8,7 +8,7 @@ size = Vector2(146, 439)
 
 [node name="root" instance=ExtResource("1_pmiaj")]
 bounds = Vector2(256.7, -515.845)
-no_spawn_buffer = 300
+no_spawn_buffer = 500
 deals_damage = true
 damage_dealt = 1
 

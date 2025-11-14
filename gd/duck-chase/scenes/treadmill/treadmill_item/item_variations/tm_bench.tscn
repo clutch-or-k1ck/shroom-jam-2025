@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://c2ebex4h53dai"]
+
+[ext_resource type="PackedScene" uid="uid://ccc8nqq4x5n21" path="res://scenes/treadmill/treadmill_item/treadmill_composite.tscn" id="1_caa6l"]
+[ext_resource type="Texture2D" uid="uid://qovscq7olahh" path="res://assets/2d/Bench.png" id="2_jmo75"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_caa6l"]
+
+[node name="root" instance=ExtResource("1_caa6l")]
+
+[node name="hitbox_shape" parent="hitbox" index="0"]
+shape = SubResource("RectangleShape2D_caa6l")
+
+[node name="bank_sprite" type="Sprite2D" parent="." index="1"]
+position = Vector2(100.705, -50)
+scale = Vector2(0.410256, 0.410256)
+texture = ExtResource("2_jmo75")

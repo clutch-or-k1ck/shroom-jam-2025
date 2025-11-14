@@ -109,12 +109,17 @@ func barrage() -> void:
 		await get_tree().create_timer(randf_range(barraging_random_interval[0], barraging_random_interval[1])).timeout
 
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
+func start_game():
+	death_screen.visible = false
 	main_menu.visible = true
-	running_text.add_new_running_text_line() # initialize the running text immediately (otherwise text is spawned in next frame)
+	main_menu.play_btn.grab_focus()
 	# we start in the main game menu when this scene begins play - nothing happens on the treadmill so far
 	Globals.game_phase = Globals.eGamePhase.Menu
+	
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	running_text.add_new_running_text_line() # initialize the running text immediately (otherwise text is spawned in next frame)
+	start_game()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -130,7 +135,7 @@ func _on_duck_character_stamina_updated() -> void:
 
 
 ## update UI when duck HP changes
-func _on_duck_character_lives_updated() -> void:
+func _on_duck_character_lives_updated(delta: int) -> void:
 	var normal_texture := preload('res://assets/2d/UI_Heart.png')
 	var empty_texture := preload('res://assets/2d/UI_Heart_Empty.png')
 	
@@ -142,12 +147,18 @@ func _on_duck_character_lives_updated() -> void:
 			heart.texture = empty_texture
 
 
+@onready var death_screen := $ui/death_screen
 func _on_duck_character_dead() -> void:
+	# plays the death sequence
 	if death_ends_game:
 		Globals.set_global_world_speed(0.)
 		(duck.sprite as SpineSprite).get_animation_state().set_animation('death', false, 0)
+		await get_tree().create_timer(1.).timeout
+		death_screen.visible = true
+		
+		# restart game after 2 seconds of showing the screen
 		await get_tree().create_timer(2.).timeout
-		game_end.emit(eGameResult.Defeat)
+		get_tree().reload_current_scene()
 
 
 func _on_game_menu_begin_game_pressed() -> void:
@@ -157,3 +168,9 @@ func _on_game_menu_begin_game_pressed() -> void:
 
 func _on_game_menu_exit_game_pressed() -> void:
 	get_tree().quit()
+
+
+func _on_death_screen_full_game_reset() -> void:
+	# when the user presses anything on the death screen, we send them back to main menu
+	death_screen.visible = false
+	start_game()

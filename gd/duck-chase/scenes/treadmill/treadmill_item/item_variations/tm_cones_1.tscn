@@ -16,11 +16,11 @@ position = Vector2(86, -29.5)
 shape = SubResource("RectangleShape2D_ol2bu")
 
 [node name="cone1" type="Sprite2D" parent="." index="1"]
-position = Vector2(78.375, -28)
-scale = Vector2(0.25, 0.25)
+position = Vector2(138.75, -59.55)
+scale = Vector2(0.45, 0.45)
 texture = ExtResource("2_nsy7t")
 
 [node name="cone2" type="Sprite2D" parent="." index="2"]
-position = Vector2(143.375, -35)
-scale = Vector2(0.25, 0.25)
+position = Vector2(203.75, -66.55)
+scale = Vector2(0.45, 0.45)
 texture = ExtResource("3_d6ew4")

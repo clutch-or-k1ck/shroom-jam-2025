@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://bqnhgrmahpp44"]
+[gd_scene load_steps=39 format=3 uid="uid://bqnhgrmahpp44"]
 
 [ext_resource type="Script" uid="uid://cc7qw8macbkml" path="res://scenes/chase_scene/chase_scene.gd" id="1_8pw8v"]
 [ext_resource type="PackedScene" uid="uid://y4on5eclsc2c" path="res://scenes/duck_character/duck_character.tscn" id="1_m83pa"]
@@ -24,22 +24,53 @@
 [ext_resource type="PackedScene" uid="uid://ctsesmh2kgbr6" path="res://scenes/treadmill/treadmill_item/item_variations/tm_barrel_obstacle_2.tscn" id="13_01fa4"]
 [ext_resource type="PackedScene" uid="uid://c0h0c0n624xcm" path="res://scenes/treadmill/treadmill_item/item_variations/tm_two_fences_and_sign.tscn" id="14_4yt5v"]
 [ext_resource type="PackedScene" uid="uid://c7xeypsndd6ob" path="res://scenes/treadmill/treadmill_item/item_variations/tm_police_car.tscn" id="14_uha6m"]
+[ext_resource type="PackedScene" uid="uid://c2ebex4h53dai" path="res://scenes/treadmill/treadmill_item/item_variations/tm_bench.tscn" id="17_ffie5"]
+[ext_resource type="PackedScene" uid="uid://cxtf4k15r301y" path="res://scenes/treadmill/treadmill_item/item_variations/tm_house.tscn" id="18_4ieac"]
 [ext_resource type="PackedScene" uid="uid://bti58niu6f3dw" path="res://scenes/treadmill/treadmill_item/item_variations/tm_policeman.tscn" id="18_gxndn"]
 [ext_resource type="PackedScene" uid="uid://dse2pne7rqrfr" path="res://scenes/treadmill/treadmill_item/item_variations/tm_heal.tscn" id="19_u40ln"]
 [ext_resource type="AudioStream" uid="uid://coqowv0r6vkmm" path="res://assets/sounds/Joker Dance.ogg" id="24_qrt7r"]
 [ext_resource type="PackedScene" uid="uid://c416uit0sv5f2" path="res://ui/game_menu.tscn" id="26_m2ntv"]
 [ext_resource type="Script" uid="uid://ciq8odnuga3oh" path="res://scenes/bombardment_system/bombardier.gd" id="26_sdicq"]
+[ext_resource type="PackedScene" uid="uid://5ecflcu5tlnp" path="res://ui/death_screen.tscn" id="28_phute"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a4cdl"]
 size = Vector2(2692, 110)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ffie5"]
+size = Vector2(268, 948)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4ieac"]
+size = Vector2(188, 936)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4ieac"]
+bg_color = Color(0.0430392, 0.0430392, 0.0430391, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ffie5"]
+bg_color = Color(1, 0.70073, 0.189169, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="Theme" id="Theme_4ieac"]
+ProgressBar/styles/background = SubResource("StyleBoxFlat_4ieac")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_ffie5")
+
 [node name="root" type="Node2D"]
 script = ExtResource("1_8pw8v")
 starting_world_speed = 1800
-death_ends_game = false
 
 [node name="character_spawn" type="Node2D" parent="."]
-position = Vector2(361, -38)
+position = Vector2(484, -38)
 
 [node name="bombardier" type="Node2D" parent="."]
 z_index = 1000
@@ -113,6 +144,16 @@ position = Vector2(0, -118)
 position = Vector2(1347, 61.0001)
 shape = SubResource("RectangleShape2D_a4cdl")
 
+[node name="screen_boundaries" type="StaticBody2D" parent="road"]
+
+[node name="collision_shape_left" type="CollisionShape2D" parent="road/screen_boundaries"]
+position = Vector2(124, -464)
+shape = SubResource("RectangleShape2D_ffie5")
+
+[node name="collision_shape_right" type="CollisionShape2D" parent="road/screen_boundaries"]
+position = Vector2(1824, -458)
+shape = SubResource("RectangleShape2D_4ieac")
+
 [node name="pavement_visual" type="Polygon2D" parent="road"]
 z_index = 2
 position = Vector2(9, -208.888)
@@ -136,7 +177,7 @@ metadata/_custom_type_script = "uid://beehhs7t2qyd"
 z_index = 1
 position = Vector2(0, -19)
 script = ExtResource("4_myeqy")
-item_types = Array[PackedScene]([ExtResource("10_qrt7r"), ExtResource("14_4yt5v")])
+item_types = Array[PackedScene]([ExtResource("10_qrt7r"), ExtResource("14_4yt5v"), ExtResource("18_4ieac"), ExtResource("17_ffie5")])
 global_speed_multiplier = 0.3
 spawn_method = 1
 spawn_probability = 0.4
@@ -152,6 +193,7 @@ script = ExtResource("4_myeqy")
 item_types = Array[PackedScene]([ExtResource("14_uha6m")])
 spawn_method = 1
 spawn_probability = 1.3
+start_active = false
 use_own_speed = true
 own_speed = 150.0
 apply_random_displacement = true
@@ -173,7 +215,7 @@ metadata/_custom_type_script = "uid://beehhs7t2qyd"
 z_index = 1
 position = Vector2(0, -24)
 script = ExtResource("4_myeqy")
-item_types = Array[PackedScene]([ExtResource("5_t50dl"), ExtResource("6_dkpwp"), ExtResource("14_4yt5v")])
+item_types = Array[PackedScene]([ExtResource("5_t50dl"), ExtResource("6_dkpwp"), ExtResource("14_4yt5v"), ExtResource("17_ffie5"), ExtResource("18_4ieac")])
 global_speed_multiplier = 0.6
 spawn_method = 1
 spawn_probability = 0.5
@@ -218,6 +260,7 @@ global_speed_multiplier = 0.9
 spawn_method = 1
 spawn_probability = 1.5
 treadmill_group = 1
+start_active = false
 apply_random_scaling = true
 random_scale_min = 0.95
 random_scale_max = 1.05
@@ -286,6 +329,7 @@ size_flags_stretch_ratio = 0.1
 [node name="stam_bar" type="ProgressBar" parent="ui/top_left_widget"]
 layout_mode = 2
 size_flags_vertical = 3
+theme = SubResource("Theme_4ieac")
 max_value = 1.0
 show_percentage = false
 
@@ -345,18 +389,22 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="game_menu" parent="ui" instance=ExtResource("26_m2ntv")]
+visible = false
+
+[node name="death_screen" parent="ui" instance=ExtResource("28_phute")]
+visible = false
 
 [node name="running_text" parent="ui" instance=ExtResource("2_a4cdl")]
 z_index = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -194.0
-offset_bottom = -154.0
+offset_top = -229.0
+offset_bottom = -189.0
 grow_vertical = 0
-breaking_news = Array[String](["[color=orange]BREAKING NEWS[/color] [color=red]AI[/color] IS TAKING OVER. YOU, ME, EVERYBODY IS SOON GOING TO BE REPLACED BY [color=red]AI[/color].", "BREAKING NEWS", "BREAKING NEWS", "BREAKING NEWS", "BREAKING NEWS", "BREAKING NEWS", "BREAKING NEWS", "BREAKING NEWS", "BREAKING NEWS"])
+breaking_news = Array[String](["[color=orange]BREAKING NEWS[/color] A duck reportedly on the run afeter having stolen 1 Bln dollars. Police pursuit follows [color=orange]BREAKING NEWS[/color]", "[color=orange]BREAKING NEWS[/color] Cat reportedly working from home for the third consecutive year [color=orange]BREAKING NEWS[/color]", "[color=orange]BREAKING NEWS[/color] Did you know you can [color=red]FLY[/color]?? Albeit for a short time. Try while you're in the air!![color=orange]BREAKING NEWS[/color]", "[color=orange]BREAKING NEWS[/color] Lots of respect if you're reading this! For real, we appreciate you a lot [color=orange]BREAKING NEWS[/color]", "[color=orange]BREAKING NEWS[/color] A Godot dev reportedly on the brink of mental breakdown after several sleepless debugging nights[color=orange]BREAKING NEWS[/color]", "[color=orange]BREAKING NEWS[/color] Well, I ain't got all time in the world. It's going to repeat from here[color=orange]BREAKING NEWS[/color]"])
 running_text_speed = -250
-running_text_font_size = 60
+running_text_font_size = 80
 
 [node name="music_player" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("24_qrt7r")

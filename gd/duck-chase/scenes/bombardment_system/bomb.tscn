@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://c2325f4ds7rer"]
+[gd_scene load_steps=6 format=3 uid="uid://c2325f4ds7rer"]
 
 [ext_resource type="Script" uid="uid://w3dre4fmbc1b" path="res://scenes/bombardment_system/bomb.gd" id="1_rqjch"]
 [ext_resource type="Texture2D" uid="uid://c84no6kcy5yqg" path="res://assets/2d/Bomb.png" id="2_ew8my"]
 [ext_resource type="SpriteFrames" uid="uid://k76s15noqsxl" path="res://assets/explosions/explosions.tres" id="3_ew8my"]
+[ext_resource type="AudioStream" uid="uid://chw6r6f3r6j5y" path="res://assets/sounds/explosion-91872.mp3" id="4_hahuk"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hahuk"]
 radius = 25.02
@@ -25,6 +26,9 @@ visible = false
 scale = Vector2(3.17969, 3.17969)
 sprite_frames = ExtResource("3_ew8my")
 animation = &"explosion3"
+
+[node name="explosion_sfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_hahuk")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="animation_finished" from="explosion_anim" to="." method="_on_explosion_anim_animation_finished"]

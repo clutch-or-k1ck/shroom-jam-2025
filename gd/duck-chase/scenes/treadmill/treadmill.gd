@@ -101,9 +101,9 @@ func despawn_out_of_bounds_elements() -> void:
 	# NOTE the despawn condition depends on the movement direction!
 	var dispawn_condition_identifier := func dispawn_condition(items_) -> bool:
 		if use_own_speed and own_speed > 0.:
-			return items_.size() > 0 and items_[0].position.x + items_[0].get_bounding_rect().size.x > get_viewport_rect().size.x + 250. # give a small buffer
+			return items_.size() > 0 and items_[0].position.x + items_[0].get_bounding_rect().size.x > get_viewport_rect().size.x + 1200. # give a small buffer
 		else:
-			return items_.size() > 0 and items_[0].position.x + items_[0].get_bounding_rect().size.x < 0. - 250. # give a small buffer
+			return items_.size() > 0 and items_[0].position.x + items_[0].get_bounding_rect().size.x < 0. - 1200. # give a small buffer
 			
 	while dispawn_condition_identifier.call(items): # give a small buffer for despawn
 		self.remove_child(items[0]) # CAUTION does this truly free the child?
