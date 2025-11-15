@@ -54,6 +54,9 @@ enum eFallVelocityCalculationMethod {Constant, Gravity}
 @onready var standing_collision := $duck_collision_standing
 @onready var duck_voice := $duck_voice
 @onready var health_obtained := $health_obtained
+@onready var banknotes_particles := $banknotes_particles
+@onready var dust_particles := $dust_particles
+@onready var feather_particles := $feather_particles
 
 var stamina := max_stamina
 var lives := max_lives
@@ -308,8 +311,15 @@ func unduck() -> void:
 	standing_collision.set_deferred('disabled', false)
 
 
+## loose banknotes!
+func loose_banknotes_cycle() -> void:
+	banknotes_particles.emitting = true
+	pass
+
+
 func _ready() -> void:
 	update_animation(character_movement_state)
+	loose_banknotes_cycle()
 
 
 func _process(delta: float) -> void:
@@ -347,6 +357,12 @@ func _on_character_movement_state_updated(old: MrDuck.eCharacterMovementState, n
 	if new == old:
 		return
 	
+	# dust emission
+	if new in [eCharacterMovementState.Running, eCharacterMovementState.RunningDucked]:
+		dust_particles.emitting = true
+	else:
+		dust_particles.emitting = false
+		
 	# NOTE sometimes a clean-up is needed when a state is removed
 	match old:
 		eCharacterMovementState.RunningDucked:
@@ -369,6 +385,7 @@ func _on_lives_updated(delta: int) -> void:
 		var anim_state := sprite.get_animation_state() as SpineAnimationState
 		anim_state.set_animation('hit', false, 0)
 		duck_voice.play()
+		feather_particles.emitting = true
 	else:
 		health_obtained.play()
 

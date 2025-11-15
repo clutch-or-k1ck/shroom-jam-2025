@@ -1,9 +1,16 @@
-[gd_scene load_steps=7 format=3 uid="uid://y4on5eclsc2c"]
+[gd_scene load_steps=11 format=3 uid="uid://y4on5eclsc2c"]
 
 [ext_resource type="Script" uid="uid://cqhkxr2nncxxy" path="res://scenes/duck_character/duck_character.gd" id="1_fkuwv"]
-[ext_resource type="AudioStream" uid="uid://d3lhbjdhaci7o" path="res://assets/sounds/Mac Quack - QuickSounds.com.mp3" id="3_ahea1"]
+[ext_resource type="Texture2D" uid="uid://dboro0tpbrcms" path="res://assets/2d/Smoke_Particle_2.png" id="2_gvjwx"]
+[ext_resource type="AudioStream" uid="uid://bpkd5sbtjpnx0" path="res://assets/sounds/quack.ogg" id="3_ahea1"]
 [ext_resource type="SpineSkeletonDataResource" uid="uid://c7a01j6kwxjvp" path="res://spine-anim/duck_spine_resource.tres" id="3_s0yet"]
 [ext_resource type="AudioStream" uid="uid://6g1hfvm7xw6f" path="res://assets/sounds/retro-coin-1-236677.mp3" id="4_ahea1"]
+[ext_resource type="Texture2D" uid="uid://dvywb7fkpc17y" path="res://assets/2d/Money_Particle_4.png" id="5_s0bo4"]
+[ext_resource type="Texture2D" uid="uid://cawfg7a2381m2" path="res://assets/2d/Feather_Particle_1.png" id="7_q1k4s"]
+
+[sub_resource type="Curve" id="Curve_gvjwx"]
+_data = [Vector2(0, 0.233526), 0.0, 0.0, 0, 0, Vector2(0.526316, 0.271098), 0.0, 0.0, 0, 0, Vector2(0.994152, 0.383815), 0.0, 0.0, 0, 0]
+point_count = 3
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s0yet"]
 size = Vector2(118, 134)
@@ -17,6 +24,24 @@ jump_velocity = -800
 fall_gravity_scale_factor = 8.0
 dashing_distance = 300.0
 dashing_velocity = 3000.0
+
+[node name="dust_particles" type="CPUParticles2D" parent="."]
+position = Vector2(-57, 0)
+amount = 3
+texture = ExtResource("2_gvjwx")
+lifetime = 0.3
+direction = Vector2(-1, 0)
+spread = 0.0
+gravity = Vector2(0, -312.76)
+initial_velocity_min = 275.82
+initial_velocity_max = 292.31
+angular_velocity_min = -302.69
+angular_velocity_max = 387.7
+scale_amount_max = 2.0
+scale_amount_curve = SubResource("Curve_gvjwx")
+color = Color(0.815686, 0.815686, 0.815686, 0.811765)
+hue_variation_min = -0.96
+hue_variation_max = 1.0
 
 [node name="duck_collision_base" type="CollisionShape2D" parent="."]
 show_behind_parent = true
@@ -40,10 +65,51 @@ preview_time = 0.0
 [node name="duck_voice" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_ahea1")
 volume_db = 11.193
-autoplay = true
 
 [node name="health_obtained" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_ahea1")
+
+[node name="banknotes_particles" type="CPUParticles2D" parent="."]
+position = Vector2(-35, -182)
+amount = 2
+texture = ExtResource("5_s0bo4")
+lifetime = 3.0
+randomness = 0.27
+emission_shape = 4
+emission_points = PackedVector2Array()
+emission_colors = PackedColorArray()
+direction = Vector2(-1, -0.5)
+spread = 5.35
+gravity = Vector2(0, 168.219)
+initial_velocity_min = 1300.0
+initial_velocity_max = 1300.0
+angular_velocity_min = 261.1
+angular_velocity_max = 332.31
+radial_accel_min = 8.2
+radial_accel_max = 8.2
+angle_min = -163.9
+angle_max = 640.9
+scale_amount_min = 0.4
+scale_amount_max = 0.4
+
+[node name="feather_particles" type="CPUParticles2D" parent="."]
+position = Vector2(11, -122)
+emitting = false
+texture = ExtResource("7_q1k4s")
+lifetime = 2.0
+one_shot = true
+explosiveness = 1.0
+emission_shape = 2
+emission_sphere_radius = 66.82
+direction = Vector2(-1, -0.1)
+spread = 24.0
+gravity = Vector2(0, 100)
+initial_velocity_min = 900.0
+initial_velocity_max = 1400.0
+angular_velocity_min = -158.24
+angular_velocity_max = 158.24
+scale_amount_min = 0.7
+scale_amount_max = 0.7
 
 [connection signal="character_movement_state_updated" from="." to="." method="_on_character_movement_state_updated"]
 [connection signal="lives_updated" from="." to="." method="_on_lives_updated"]

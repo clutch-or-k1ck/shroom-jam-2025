@@ -1,0 +1,14 @@
+[gd_resource type="AnimatedTexture" load_steps=4 format=3 uid="uid://c5icser0brpnj"]
+
+[ext_resource type="Texture2D" uid="uid://dboro0tpbrcms" path="res://assets/2d/Smoke_Particle_2.png" id="1_cs34v"]
+[ext_resource type="Texture2D" uid="uid://dtejihn7q40u" path="res://assets/2d/Smoke_Particle_4.png" id="2_6pnxh"]
+[ext_resource type="Texture2D" uid="uid://be1qeq7ss5ni5" path="res://assets/2d/Smoke_Particle_3.png" id="3_qamfn"]
+
+[resource]
+frames = 3
+speed_scale = 10.0
+frame_0/texture = ExtResource("1_cs34v")
+frame_1/texture = ExtResource("2_6pnxh")
+frame_1/duration = 1.0
+frame_2/texture = ExtResource("3_qamfn")
+frame_2/duration = 1.0
