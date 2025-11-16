@@ -1,0 +1,15 @@
+[gd_resource type="AudioStreamRandomizer" load_steps=6 format=3 uid="uid://cunt5j5kka60x"]
+
+[ext_resource type="AudioStream" uid="uid://gvahikqlgr8r" path="res://assets/sounds/duck_sounds/duck_quack_1.wav" id="1_nxdxn"]
+[ext_resource type="AudioStream" uid="uid://bj8868cr5e77d" path="res://assets/sounds/duck_sounds/duck_quack_2.wav" id="2_fnf4q"]
+[ext_resource type="AudioStream" uid="uid://1ck5as8cp4vt" path="res://assets/sounds/duck_sounds/duck_quck_3.wav" id="3_bq1q5"]
+[ext_resource type="AudioStream" uid="uid://chk66fugdvkjh" path="res://assets/sounds/duck_sounds/duck_quack_4.wav" id="4_16871"]
+[ext_resource type="AudioStream" uid="uid://bm73fp5csd27l" path="res://assets/sounds/duck_sounds/duck_quack_5.wav" id="5_i7hq0"]
+
+[resource]
+streams_count = 5
+stream_0/stream = ExtResource("1_nxdxn")
+stream_1/stream = ExtResource("2_fnf4q")
+stream_2/stream = ExtResource("3_bq1q5")
+stream_3/stream = ExtResource("4_16871")
+stream_4/stream = ExtResource("5_i7hq0")
