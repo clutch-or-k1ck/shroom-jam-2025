@@ -72,3 +72,10 @@ func _on_hitbox_body_entered(body: Node2D) -> void:
 	if restores_life and body is MrDuck:
 		(body as MrDuck).get_life()
 		self.visible = false
+
+
+func _on_hitbox_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
+	if body is MrDuck:
+		var shape_owner_id = body.shape_find_owner(body_shape_index)
+		var shape_owner = body.shape_owner_get_owner(shape_owner_id)
+		print('ducky hit himself on the ' + str(shape_owner))

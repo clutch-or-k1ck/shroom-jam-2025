@@ -17,3 +17,4 @@ monitoring = false
 [node name="hitbox_shape" type="CollisionShape2D" parent="hitbox" index="0"]
 
 [connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_body_entered"]
+[connection signal="body_shape_entered" from="hitbox" to="." method="_on_hitbox_body_shape_entered"]
