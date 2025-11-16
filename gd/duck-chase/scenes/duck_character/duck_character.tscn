@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://y4on5eclsc2c"]
+[gd_scene load_steps=11 format=3 uid="uid://y4on5eclsc2c"]
 
 [ext_resource type="Script" uid="uid://cqhkxr2nncxxy" path="res://scenes/duck_character/duck_character.gd" id="1_fkuwv"]
 [ext_resource type="Texture2D" uid="uid://dboro0tpbrcms" path="res://assets/2d/Smoke_Particle_2.png" id="2_gvjwx"]
 [ext_resource type="SpineSkeletonDataResource" uid="uid://c7a01j6kwxjvp" path="res://spine-anim/duck_spine_resource.tres" id="3_s0yet"]
-[ext_resource type="AudioStream" uid="uid://6g1hfvm7xw6f" path="res://assets/sounds/retro-coin-1-236677.mp3" id="4_ahea1"]
+[ext_resource type="AudioStream" uid="uid://6g1hfvm7xw6f" path="res://assets/sounds/misc/retro-coin-1-236677.mp3" id="4_ahea1"]
 [ext_resource type="AudioStream" uid="uid://cunt5j5kka60x" path="res://assets/sounds/duck_sounds/quack_random_queue.tres" id="4_gvjwx"]
+[ext_resource type="AudioStream" uid="uid://bcygwaao24j7c" path="res://assets/sounds/punch_sounds/punch_random_queue.tres" id="5_q1k4s"]
 [ext_resource type="Texture2D" uid="uid://cawfg7a2381m2" path="res://assets/2d/Feather_Particle_1.png" id="7_q1k4s"]
 
 [sub_resource type="Curve" id="Curve_gvjwx"]
@@ -61,9 +62,12 @@ preview_animation = "-- Empty --"
 preview_frame = false
 preview_time = 0.0
 
-[node name="duck_voice" type="AudioStreamPlayer2D" parent="."]
+[node name="duck_hurt_sfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_gvjwx")
 volume_db = 11.193
+
+[node name="punch_sfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_q1k4s")
 
 [node name="health_obtained" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_ahea1")

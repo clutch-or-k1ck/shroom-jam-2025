@@ -52,7 +52,8 @@ enum eFallVelocityCalculationMethod {Constant, Gravity}
 
 @onready var sprite := $duck_sprite
 @onready var standing_collision := $duck_collision_standing
-@onready var duck_voice := $duck_voice
+@onready var duck_hurt_sfx := $duck_hurt_sfx
+@onready var punch_sfx := $punch_sfx
 @onready var health_obtained := $health_obtained
 @onready var banknotes_particles := $banknotes_particles
 @onready var dust_particles := $dust_particles
@@ -384,8 +385,11 @@ func _on_lives_updated(delta: int) -> void:
 	if delta < 0: # damage taken
 		var anim_state := sprite.get_animation_state() as SpineAnimationState
 		anim_state.set_animation('hit', false, 0)
-		duck_voice.play()
+		punch_sfx.play()
 		feather_particles.emitting = true
+		
+		await get_tree().create_timer(0.1).timeout
+		duck_hurt_sfx.play()
 	else:
 		health_obtained.play()
 
