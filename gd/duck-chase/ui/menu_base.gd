@@ -54,9 +54,17 @@ func press_active_button() -> void:
 		buttons[active_button_idx].pressed.emit()
 
 
+func clear_content_container() -> void:
+	while content_container.get_children().size() > 0:
+		content_container.remove_child(
+			content_container.get_child(0)
+		)
+
+
 func _ready() -> void:
 	buttons = collect_buttons()
 	set_active_btn_idx(0)
+	process_mode = Node.PROCESS_MODE_ALWAYS # NOTE menu keeps listening even when the game is paused
 
 
 ## listen to menu navigation inputs

@@ -13,13 +13,6 @@ func _on_exit_btn_pressed() -> void:
 	get_tree().quit()
 
 
-func clear_content_container() -> void:
-	while content_container.get_children().size() > 0:
-		content_container.remove_child(
-			content_container.get_child(0)
-		)
-
-
 func _on_controls_btn_focus_entered() -> void:
 	content_container.add_child(controls_description.instantiate())
 

@@ -23,6 +23,7 @@ signal game_end(game_result: eGameResult)
 @onready var police_cars_treadmill := $road/police_cars_treadmill
 
 var main_game_menu_scene := preload('res://ui/game_menu_start.tscn')
+var pause_menu_scene := preload('res://ui/pause_menu.tscn')
 var main_char_scene := preload('res://scenes/duck_character/duck_character.tscn')
 var duck_char: MrDuck
 
@@ -166,7 +167,7 @@ func show_ui(type: eUITypes) -> GameMenuBase:
 		eUITypes.MainMenu:
 			scene = main_game_menu_scene
 		eUITypes.PauseMenu:
-			scene = null
+			scene = pause_menu_scene
 		eUITypes.DeathScreen:
 			scene = null
 			
@@ -186,15 +187,27 @@ func remove_ui() -> void:
 #endregion
 
 
+func pause() -> void:
+	get_tree().paused = true
+	show_ui(eUITypes.PauseMenu)
+
+
+func unpause() -> void:
+	get_tree().paused = false
+	remove_ui()
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	show_ui(eUITypes.MainMenu)
 	hud.visible = false
 	Globals.set_global_world_speed(1000) # while we are basically inside the menu
 
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	if Input.is_action_just_pressed('game_menu'):
+		pause()
 
 
 #region Updates of lives bar and stam bar
