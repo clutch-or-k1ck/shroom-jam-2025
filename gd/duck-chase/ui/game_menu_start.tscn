@@ -1,0 +1,58 @@
+[gd_scene load_steps=4 format=3 uid="uid://bs131ycbj455"]
+
+[ext_resource type="PackedScene" uid="uid://c1o0h8pg2oy8i" path="res://ui/menu_base.tscn" id="1_bg726"]
+[ext_resource type="Script" uid="uid://dsws5oyr50bmp" path="res://ui/game_menu_start.gd" id="2_a1vlr"]
+[ext_resource type="Theme" uid="uid://bq1lvrvb3ecum" path="res://ui/menu_button_theme.tres" id="2_v4qqd"]
+
+[node name="MenuBase" instance=ExtResource("1_bg726")]
+script = ExtResource("2_a1vlr")
+
+[node name="buttons_margins" parent="vbox_layout/hbox_layout" index="0"]
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 30
+
+[node name="play_btn" type="Button" parent="vbox_layout/hbox_layout/buttons_margins/buttons" index="0"]
+layout_mode = 2
+theme = ExtResource("2_v4qqd")
+text = "PLAY"
+alignment = 0
+
+[node name="spacer" type="MarginContainer" parent="vbox_layout/hbox_layout/buttons_margins/buttons" index="1"]
+layout_mode = 2
+theme_override_constants/margin_top = 13
+
+[node name="controls_btn" type="Button" parent="vbox_layout/hbox_layout/buttons_margins/buttons" index="2"]
+layout_mode = 2
+theme = ExtResource("2_v4qqd")
+text = "CONTROLS"
+alignment = 0
+
+[node name="spacer2" type="MarginContainer" parent="vbox_layout/hbox_layout/buttons_margins/buttons" index="3"]
+layout_mode = 2
+theme_override_constants/margin_top = 13
+
+[node name="credits_btn" type="Button" parent="vbox_layout/hbox_layout/buttons_margins/buttons" index="4"]
+layout_mode = 2
+theme = ExtResource("2_v4qqd")
+text = "CREDITS"
+alignment = 0
+
+[node name="spacer3" type="MarginContainer" parent="vbox_layout/hbox_layout/buttons_margins/buttons" index="5"]
+layout_mode = 2
+theme_override_constants/margin_top = 13
+
+[node name="exit_btn" type="Button" parent="vbox_layout/hbox_layout/buttons_margins/buttons" index="6"]
+layout_mode = 2
+theme = ExtResource("2_v4qqd")
+text = "EXIT"
+alignment = 0
+
+[connection signal="pressed" from="vbox_layout/hbox_layout/buttons_margins/buttons/play_btn" to="." method="_on_play_btn_pressed"]
+[connection signal="focus_entered" from="vbox_layout/hbox_layout/buttons_margins/buttons/controls_btn" to="." method="_on_controls_btn_focus_entered"]
+[connection signal="focus_exited" from="vbox_layout/hbox_layout/buttons_margins/buttons/controls_btn" to="." method="_on_controls_btn_focus_exited"]
+[connection signal="pressed" from="vbox_layout/hbox_layout/buttons_margins/buttons/controls_btn" to="." method="_on_controls_btn_pressed"]
+[connection signal="focus_entered" from="vbox_layout/hbox_layout/buttons_margins/buttons/credits_btn" to="." method="_on_credits_btn_focus_entered"]
+[connection signal="focus_exited" from="vbox_layout/hbox_layout/buttons_margins/buttons/credits_btn" to="." method="_on_credits_btn_focus_exited"]
+[connection signal="pressed" from="vbox_layout/hbox_layout/buttons_margins/buttons/exit_btn" to="." method="_on_exit_btn_pressed"]

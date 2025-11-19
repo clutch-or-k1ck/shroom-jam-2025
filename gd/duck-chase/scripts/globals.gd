@@ -28,3 +28,7 @@ func set_global_world_speed(new_speed: int) -> void:
 
 func get_global_world_speed() -> int:
 	return _global_world_speed
+
+
+func get_chase_scene() -> ChaseScene:
+	return get_tree().root.find_child('chase_scene_root', true, false) as ChaseScene

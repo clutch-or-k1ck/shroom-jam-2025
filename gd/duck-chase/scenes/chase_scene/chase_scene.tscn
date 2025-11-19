@@ -1,7 +1,6 @@
-[gd_scene load_steps=39 format=3 uid="uid://bqnhgrmahpp44"]
+[gd_scene load_steps=36 format=3 uid="uid://bqnhgrmahpp44"]
 
 [ext_resource type="Script" uid="uid://cc7qw8macbkml" path="res://scenes/chase_scene/chase_scene.gd" id="1_8pw8v"]
-[ext_resource type="PackedScene" uid="uid://y4on5eclsc2c" path="res://scenes/duck_character/duck_character.tscn" id="1_m83pa"]
 [ext_resource type="PackedScene" uid="uid://y4hccnwhpc3e" path="res://scenes/running_text_widget/running_text_widget.tscn" id="2_a4cdl"]
 [ext_resource type="Texture2D" uid="uid://bh8cccfqnjbbb" path="res://assets/2d/Sky.png" id="2_b8in7"]
 [ext_resource type="Texture2D" uid="uid://cookxxbmq5r6d" path="res://assets/2d/Ground_Main.png" id="2_ucmrg"]
@@ -29,9 +28,7 @@
 [ext_resource type="PackedScene" uid="uid://bti58niu6f3dw" path="res://scenes/treadmill/treadmill_item/item_variations/tm_policeman.tscn" id="18_gxndn"]
 [ext_resource type="PackedScene" uid="uid://dse2pne7rqrfr" path="res://scenes/treadmill/treadmill_item/item_variations/tm_heal.tscn" id="19_u40ln"]
 [ext_resource type="AudioStream" uid="uid://coqowv0r6vkmm" path="res://assets/sounds/music/Joker Dance.ogg" id="24_qrt7r"]
-[ext_resource type="PackedScene" uid="uid://c416uit0sv5f2" path="res://ui/game_menu.tscn" id="26_m2ntv"]
 [ext_resource type="Script" uid="uid://ciq8odnuga3oh" path="res://scenes/bombardment_system/bombardier.gd" id="26_sdicq"]
-[ext_resource type="PackedScene" uid="uid://5ecflcu5tlnp" path="res://ui/death_screen.tscn" id="28_phute"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a4cdl"]
 size = Vector2(2692, 110)
@@ -48,6 +45,10 @@ border_width_left = 3
 border_width_top = 3
 border_width_right = 3
 border_width_bottom = 3
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ffie5"]
 bg_color = Color(1, 0.70073, 0.189169, 1)
@@ -65,12 +66,20 @@ corner_radius_bottom_left = 10
 ProgressBar/styles/background = SubResource("StyleBoxFlat_4ieac")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_ffie5")
 
-[node name="root" type="Node2D"]
+[node name="chase_scene_root" type="Node2D"]
 script = ExtResource("1_8pw8v")
-starting_world_speed = 1800
 death_ends_game = false
+starting_world_speed = 1000
+world_speed_increase_rate = 400
+duck_anim_speed_increase_rate = 0.3
+
+[node name="music_player" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("24_qrt7r")
+volume_db = -26.519
+parameters/looping = true
 
 [node name="character_spawn" type="Node2D" parent="."]
+z_index = 7
 position = Vector2(484, -38)
 
 [node name="bombardier" type="Node2D" parent="."]
@@ -291,111 +300,9 @@ spawn_method = 1
 spawn_probability = 0.4
 metadata/_custom_type_script = "uid://beehhs7t2qyd"
 
-[node name="duck_character" parent="." node_paths=PackedStringArray("ground_reference") instance=ExtResource("1_m83pa")]
-z_index = 7
-position = Vector2(288, 0)
-stamina_regeneration_rate = 25.0
-jump_velocity = -2000
-jump_velocity_calibration_coef = 0.5
-zero_g_velocity_tolerance = 0.001
-air_dash_zone = 0.08
-speed = 400
-zero_g_grace_period = 0.1
-left_strafe_speed_scale_factor = 2.5
-dashing_distance = 500.0
-dashing_velocity = 1900.0
-ground_reference = NodePath("../road/road_collision")
+[node name="running_text" type="CanvasLayer" parent="."]
 
-[node name="ui" type="CanvasLayer" parent="."]
-
-[node name="top_left_widget" type="VBoxContainer" parent="ui"]
-offset_left = 206.95
-offset_top = 130.0
-offset_right = 570.0
-offset_bottom = 256.0
-
-[node name="breaking_news_label" type="TextureRect" parent="ui/top_left_widget"]
-layout_mode = 2
-size_flags_vertical = 3
-size_flags_stretch_ratio = 2.0
-texture = ExtResource("9_dkpwp")
-expand_mode = 1
-stretch_mode = 4
-
-[node name="spacer" type="Control" parent="ui/top_left_widget"]
-layout_mode = 2
-size_flags_vertical = 3
-size_flags_stretch_ratio = 0.1
-
-[node name="stam_bar" type="ProgressBar" parent="ui/top_left_widget"]
-layout_mode = 2
-size_flags_vertical = 3
-theme = SubResource("Theme_4ieac")
-max_value = 1.0
-show_percentage = false
-
-[node name="top_right_widget" type="VBoxContainer" parent="ui"]
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -420.895
-offset_top = 145.485
-offset_right = -236.895
-offset_bottom = 287.485
-grow_horizontal = 0
-
-[node name="live_label" type="TextureRect" parent="ui/top_right_widget"]
-layout_mode = 2
-size_flags_vertical = 3
-size_flags_stretch_ratio = 2.0
-texture = ExtResource("10_envix")
-expand_mode = 3
-stretch_mode = 4
-
-[node name="spacer" type="Control" parent="ui/top_right_widget"]
-layout_mode = 2
-size_flags_vertical = 3
-size_flags_stretch_ratio = 0.1
-
-[node name="hearts" type="HBoxContainer" parent="ui/top_right_widget"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="heart1" type="TextureRect" parent="ui/top_right_widget/hearts"]
-layout_mode = 2
-size_flags_horizontal = 3
-texture = ExtResource("11_q31dt")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="heart2" type="TextureRect" parent="ui/top_right_widget/hearts"]
-layout_mode = 2
-size_flags_horizontal = 3
-texture = ExtResource("11_q31dt")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="heart3" type="TextureRect" parent="ui/top_right_widget/hearts"]
-layout_mode = 2
-size_flags_horizontal = 3
-texture = ExtResource("11_q31dt")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="heart4" type="TextureRect" parent="ui/top_right_widget/hearts"]
-layout_mode = 2
-size_flags_horizontal = 3
-texture = ExtResource("11_q31dt")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="game_menu" parent="ui" instance=ExtResource("26_m2ntv")]
-visible = false
-
-[node name="death_screen" parent="ui" instance=ExtResource("28_phute")]
-visible = false
-
-[node name="running_text" parent="ui" instance=ExtResource("2_a4cdl")]
+[node name="running_text" parent="running_text" instance=ExtResource("2_a4cdl")]
 z_index = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -407,13 +314,87 @@ breaking_news = Array[String](["[color=orange]BREAKING NEWS[/color] A duck repor
 running_text_speed = -250
 running_text_font_size = 80
 
-[node name="music_player" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("24_qrt7r")
-volume_db = -26.519
-parameters/looping = true
+[node name="hud" type="CanvasLayer" parent="."]
 
-[connection signal="dead" from="duck_character" to="." method="_on_duck_character_dead"]
-[connection signal="lives_updated" from="duck_character" to="." method="_on_duck_character_lives_updated"]
-[connection signal="stamina_updated" from="duck_character" to="." method="_on_duck_character_stamina_updated"]
-[connection signal="begin_game_pressed" from="ui/game_menu" to="." method="_on_game_menu_begin_game_pressed"]
-[connection signal="exit_game_pressed" from="ui/game_menu" to="." method="_on_game_menu_exit_game_pressed"]
+[node name="top_left_widget" type="VBoxContainer" parent="hud"]
+offset_left = 206.95
+offset_top = 130.0
+offset_right = 570.0
+offset_bottom = 256.0
+
+[node name="breaking_news_label" type="TextureRect" parent="hud/top_left_widget"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+texture = ExtResource("9_dkpwp")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="spacer" type="Control" parent="hud/top_left_widget"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.1
+
+[node name="stam_bar" type="ProgressBar" parent="hud/top_left_widget"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = SubResource("Theme_4ieac")
+max_value = 1.0
+show_percentage = false
+
+[node name="top_right_widget" type="VBoxContainer" parent="hud"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -420.895
+offset_top = 145.485
+offset_right = -236.895
+offset_bottom = 287.485
+grow_horizontal = 0
+
+[node name="live_label" type="TextureRect" parent="hud/top_right_widget"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+texture = ExtResource("10_envix")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="spacer" type="Control" parent="hud/top_right_widget"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.1
+
+[node name="hearts" type="HBoxContainer" parent="hud/top_right_widget"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="heart1" type="TextureRect" parent="hud/top_right_widget/hearts"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("11_q31dt")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="heart2" type="TextureRect" parent="hud/top_right_widget/hearts"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("11_q31dt")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="heart3" type="TextureRect" parent="hud/top_right_widget/hearts"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("11_q31dt")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="heart4" type="TextureRect" parent="hud/top_right_widget/hearts"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("11_q31dt")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ui" type="CanvasLayer" parent="."]

@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://dx0vpm3b7h1q8"]
+
+[ext_resource type="Theme" uid="uid://bq1lvrvb3ecum" path="res://ui/menu_button_theme.tres" id="1_bu267"]
+[ext_resource type="Texture2D" uid="uid://donn5i58rhhb5" path="res://assets/2d/Button.png" id="2_13qme"]
+
+[node name="GameMenuButton" type="Button"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_bu267")
+icon = ExtResource("2_13qme")
+icon_alignment = 1
+expand_icon = true
