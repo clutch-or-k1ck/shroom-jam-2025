@@ -21,6 +21,7 @@ signal game_end(game_result: eGameResult)
 @onready var policemen_treadmill := $road/policemen
 @onready var heal_items_treadmill := $road/heal_items_treadmill
 @onready var police_cars_treadmill := $road/police_cars_treadmill
+@onready var road_collision := $road/road_collision
 
 var main_game_menu_scene := preload('res://ui/game_menu_start.tscn')
 var pause_menu_scene := preload('res://ui/pause_menu.tscn')
@@ -57,8 +58,18 @@ func secs(time: float) -> void:
 ## respawns the main character and sets its stats
 func respawn_main_character():
 	var main_char := main_char_scene.instantiate() as MrDuck
+	
+	# position and z-index
 	main_char.z_index = 7
 	main_char.position = character_spawn.position
+	
+	# the duck needs a ground reference for jumping
+	main_char.ground_reference = road_collision
+	
+	# connect stamina and lives updates to chase scene to handle ui updates
+	main_char.stamina_updated.connect(self._on_duck_character_stamina_updated)
+	main_char.lives_updated.connect(self._on_duck_character_lives_updated)
+	
 	add_child(main_char)
 	duck_char = main_char # keeps reference to the main char
 
