@@ -1,0 +1,98 @@
+[gd_scene load_steps=2 format=3 uid="uid://f4ccy4yiyj5b"]
+
+[ext_resource type="Theme" uid="uid://dkocds1oojtav" path="res://ui/menu_text_theme.tres" id="1_u4616"]
+
+[node name="vertical layout" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="controls_desc_keyboard" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="keyboard_lbl" type="RichTextLabel" parent="controls_desc_keyboard"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("1_u4616")
+theme_override_font_sizes/normal_font_size = 55
+bbcode_enabled = true
+text = "[color=turquoise]KEYBOARD[/color]"
+vertical_alignment = 1
+
+[node name="keyboard_controls_panel" type="HBoxContainer" parent="controls_desc_keyboard"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 4.0
+
+[node name="actions" type="RichTextLabel" parent="controls_desc_keyboard/keyboard_controls_panel"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_u4616")
+bbcode_enabled = true
+text = "[color=orange]MOVE . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+JUMP . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+FLY . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+DUCK . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+DASH . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .[/color]"
+autowrap_mode = 0
+vertical_alignment = 1
+
+[node name="controls" type="RichTextLabel" parent="controls_desc_keyboard/keyboard_controls_panel"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+theme = ExtResource("1_u4616")
+bbcode_enabled = true
+text = "A/D
+SPACE
+SPACE (HOLD WHILE IN THE AIR)
+CTRL
+R"
+vertical_alignment = 1
+
+[node name="controls_desc_keyboard2" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="keyboard_lbl" type="RichTextLabel" parent="controls_desc_keyboard2"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("1_u4616")
+theme_override_font_sizes/normal_font_size = 55
+bbcode_enabled = true
+text = "[color=turquoise]GAMEPAD[/color]"
+vertical_alignment = 1
+
+[node name="keyboard_controls_panel" type="HBoxContainer" parent="controls_desc_keyboard2"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 4.0
+
+[node name="actions" type="RichTextLabel" parent="controls_desc_keyboard2/keyboard_controls_panel"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_u4616")
+bbcode_enabled = true
+text = "[color=orange]MOVE . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+JUMP . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+FLY . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+DUCK . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+DASH . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .[/color]"
+autowrap_mode = 0
+vertical_alignment = 1
+
+[node name="controls" type="RichTextLabel" parent="controls_desc_keyboard2/keyboard_controls_panel"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+theme = ExtResource("1_u4616")
+bbcode_enabled = true
+text = "LEFT STICK
+A
+A (HOLD WHILE IN THE AIR)
+B
+X"
+vertical_alignment = 1

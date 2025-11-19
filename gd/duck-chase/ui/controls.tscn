@@ -1,0 +1,28 @@
+[gd_scene load_steps=2 format=3 uid="uid://taj3i7pc2b1i"]
+
+[ext_resource type="FontFile" uid="uid://bxwb6sqycukpt" path="res://assets/fonts/SuperNormal-xRoj5.ttf" id="1_ewaii"]
+
+[node name="Controls" type="RichTextLabel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/normal_font = ExtResource("1_ewaii")
+theme_override_font_sizes/normal_font_size = 50
+bbcode_enabled = true
+text = "[color=red]KEYBOARD:[/color]
+	
+	MOVE: A/D
+	DASH: R
+	JUMP: SPACE
+	FLY: SPACE (HOLD WHILE IN THE AIR)
+	DUCK: CTRL
+
+GAMEPAD:
+
+	MOVE: LEFT STICK
+	DASH: X (BUTTONS PANEL LEFT)
+	JUMP: A (BUTTON PANEL BOTTOM)
+	FLY: A (BUTTONS PANEL BOTTOM) (HOLD WHILE IN THE AIR)
+	DUCK: B (BUTTONS PANEL RIGHT)"

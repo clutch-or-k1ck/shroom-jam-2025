@@ -1,0 +1,79 @@
+[gd_scene load_steps=2 format=3 uid="uid://di1l40r6dnxs6"]
+
+[ext_resource type="Theme" uid="uid://dkocds1oojtav" path="res://ui/menu_text_theme.tres" id="1_ed0b0"]
+
+[node name="vertical_layout" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="team_header" type="RichTextLabel" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.2
+theme = ExtResource("1_ed0b0")
+theme_override_font_sizes/normal_font_size = 55
+bbcode_enabled = true
+text = "[color=turquoise]TEAM"
+vertical_alignment = 1
+
+[node name="team_contents" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="people" type="RichTextLabel" parent="team_contents"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_ed0b0")
+bbcode_enabled = true
+text = "[color=orange]Danylo Yanovskiy . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+elizar525 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+clutchOrKick . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ."
+autowrap_mode = 0
+vertical_alignment = 1
+
+[node name="roles" type="RichTextLabel" parent="team_contents"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_ed0b0")
+bbcode_enabled = true
+text = "2D Animations
+2D Art
+godot development"
+vertical_alignment = 1
+
+[node name="music_header" type="RichTextLabel" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.2
+theme = ExtResource("1_ed0b0")
+theme_override_font_sizes/normal_font_size = 55
+bbcode_enabled = true
+text = "[color=turquoise]MUSIC
+"
+vertical_alignment = 1
+
+[node name="music_contents" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="songs" type="RichTextLabel" parent="music_contents"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_ed0b0")
+bbcode_enabled = true
+text = "[color=orange]Swngyill yoon
+@yyyn0889 (Twitter) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ."
+autowrap_mode = 0
+vertical_alignment = 1
+
+[node name="author" type="RichTextLabel" parent="music_contents"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+theme = ExtResource("1_ed0b0")
+bbcode_enabled = true
+text = "joker dance (game loop song)"
+vertical_alignment = 1

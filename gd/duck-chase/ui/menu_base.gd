@@ -5,9 +5,9 @@ class_name GameMenuBase
 var buttons: Array[Button]
 var active_button_idx: int
 
-@onready var buttons_widget := $vbox_layout/hbox_layout/buttons_margins/buttons
-@onready var content_container := $vbox_layout/hbox_layout/content_margins/content_container
-@onready var header := $vbox_layout/header_margins/header
+@onready var buttons_widget := $global_margins/vbox_layout/hbox_layout/buttons_margins/buttons
+@onready var content_container := $global_margins/vbox_layout/hbox_layout/content_margins
+@onready var header := $global_margins/vbox_layout/header_margins/header
 
 
 ## collect the buttons from the 'buttons' section of this menu

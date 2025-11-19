@@ -11,41 +11,44 @@ grow_vertical = 2
 color = Color(0, 0, 0, 0.458824)
 script = ExtResource("1_t0683")
 
-[node name="vbox_layout" type="VBoxContainer" parent="."]
+[node name="global_margins" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 150
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
 
-[node name="header_margins" type="MarginContainer" parent="vbox_layout"]
+[node name="vbox_layout" type="VBoxContainer" parent="global_margins"]
+layout_mode = 2
+
+[node name="header_margins" type="MarginContainer" parent="global_margins/vbox_layout"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.1
 
-[node name="header" type="RichTextLabel" parent="vbox_layout/header_margins"]
+[node name="header" type="RichTextLabel" parent="global_margins/vbox_layout/header_margins"]
 layout_mode = 2
 bbcode_enabled = true
 
-[node name="hbox_layout" type="HBoxContainer" parent="vbox_layout"]
+[node name="hbox_layout" type="HBoxContainer" parent="global_margins/vbox_layout"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.9
 
-[node name="buttons_margins" type="MarginContainer" parent="vbox_layout/hbox_layout"]
+[node name="buttons_margins" type="MarginContainer" parent="global_margins/vbox_layout/hbox_layout"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.3
 
-[node name="buttons" type="VBoxContainer" parent="vbox_layout/hbox_layout/buttons_margins"]
+[node name="buttons" type="VBoxContainer" parent="global_margins/vbox_layout/hbox_layout/buttons_margins"]
 layout_mode = 2
 
-[node name="content_margins" type="MarginContainer" parent="vbox_layout/hbox_layout"]
+[node name="content_margins" type="MarginContainer" parent="global_margins/vbox_layout/hbox_layout"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.7
-
-[node name="content_container" type="RichTextLabel" parent="vbox_layout/hbox_layout/content_margins"]
-layout_mode = 2
-bbcode_enabled = true
