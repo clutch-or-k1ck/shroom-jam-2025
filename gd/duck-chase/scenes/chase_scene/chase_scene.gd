@@ -72,6 +72,24 @@ func respawn_main_character():
 	duck_char = main_char # keeps reference to the main char
 
 
+## cleans up all that should NOT get into the next session from the previous session
+func clean_up_previous_session():
+	# despawn the duck
+	if duck_char != null:
+		remove_child(duck_char)
+	
+	# delete any obstacles, heal items, and police cars that are currently on the screen
+	(policemen_treadmill as Treadmill).clear()
+	(obstacles_treadmill as Treadmill).clear()
+	(police_cars_treadmill as Treadmill).clear()
+	(heal_items_treadmill as Treadmill).clear()
+	
+	# stop events in the game loop manager and reset it
+	if game_loop_manager != null:
+		game_loop_manager.playing = false
+		game_loop_manager.reset()
+
+
 ## this happens only once at the very beginning of the chase
 func init_game():
 	# reset treadmills
@@ -153,9 +171,17 @@ func create_game_loop() -> GameLoopManager:
 	return game_loop_manager
 
 
+## events that happen when the game is lost
+func end_game() -> void:
+	game_loop_manager.playing = false
+	(music_player as AudioStreamPlayer).playing = false
+	Globals.set_global_world_speed(0.)
+
+
 ## this will play through game events, speed up treadmills, send game life-cycle events etc.
 func restart_game_loop() -> void:
 	remove_ui() # removes whatever menu ui is currently in ui overlay
+	clean_up_previous_session()
 	init_game()
 	init_hud()
 	respawn_main_character()
@@ -241,5 +267,8 @@ func _on_duck_character_lives_updated(delta: int) -> void:
 
 func _on_duck_character_dead() -> void:
 	# plays the death sequence
-	Globals.set_global_world_speed(0.)
+	end_game()
+
 	# TODO the rest of game loop
+	await get_tree().create_timer(2.).timeout
+	restart_game_loop()
