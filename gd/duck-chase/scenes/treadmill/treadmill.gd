@@ -110,6 +110,12 @@ func despawn_out_of_bounds_elements() -> void:
 		items.remove_at(0)
 
 
+## removes all the items currently present on this treadmill
+func clear() -> void:
+	while self.get_children().size() > 0:
+		self.remove_child(self.get_children()[0])
+
+
 ## picks a new treadmill item at a given index, instantiates it, adds to children
 func create_new_treadmill_item(idx: int) -> TreadmillItem:
 	var _all_item_types := get_item_types_for_spawn()
