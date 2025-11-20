@@ -8,9 +8,6 @@ class_name ChaseScene
 @onready var stam_bar := $hud/top_left_widget/stam_bar
 @onready var hearts_box := $hud/top_right_widget/hearts
 
-## can optionally ignore death (for testing purposes)
-@export var death_ends_game := true
-
 enum eGameResult {Victory, Defeat}
 signal game_end(game_result: eGameResult)
 
@@ -66,9 +63,10 @@ func respawn_main_character():
 	# the duck needs a ground reference for jumping
 	main_char.ground_reference = road_collision
 	
-	# connect stamina and lives updates to chase scene to handle ui updates
+	# connect life, death, and stamina signals of the duck
 	main_char.stamina_updated.connect(self._on_duck_character_stamina_updated)
 	main_char.lives_updated.connect(self._on_duck_character_lives_updated)
+	main_char.dead.connect(self._on_duck_character_dead)
 	
 	add_child(main_char)
 	duck_char = main_char # keeps reference to the main char
@@ -243,12 +241,5 @@ func _on_duck_character_lives_updated(delta: int) -> void:
 
 func _on_duck_character_dead() -> void:
 	# plays the death sequence
-	if death_ends_game:
-		Globals.set_global_world_speed(0.)
-		(duck_char.sprite as SpineSprite).get_animation_state().set_animation('death', false, 0)
-		await get_tree().create_timer(1.).timeout
-		show_ui(eUITypes.DeathScreen)
-		
-		# restart game after 2 seconds of showing the screen
-		await get_tree().create_timer(2.).timeout
-		get_tree().reload_current_scene()
+	Globals.set_global_world_speed(0.)
+	# TODO the rest of game loop

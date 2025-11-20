@@ -12,6 +12,8 @@ class_name MrDuck
 @export var stamina_regeneration_rate := 10.
 @export var jumping_stamina_cost := 25.
 @export var can_regenerate_stamina_in_free_fall := true
+## mainly for testing and debugging, can 'switch off' the character death
+@export var can_die := true
 
 @export_category('Movement')
 ## initial velocity of the jump (will converge to zero at maximum jump height)
@@ -61,6 +63,7 @@ enum eFallVelocityCalculationMethod {Constant, Gravity}
 
 var stamina := max_stamina
 var lives := max_lives
+var is_dead := false
 var _time_elapsed_in_zero_g := 0.
 var _distance_covered_in_dash := 0.
 
@@ -71,7 +74,7 @@ signal character_movement_state_updated(old: eCharacterMovementState, new: eChar
 
 
 ## whether the duck is flying, free-falling, or is on the ground
-enum eCharacterMovementState {Running, RunningDucked, Jumping, ZeroG, Flying, Falling, Dashing}
+enum eCharacterMovementState {Running, RunningDucked, Jumping, ZeroG, Flying, Falling, Dashing, Dying}
 var character_movement_state := eCharacterMovementState.Falling
 
 var animation_map := {
@@ -80,7 +83,8 @@ var animation_map := {
 	eCharacterMovementState.ZeroG: 'fall',
 	eCharacterMovementState.Falling: 'fall',
 	eCharacterMovementState.Dashing: 'dash',
-	eCharacterMovementState.Flying: 'fly'
+	eCharacterMovementState.Flying: 'fly',
+	eCharacterMovementState.Dying: 'death'
 }
 
 func set_character_movement_state(new_state: eCharacterMovementState):
@@ -96,7 +100,7 @@ func drain_stamina(amount: float) -> void:
 
 
 ## one-time increase to stamina
-func get_stamina(amount: float) -> void:
+func add_stamina(amount: float) -> void:
 	stamina = min(max_stamina, stamina + amount)
 	stamina_updated.emit()
 
@@ -112,7 +116,7 @@ func _deplete_stamina(delta: float) -> void:
 
 ## per-frame stamina regeneration
 func _regenerate_stamina(delta: float) -> void:
-	get_stamina(stamina_regeneration_rate * delta)
+	add_stamina(stamina_regeneration_rate * delta)
 
 
 ## depending on the character state, regenerate or deplete stamina
@@ -127,14 +131,22 @@ func _tick_stamina(delta: float) -> void:
 			_deplete_stamina(delta)
 
 
+func _die() -> void:
+	is_dead = true
+	dead.emit()
+	# TODO play death sfx, the rest should be handled via the anim machine
+
+
 func lose_life():
 	lives = max(0, lives - 1)
 	lives_updated.emit(-1)
-	if lives == 0:
-		dead.emit()
+	if lives == 0 and can_die:
+		_die()
 
 
 func get_life():
+	if is_dead:
+		return
 	lives = min(4, lives + 1)
 	lives_updated.emit(1)
 
@@ -161,8 +173,10 @@ func is_in_air_dash_range() -> bool:
 func run_state_machine(delta: float) -> void:
 	match character_movement_state:
 		eCharacterMovementState.Running:
+			if is_dead:
+				set_character_movement_state(eCharacterMovementState.Dying)
 			# NOTE when running, we can duck, jump, or dash. Jump and dash have higher priority than duck
-			if Input.is_action_just_pressed('jump'):
+			elif Input.is_action_just_pressed('jump'):
 				set_character_movement_state(eCharacterMovementState.Jumping)
 			elif Input.is_action_just_pressed('dash'): # TODO add action
 				set_character_movement_state(eCharacterMovementState.Dashing)
@@ -170,6 +184,8 @@ func run_state_machine(delta: float) -> void:
 				set_character_movement_state(eCharacterMovementState.RunningDucked)
 				
 		eCharacterMovementState.RunningDucked:
+			if is_dead:
+				set_character_movement_state(eCharacterMovementState.Dying)
 			# NOTE when running ducked, we can continue running ducked, or instead jump/dash
 			if Input.is_action_just_pressed('jump'):
 				set_character_movement_state(eCharacterMovementState.Jumping)
@@ -179,8 +195,11 @@ func run_state_machine(delta: float) -> void:
 				set_character_movement_state(eCharacterMovementState.Running)
 				
 		eCharacterMovementState.Jumping:
+			# NOTE if we died middle-jump, start falling immediately
+			if is_dead:
+				set_character_movement_state(eCharacterMovementState.Falling)
 			# NOTE when jumping (character moves up), we allowed dashing/jumping close to the top
-			if Input.is_action_just_pressed('jump') and has_stamina() and is_in_air_dash_range():
+			elif Input.is_action_just_pressed('jump') and has_stamina() and is_in_air_dash_range():
 				set_character_movement_state(eCharacterMovementState.Flying)
 			elif Input.is_action_just_pressed('dash') and has_stamina() and is_in_air_dash_range(): # TODO specify how much stamina
 				set_character_movement_state(eCharacterMovementState.Dashing)
@@ -190,6 +209,11 @@ func run_state_machine(delta: float) -> void:
 				set_character_movement_state(eCharacterMovementState.ZeroG)
 			
 		eCharacterMovementState.ZeroG:
+			# NOTE dying in zero_g -> fall immediately
+			if is_dead:
+				set_character_movement_state(eCharacterMovementState.Falling)
+				return
+			
 			# NOTE from zero_g, we can either start flying, or dash, or go to the ground without waiting the grace period
 			if is_zero_g_grace_period_elapsed(delta):
 				set_character_movement_state(eCharacterMovementState.Falling)
@@ -201,16 +225,27 @@ func run_state_machine(delta: float) -> void:
 				set_character_movement_state(eCharacterMovementState.Dashing)
 			
 		eCharacterMovementState.Falling:
-			# NOTE when we are falling, no further inputs are processed TODO allow dashing still?...
-			if is_on_floor(): # CAUTION don't failt to update the velocity accordingly
-				set_character_movement_state(eCharacterMovementState.Running)
+			# NOTE when we are falling, no further inputs are processed
+			if is_on_floor(): # CAUTION don't fail to update the velocity accordingly
+				if is_dead:
+					set_character_movement_state(eCharacterMovementState.Dying)
+				else:
+					set_character_movement_state(eCharacterMovementState.Running)
 			
 		eCharacterMovementState.Flying:
 			# NOTE when we are flying, we can keep flying if there is enough stamina and input is pressed
-			if not (Input.is_action_pressed('jump') and has_stamina()):
+			if not (Input.is_action_pressed('jump') and has_stamina()) or is_dead:
 				set_character_movement_state(eCharacterMovementState.Falling)
 			
 		eCharacterMovementState.Dashing:
+			# NOTE dying during dash could happen in the air or on the floor
+			if is_dead:
+				if is_on_floor():
+					set_character_movement_state(eCharacterMovementState.Dying)
+				else:
+					set_character_movement_state(eCharacterMovementState.Falling)
+				return
+				
 			# NOTE the dash goes on until the dash distance is covered, then we either run or fall
 			if not is_dash_distance_covered(delta):
 				return
@@ -267,6 +302,10 @@ func set_vvelocity(delta: float) -> void:
 
 ## sets horizontal velocity depending on the character movement state and inputs
 func set_hvelocity() -> void:
+	if is_dead:
+		velocity.x = 0.
+		return
+		
 	if character_movement_state == eCharacterMovementState.Dashing:
 		# NOTE when the character is dashing, we don't listen to inputs and enforce a velocity
 		velocity.x = dashing_velocity
@@ -346,8 +385,8 @@ func update_animation(new_state: eCharacterMovementState):
 		return
 	
 	var anim_state := sprite.get_animation_state() as SpineAnimationState
-	anim_state.set_animation(animation_map[new_state])
-		
+	anim_state.set_animation(animation_map[new_state], false if new_state == eCharacterMovementState.Dying else true)
+	
 	# we want to transition into falling pose almost immediately after the jump started
 	if new_state == eCharacterMovementState.Jumping:
 		await get_tree().create_timer(0.1).timeout
