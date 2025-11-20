@@ -1,9 +1,10 @@
-[gd_scene load_steps=36 format=3 uid="uid://bqnhgrmahpp44"]
+[gd_scene load_steps=37 format=3 uid="uid://bqnhgrmahpp44"]
 
 [ext_resource type="Script" uid="uid://cc7qw8macbkml" path="res://scenes/chase_scene/chase_scene.gd" id="1_8pw8v"]
 [ext_resource type="PackedScene" uid="uid://y4hccnwhpc3e" path="res://scenes/running_text_widget/running_text_widget.tscn" id="2_a4cdl"]
 [ext_resource type="Texture2D" uid="uid://bh8cccfqnjbbb" path="res://assets/2d/Sky.png" id="2_b8in7"]
 [ext_resource type="Texture2D" uid="uid://cookxxbmq5r6d" path="res://assets/2d/Ground_Main.png" id="2_ucmrg"]
+[ext_resource type="AudioStream" uid="uid://bnoay4fg3ctpt" path="res://assets/sounds/misc/cinematic-hit-159487.mp3" id="3_phute"]
 [ext_resource type="PackedScene" uid="uid://rinq6u86110t" path="res://scenes/treadmill/treadmill_item/item_variations/treadmill_city_back.tscn" id="4_4p7bp"]
 [ext_resource type="PackedScene" uid="uid://bsnf513113sfi" path="res://scenes/treadmill/treadmill_item/item_variations/treadmill_city_front.tscn" id="4_jqnf2"]
 [ext_resource type="Script" uid="uid://beehhs7t2qyd" path="res://scenes/treadmill/treadmill.gd" id="4_myeqy"]
@@ -76,6 +77,9 @@ duck_anim_speed_increase_rate = 0.3
 stream = ExtResource("24_qrt7r")
 volume_db = -26.519
 parameters/looping = true
+
+[node name="end_of_game_sfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_phute")
 
 [node name="character_spawn" type="Node2D" parent="."]
 z_index = 7

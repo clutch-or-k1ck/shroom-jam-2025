@@ -1,14 +1,9 @@
-extends TextureRect
+extends GameMenuBase
 
 
-## force-display death screen during this time period
-var mandatory_display_time := 2.
-var elapsed_time := 0.
+func _on_exit_btn_pressed() -> void:
+	get_tree().quit()
 
 
-signal full_game_reset
-
-
-# displays the death screen
-func reset() -> void:
-	elapsed_time = 0.
+func _on_restart_btn_pressed() -> void:
+	Globals.get_chase_scene().restart_game_loop()

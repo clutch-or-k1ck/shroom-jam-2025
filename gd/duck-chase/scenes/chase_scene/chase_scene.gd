@@ -13,6 +13,7 @@ signal game_end(game_result: eGameResult)
 
 @onready var bombardier := $bombardier
 @onready var music_player := $music_player
+@onready var end_of_game_sfx := $end_of_game_sfx
 @onready var character_spawn := $character_spawn
 @onready var obstacles_treadmill := $road/obstacles
 @onready var policemen_treadmill := $road/policemen
@@ -22,6 +23,7 @@ signal game_end(game_result: eGameResult)
 
 var main_game_menu_scene := preload('res://ui/game_menu_start.tscn')
 var pause_menu_scene := preload('res://ui/pause_menu.tscn')
+var death_screen_scene := preload('res://ui/death_screen.tscn')
 var main_char_scene := preload('res://scenes/duck_character/duck_character.tscn')
 var duck_char: MrDuck
 
@@ -173,6 +175,7 @@ func create_game_loop() -> GameLoopManager:
 
 ## events that happen when the game is lost
 func end_game() -> void:
+	end_of_game_sfx.play()
 	game_loop_manager.playing = false
 	(music_player as AudioStreamPlayer).playing = false
 	Globals.set_global_world_speed(0.)
@@ -204,7 +207,7 @@ func show_ui(type: eUITypes) -> GameMenuBase:
 		eUITypes.PauseMenu:
 			scene = pause_menu_scene
 		eUITypes.DeathScreen:
-			scene = null
+			scene = death_screen_scene
 			
 	if scene != null:
 		var ui := scene.instantiate()
@@ -271,4 +274,4 @@ func _on_duck_character_dead() -> void:
 
 	# TODO the rest of game loop
 	await get_tree().create_timer(2.).timeout
-	restart_game_loop()
+	show_ui(eUITypes.DeathScreen)
