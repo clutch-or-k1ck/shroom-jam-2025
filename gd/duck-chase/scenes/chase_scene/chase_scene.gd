@@ -272,6 +272,5 @@ func _on_duck_character_dead() -> void:
 	# plays the death sequence
 	end_game()
 
-	# TODO the rest of game loop
-	await get_tree().create_timer(2.).timeout
+	await get_tree().create_timer(3.).timeout
 	show_ui(eUITypes.DeathScreen)
