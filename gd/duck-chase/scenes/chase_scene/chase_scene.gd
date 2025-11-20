@@ -269,8 +269,6 @@ func _on_duck_character_lives_updated(delta: int) -> void:
 
 
 func _on_duck_character_dead() -> void:
-	# plays the death sequence
 	end_game()
-
 	await get_tree().create_timer(3.).timeout
 	show_ui(eUITypes.DeathScreen)
