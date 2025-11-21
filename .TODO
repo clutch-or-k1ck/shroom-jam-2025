@@ -1,17 +1,22 @@
-improvements to make game plot possible:
-- create the bombs patterning
-- create the tunnel at the end
-
-write the game plot
-
-bug: damage animation is drawn on top of other animations - that is wrong
-bug: it seems policmen can even spawn right after the barrel in which case it is impossible to win...
-bug: duck collision box is too unforgiving. maybe barrels need fixing, too...
-bug: proportions are going crazy
-bug: probably need to relax hitboxes of literally everyone because the difficulty is crazy rn
-
-
-
-chase scene is instantiated dynamically in the tv overlay, not statically attached
-
-MORE SHADERS
+- make treadmill spawn more deterministic (no long empty spaces, no long repeating streaks)
+- score
+	- score widget
+	- saving score
+	- score info on the main game screen
+	- achieved score info on the death screen
+- barraging has no breaks, just several random patterns in a row
+- return running text and speed up running text
+- hit logic should be reallocated to area instead of full shape and fire only once per obstacle!
+- hits produce a one-time particles system, also only once per obstacle
+- debug ui looks (button margins and content margins)
+- calibrate the duck movement
+- implement bomb sfx
+- sound volume calibration
+- duck positioning and obstacles positioning
+- make heals spawn more deterministic (don't spawn hearts when the duck is full of hearts)
+- ui buttons glow effect is too weak for when they are active
+- hearts debug (all are missing when the game restarts)
+- ducking debug
+- policemen are actually not even damaging you
+- game messenger system
+- make web compilation possible
