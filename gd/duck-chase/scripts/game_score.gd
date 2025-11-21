@@ -36,7 +36,7 @@ func get_highest_score() -> int:
 
 ## whether the current score is a personal record
 func is_PR() -> bool:
-	return get_current_score() > get_highest_score()
+	return get_current_score() >= get_highest_score()
 
 
 ## persists the current score on disc

@@ -27,3 +27,8 @@ func _on_credits_btn_focus_entered() -> void:
 
 func _on_credits_btn_focus_exited() -> void:
 	clear_content_container()
+
+
+func _ready() -> void:
+	super()
+	header.text = 'your best score: [color=turquoise]' + str(GameScore.get_highest_score()) + '[/color]'

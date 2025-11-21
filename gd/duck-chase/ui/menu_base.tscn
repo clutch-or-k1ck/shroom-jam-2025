@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://c1o0h8pg2oy8i"]
+[gd_scene load_steps=3 format=3 uid="uid://c1o0h8pg2oy8i"]
 
 [ext_resource type="Script" uid="uid://ob2x3rvw0hrp" path="res://ui/menu_base.gd" id="1_t0683"]
+[ext_resource type="Theme" uid="uid://dkocds1oojtav" path="res://ui/menu_text_theme.tres" id="2_tkftx"]
 
 [node name="MenuBase" type="ColorRect"]
 anchors_preset = 15
@@ -33,7 +34,11 @@ size_flags_stretch_ratio = 0.1
 
 [node name="header" type="RichTextLabel" parent="global_margins/vbox_layout/header_margins"]
 layout_mode = 2
+theme = ExtResource("2_tkftx")
 bbcode_enabled = true
+text = "ONE TWO THREE"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="hbox_layout" type="HBoxContainer" parent="global_margins/vbox_layout"]
 layout_mode = 2
