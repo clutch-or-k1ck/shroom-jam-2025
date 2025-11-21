@@ -20,6 +20,7 @@ signal game_end(game_result: eGameResult)
 @onready var heal_items_treadmill := $road/heal_items_treadmill
 @onready var police_cars_treadmill := $road/police_cars_treadmill
 @onready var road_collision := $road/road_collision
+@onready var score_widget: GameScoreWidget = $hud/game_score_widget
 
 var main_game_menu_scene := preload('res://ui/game_menu_start.tscn')
 var pause_menu_scene := preload('res://ui/pause_menu.tscn')
@@ -143,6 +144,10 @@ func stop_obstacles_spawn():
 
 func init_hud():
 	hud.visible = true
+	
+	# reset the game score widget
+	score_widget.shake = false
+	score_widget.is_best_result = false
 
 var _do_barrage := false
 
@@ -287,4 +292,8 @@ func _on_duck_character_dead() -> void:
 
 
 func _on_game_score_changed(new_score: int) -> void:
-	print(new_score)
+	score_widget.score = new_score
+	if GameScore.is_PR():
+		GameScore.persist()
+		score_widget.is_best_result = true
+		score_widget.shake = true

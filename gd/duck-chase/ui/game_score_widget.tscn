@@ -1,0 +1,76 @@
+[gd_scene load_steps=5 format=3 uid="uid://c0pen7avqupmd"]
+
+[ext_resource type="Script" uid="uid://c73d2rehjbjwb" path="res://ui/game_score_widget.gd" id="1_0b80f"]
+[ext_resource type="Texture2D" uid="uid://clgf5fsuyqfkr" path="res://assets/2d/star-2.png" id="1_utbwy"]
+[ext_resource type="Theme" uid="uid://ce4kif5ejmr83" path="res://ui/score_widget_theme.tres" id="2_0b80f"]
+[ext_resource type="FontFile" uid="uid://bxwb6sqycukpt" path="res://assets/fonts/SuperNormal-xRoj5.ttf" id="4_kqatu"]
+
+[node name="root" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_0b80f")
+
+[node name="vertical_layout" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = -162.326
+offset_right = 176.674
+offset_bottom = 174.0
+
+[node name="score_widget" type="HBoxContainer" parent="vertical_layout"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="left_star_anchor" type="Control" parent="vertical_layout/score_widget"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="star_left" type="TextureRect" parent="vertical_layout/score_widget/left_star_anchor"]
+self_modulate = Color(1, 0.388235, 1, 1)
+layout_mode = 2
+offset_right = 50.0
+offset_bottom = 85.0
+size_flags_horizontal = 3
+texture = ExtResource("1_utbwy")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="score_text" type="RichTextLabel" parent="vertical_layout/score_widget"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.0
+theme = ExtResource("2_0b80f")
+text = "1253"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="right_star_anchor" type="Control" parent="vertical_layout/score_widget"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="star_right" type="TextureRect" parent="vertical_layout/score_widget/right_star_anchor"]
+self_modulate = Color(1, 0.388235, 1, 1)
+layout_mode = 2
+offset_right = 50.0
+offset_bottom = 85.0
+size_flags_horizontal = 3
+texture = ExtResource("1_utbwy")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="best_score_label_anchor" type="Control" parent="vertical_layout"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="best_score_label" type="RichTextLabel" parent="vertical_layout/best_score_label_anchor"]
+layout_mode = 2
+offset_top = 4.0
+offset_right = 326.0
+offset_bottom = 4.0
+theme_override_colors/default_color = Color(1, 0.341176, 0, 1)
+theme_override_fonts/normal_font = ExtResource("4_kqatu")
+theme_override_font_sizes/normal_font_size = 50
+bbcode_enabled = true
+text = "best score!"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1

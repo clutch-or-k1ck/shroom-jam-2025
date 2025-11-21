@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://bqnhgrmahpp44"]
+[gd_scene load_steps=38 format=3 uid="uid://bqnhgrmahpp44"]
 
 [ext_resource type="Script" uid="uid://cc7qw8macbkml" path="res://scenes/chase_scene/chase_scene.gd" id="1_8pw8v"]
 [ext_resource type="PackedScene" uid="uid://y4hccnwhpc3e" path="res://scenes/running_text_widget/running_text_widget.tscn" id="2_a4cdl"]
@@ -30,6 +30,7 @@
 [ext_resource type="PackedScene" uid="uid://dse2pne7rqrfr" path="res://scenes/treadmill/treadmill_item/item_variations/tm_heal.tscn" id="19_u40ln"]
 [ext_resource type="AudioStream" uid="uid://coqowv0r6vkmm" path="res://assets/sounds/music/Joker Dance.ogg" id="24_qrt7r"]
 [ext_resource type="Script" uid="uid://ciq8odnuga3oh" path="res://scenes/bombardment_system/bombardier.gd" id="26_sdicq"]
+[ext_resource type="PackedScene" uid="uid://c0pen7avqupmd" path="res://ui/game_score_widget.tscn" id="31_3ww4y"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a4cdl"]
 size = Vector2(2692, 110)
@@ -400,5 +401,13 @@ size_flags_horizontal = 3
 texture = ExtResource("11_q31dt")
 expand_mode = 1
 stretch_mode = 5
+
+[node name="game_score_widget" parent="hud" instance=ExtResource("31_3ww4y")]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_top = 126.808
+offset_bottom = 126.808
+grow_horizontal = 2
 
 [node name="ui" type="CanvasLayer" parent="."]
