@@ -1,4 +1,3 @@
-- make treadmill spawn more deterministic (no long empty spaces, no long repeating streaks)
 - sound volume calibration
 - duck positioning and obstacles positioning
 - make heals spawn more deterministic (don't spawn hearts when the duck is full of hearts)
@@ -6,10 +5,7 @@
 - hearts debug (all are missing when the game restarts)
 - ducking debug
 - policemen are actually not even damaging you
-- game messenger system
 - make web compilation possible
-- invincibility on dash
-- gameplay prompts in the running text
 - menu button sounds
 - allow dash a bit earlier
 - bomb focus debugging
