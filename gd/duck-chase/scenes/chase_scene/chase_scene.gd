@@ -37,7 +37,7 @@ var duck_char: MrDuck
 ## each new game loop, the duck animation speed will increase by this much units
 @export var duck_anim_speed_increase_rate := 0.1
 ## each new game loop, the running text speed will increase by this much pixels
-@export var running_text_speed_increase_rate := 50
+@export var running_text_speed_increase_rate := 100
 
 @onready var obstacles_line := $road/obstacles
 

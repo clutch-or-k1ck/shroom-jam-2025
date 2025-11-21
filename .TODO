@@ -1,5 +1,4 @@
 - make treadmill spawn more deterministic (no long empty spaces, no long repeating streaks)
-- hit logic should be reallocated to area instead of full shape and fire only once per obstacle!
 - hits produce a one-time particles system, also only once per obstacle
 - debug ui looks (button margins and content margins)
 - calibrate the duck movement
@@ -15,3 +14,4 @@
 - make web compilation possible
 - invincibility on dash
 - gameplay prompts in the running text
+- menu button sounds

@@ -2,6 +2,11 @@
 extends TreadmillItem
 class_name TreadmillComposite
 
+
+## one charge allows to deal damage (or restore HP) once
+## this is mainly for avoiding situations where several hit areas of a single obstacle deal extra damage
+var charges := 1
+
 var bounds_: Vector2
 ## define bounds of this treadmill group (used to define the group's bbox in global coords)
 @export var bounds: Vector2:
@@ -75,7 +80,19 @@ func _on_hitbox_body_entered(body: Node2D) -> void:
 
 
 func _on_hitbox_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
+	# only do something if we have charges
+	if charges <= 0:
+		return
+		
 	if body is MrDuck:
-		var shape_owner_id = body.shape_find_owner(body_shape_index)
-		var shape_owner = body.shape_owner_get_owner(shape_owner_id)
-		print('ducky hit himself on the ' + str(shape_owner))
+		charges -= 1
+		if deals_damage:
+			body.lose_life()
+			
+			# TODO spawn the hit vfx at the hit location
+			var shape_owner_id = body.shape_find_owner(body_shape_index)
+			var shape_owner = body.shape_owner_get_owner(shape_owner_id)
+			print('ducky hit himself on the ' + str(shape_owner))
+		elif restores_life:
+			body.get_life()
+			self.visible = false # we usually want to hide power-up items that restore health
