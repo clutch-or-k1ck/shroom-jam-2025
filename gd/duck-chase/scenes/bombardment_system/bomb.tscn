@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://w3dre4fmbc1b" path="res://scenes/bombardment_system/bomb.gd" id="1_rqjch"]
 [ext_resource type="Texture2D" uid="uid://c84no6kcy5yqg" path="res://assets/2d/Bomb.png" id="2_ew8my"]
 [ext_resource type="SpriteFrames" uid="uid://k76s15noqsxl" path="res://assets/explosions/explosions.tres" id="3_ew8my"]
-[ext_resource type="AudioStream" uid="uid://chw6r6f3r6j5y" path="res://assets/sounds/explosion-91872.mp3" id="4_hahuk"]
+[ext_resource type="AudioStream" uid="uid://hukpimfjonod" path="res://assets/sounds/explosions/explosion_queue.tres" id="4_hahuk"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hahuk"]
 radius = 25.02

@@ -1,5 +1,4 @@
 - make treadmill spawn more deterministic (no long empty spaces, no long repeating streaks)
-- implement bomb sfx
 - sound volume calibration
 - duck positioning and obstacles positioning
 - make heals spawn more deterministic (don't spawn hearts when the duck is full of hearts)

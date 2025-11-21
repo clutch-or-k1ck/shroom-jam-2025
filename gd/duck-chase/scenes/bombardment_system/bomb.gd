@@ -19,6 +19,7 @@ func do_explode() -> void:
 	explosion_anim.visible = true
 	explosion_anim.play('explosion3')
 	explosion_sfx.play()
+	explosion_sfx.finished.connect(queue_free)
 
 
 func _on_body_entered(body: Node) -> void:
@@ -29,4 +30,4 @@ func _on_body_entered(body: Node) -> void:
 
 ## when the explosion vfs finishes, we can simply destroy the whole thing
 func _on_explosion_anim_animation_finished() -> void:
-	self.queue_free()
+	self.visible = false

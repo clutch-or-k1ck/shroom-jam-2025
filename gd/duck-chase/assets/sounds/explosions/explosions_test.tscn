@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://dnlchvicdxjp6"]
+
+[ext_resource type="AudioStream" uid="uid://hukpimfjonod" path="res://assets/sounds/explosions/explosion_queue.tres" id="1_p02h1"]
+
+[sub_resource type="GDScript" id="GDScript_p02h1"]
+script/source = "extends Node
+
+@onready var explosion_sfx := $AudioStreamPlayer2D
+
+func play_explosion():
+	await get_tree().create_timer(1.).timeout
+	explosion_sfx.play()
+	
+func _ready():
+	explosion_sfx.play()
+	explosion_sfx.finished.connect(play_explosion)
+"
+
+[node name="ExplosionsTest" type="Node"]
+script = SubResource("GDScript_p02h1")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("1_p02h1")
