@@ -82,7 +82,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ejroe")
 }],
-"loop": true,
+"loop": false,
 "name": &"explosion2",
 "speed": 5.0
 }, {

@@ -3,6 +3,8 @@ extends TreadmillItem
 class_name TreadmillComposite
 
 
+@onready var hit_vfx = preload('res://assets/explosions/hit_vfx.tscn')
+
 ## one charge allows to deal damage (or restore HP) once
 ## this is mainly for avoiding situations where several hit areas of a single obstacle deal extra damage
 var charges := 1
@@ -93,6 +95,7 @@ func _on_hitbox_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index
 			var shape_owner_id = body.shape_find_owner(body_shape_index)
 			var shape_owner = body.shape_owner_get_owner(shape_owner_id)
 			print('ducky hit himself on the ' + str(shape_owner))
+			shape_owner.add_child(hit_vfx.instantiate())
 		elif restores_life:
 			body.get_life()
 			self.visible = false # we usually want to hide power-up items that restore health

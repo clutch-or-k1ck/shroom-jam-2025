@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://beh3mw1a7111"]
+
+[ext_resource type="SpriteFrames" uid="uid://k76s15noqsxl" path="res://assets/explosions/explosions.tres" id="1_s74fe"]
+[ext_resource type="Script" uid="uid://gyegrqooopha" path="res://assets/explosions/hit_vfx.gd" id="2_kwkbn"]
+
+[node name="HitVfx" type="AnimatedSprite2D"]
+modulate = Color(1, 0, 0, 1)
+z_index = 7
+scale = Vector2(4, 4)
+sprite_frames = ExtResource("1_s74fe")
+animation = &"explosion2"
+script = ExtResource("2_kwkbn")
+
+[connection signal="animation_finished" from="." to="." method="_on_animation_finished"]
