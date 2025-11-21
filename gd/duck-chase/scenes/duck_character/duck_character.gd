@@ -137,6 +137,12 @@ func _die() -> void:
 	# TODO play death sfx, the rest should be handled via the anim machine
 
 
+## invincibility frames (only in the beginning of the dash - end of the dash is NOT protected)
+func is_invincible() -> bool:
+	return character_movement_state == eCharacterMovementState.Dashing and \
+		(_distance_covered_in_dash / dashing_distance) < 0.7
+
+
 func lose_life():
 	lives = max(0, lives - 1)
 	lives_updated.emit(-1)

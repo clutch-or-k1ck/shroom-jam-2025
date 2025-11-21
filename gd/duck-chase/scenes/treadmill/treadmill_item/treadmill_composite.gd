@@ -88,7 +88,7 @@ func _on_hitbox_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index
 		
 	if body is MrDuck:
 		charges -= 1
-		if deals_damage:
+		if deals_damage and not body.is_invincible():
 			body.lose_life()
 			
 			# TODO spawn the hit vfx at the hit location
