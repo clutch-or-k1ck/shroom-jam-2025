@@ -23,10 +23,15 @@ size = Vector2(81, 33)
 
 [node name="duck_character" type="CharacterBody2D"]
 script = ExtResource("1_fkuwv")
-jump_velocity = -800
+can_die = false
+jump_velocity = -2400
+jump_velocity_calibration_coef = 0.7
 fall_gravity_scale_factor = 8.0
+fall_constant_speed = 1600.0
+zero_g_grace_period = 0.1
+left_strafe_speed_scale_factor = 2.0
 dashing_distance = 300.0
-dashing_velocity = 3000.0
+dashing_velocity = 2200.0
 
 [node name="dust_particles" type="CPUParticles2D" parent="."]
 position = Vector2(-57, 0)

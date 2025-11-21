@@ -1,6 +1,4 @@
 - make treadmill spawn more deterministic (no long empty spaces, no long repeating streaks)
-- debug ui looks (button margins and content margins)
-- calibrate the duck movement
 - implement bomb sfx
 - sound volume calibration
 - duck positioning and obstacles positioning
