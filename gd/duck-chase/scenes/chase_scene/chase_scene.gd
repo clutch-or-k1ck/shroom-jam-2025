@@ -11,7 +11,7 @@ class_name ChaseScene
 enum eGameResult {Victory, Defeat}
 signal game_end(game_result: eGameResult)
 
-@onready var bombardier := $bombardier
+@onready var bombardier: Bombardier = $bombardier
 @onready var music_player := $music_player
 @onready var end_of_game_sfx := $end_of_game_sfx
 @onready var character_spawn := $character_spawn
@@ -42,7 +42,7 @@ var duck_char: MrDuck
 @onready var obstacles_line := $road/obstacles
 
 var bombing_overrides := {}
-var barraging_random_interval: Array = [5., 15.]
+var barraging_random_interval: Array = [0.5, 3.]
 var max_world_speed := 2000.
 var game_loop_timer: SceneTreeTimer # a reference to the timer of the next game loop action
 
@@ -153,9 +153,14 @@ var _do_barrage := false
 
 ## throws bombs every n seconds
 func barrage() -> void:
+	# when focusing, we want to throw bomb exactly where the duck character is
+	var duck_horizontal_location_ratio := duck_char.position.x / get_viewport_rect().size.x
+	var bombardment_param_overrides = {'focus.location': duck_horizontal_location_ratio}
+	
 	_do_barrage = true
 	while _do_barrage:
 		bombardier.throw_bombs(bombardier.Patterns.new().get_random_pattern())
+		await bombardier.bombardment_finished
 		await get_tree().create_timer(randf_range(barraging_random_interval[0], barraging_random_interval[1])).timeout
 
 
