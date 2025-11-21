@@ -10,12 +10,12 @@ extends Control
 
 ## to keep track of the rich text labels in the running text (need to spwan/despawn)
 var running_text_labels: Array[RichTextLabel]
-const breaking_news_separator := '   [char=2022]   '
+const breaking_news_separator := '   [char=2022]   [color=orange]BREAKING NEWS[/color]   [char=2022]   '
 
 ## combines the breaking news items into one long line of rich text
 ## imagine that 20 separate news will become a single line separated with '***' or similar
 func build_long_running_text() -> String:
-	return breaking_news_separator.join(breaking_news)
+	return breaking_news_separator.join(breaking_news) + breaking_news_separator
 
 
 ## creates a long rich text label containing all of the breaking news items, separated with a special char
@@ -31,6 +31,9 @@ func create_running_text_line() -> RichTextLabel:
 	rich_text_label.add_theme_font_size_override('normal_font_size', running_text_font_size)
 	var stylebox := StyleBoxFlat.new()
 	stylebox.bg_color = Color()
+	stylebox.border_width_top = 10.
+	stylebox.border_width_bottom = 10.
+	stylebox.border_color = Color(1., 0., 0.)
 	rich_text_label.add_theme_stylebox_override('normal', stylebox)
 	
 	rich_text_label.z_index = -1 # NOTE render BEHIND the tv frame
@@ -72,7 +75,7 @@ func _process(delta: float) -> void:
 	move_running_text(delta)
 	
 	if running_text_labels.size() > 0:
-		# despawn the label that is not visible
+		# despawn out-of-bounds labels
 		if is_out_of_bounds(running_text_labels[0]):
 			remove_child(running_text_labels[0])
 			running_text_labels.remove_at(0)

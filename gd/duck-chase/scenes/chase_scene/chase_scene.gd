@@ -37,7 +37,7 @@ var duck_char: MrDuck
 ## each new game loop, the duck animation speed will increase by this much units
 @export var duck_anim_speed_increase_rate := 0.1
 ## each new game loop, the running text speed will increase by this much pixels
-@export var running_text_speed_increase_rate := 100
+@export var running_text_speed_increase_rate := 50
 
 @onready var obstacles_line := $road/obstacles
 
@@ -115,7 +115,7 @@ func speed_up():
 	# TODO
 	
 	# # speeds up the running text line, just for fun
-	# TODO
+	running_text.running_text_speed -= running_text_speed_increase_rate
 
 
 func launch_obstacles():
@@ -262,6 +262,7 @@ func _ready() -> void:
 	show_ui(eUITypes.MainMenu)
 	hud.visible = false
 	Globals.set_global_world_speed(1000) # while we are basically inside the menu
+	running_text.add_new_running_text_line()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

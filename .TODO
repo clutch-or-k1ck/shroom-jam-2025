@@ -1,6 +1,4 @@
 - make treadmill spawn more deterministic (no long empty spaces, no long repeating streaks)
-- barraging has no breaks, just several random patterns in a row
-- return running text and speed up running text
 - hit logic should be reallocated to area instead of full shape and fire only once per obstacle!
 - hits produce a one-time particles system, also only once per obstacle
 - debug ui looks (button margins and content margins)
