@@ -179,10 +179,21 @@ func end_game() -> void:
 	game_loop_manager.playing = false
 	(music_player as AudioStreamPlayer).playing = false
 	Globals.set_global_world_speed(0.)
+	
+	# TODO this should be handled via GUI
+	GameScore.accumulating = false
+	var phrase := 'Your score is: ' + str(GameScore.get_current_score()) + '. '
+	if GameScore.is_PR():
+		phrase += 'This is your highest score!'
+	print(phrase)
+	if GameScore.is_PR():
+		GameScore.persist()
 
 
 ## this will play through game events, speed up treadmills, send game life-cycle events etc.
 func restart_game_loop() -> void:
+	GameScore.reset()
+	GameScore.accumulating = true
 	remove_ui() # removes whatever menu ui is currently in ui overlay
 	clean_up_previous_session()
 	init_game()
@@ -237,6 +248,7 @@ func unpause() -> void:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	GameScore.score_changed.connect(self._on_game_score_changed)
 	show_ui(eUITypes.MainMenu)
 	hud.visible = false
 	Globals.set_global_world_speed(1000) # while we are basically inside the menu
@@ -272,3 +284,7 @@ func _on_duck_character_dead() -> void:
 	end_game()
 	await get_tree().create_timer(3.).timeout
 	show_ui(eUITypes.DeathScreen)
+
+
+func _on_game_score_changed(new_score: int) -> void:
+	print(new_score)

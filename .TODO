@@ -1,7 +1,6 @@
 - make treadmill spawn more deterministic (no long empty spaces, no long repeating streaks)
 - score
 	- score widget
-	- saving score
 	- score info on the main game screen
 	- achieved score info on the death screen
 - barraging has no breaks, just several random patterns in a row
