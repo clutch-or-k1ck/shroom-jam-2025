@@ -366,7 +366,7 @@ func loose_banknotes_cycle() -> void:
 
 
 func _ready() -> void:
-	update_animation(character_movement_state)
+	update_animation(character_movement_state, character_movement_state)
 	loose_banknotes_cycle()
 
 
@@ -400,20 +400,29 @@ func schedule_animation_update_if_character_movement_state_matches(
 		anim_state.set_animation(anim_name)
 
 
-func update_animation(new_state: eCharacterMovementState):
+func update_animation(old_state: eCharacterMovementState, new_state: eCharacterMovementState):
 	# NOTE ducked animation is handled in the duck/unduck functions
 	if new_state == eCharacterMovementState.RunningDucked:
 		return
-	
-	var anim_state := sprite.get_animation_state() as SpineAnimationState
-	anim_state.set_animation(animation_map[new_state], false if new_state == eCharacterMovementState.Dying else true)
 	
 	# we want to transition into falling pose almost immediately after the jump started (it looks so the duck tucks its legs)
 	if new_state == eCharacterMovementState.Jumping:
 		schedule_animation_update_if_character_movement_state_matches(
 			0.1, eCharacterMovementState.Jumping, 'fall'
 		)
-
+	
+	# HACK when exiting out of dashing, keep the dashing pose for a short instant of time, do not set another anim immediately
+	# this is done to let the player contemplate the dashing pose - otherwise it just changes too quickly
+	if old_state == eCharacterMovementState.Dashing:
+		var next_target_anim_name := animation_map[new_state] as String
+		# instead of changing to the anim immediately, transition in a short while if the animation state still matches then
+		schedule_animation_update_if_character_movement_state_matches(
+			0.1, new_state, next_target_anim_name
+		)
+		# NOTE if then the state does not match this means the animation has already been updated anyways to another state
+	else:
+		var anim_state := sprite.get_animation_state() as SpineAnimationState
+		anim_state.set_animation(animation_map[new_state], false if new_state == eCharacterMovementState.Dying else true)
 
 func _on_character_movement_state_updated(old: MrDuck.eCharacterMovementState, new: MrDuck.eCharacterMovementState) -> void:
 	if new == old:
@@ -438,7 +447,7 @@ func _on_character_movement_state_updated(old: MrDuck.eCharacterMovementState, n
 		eCharacterMovementState.RunningDucked:
 			duck()
 			
-	update_animation(new)
+	update_animation(old, new)
 
 
 ## duck handling its own damage received event - play animation etc.
@@ -455,6 +464,7 @@ func _on_lives_updated(delta: int) -> void:
 		health_obtained.play()
 
 
+## we want to set animation back to character's movement state after getting hit, this is similar to playing an anim montage in UE
 func _on_duck_sprite_animation_completed(spine_sprite: Object, animation_state: Object, track_entry: Object) -> void:
 	if (track_entry as SpineTrackEntry).get_animation().get_name() == 'hit':
-		update_animation(character_movement_state)
+		update_animation(character_movement_state, character_movement_state)
