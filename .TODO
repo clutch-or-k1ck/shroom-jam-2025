@@ -1,9 +1,9 @@
 - add missing sounds: dash, bomb shriek
 - dash: show animation a bit longer
 - dash: modulate duck transparency and color during the dash?
+- dash: it must consume stamina
 - duck positioning and obstacles positioning
 - ui buttons glow effect is too weak for when they are active
-- hearts debug (all are missing when the game restarts)
 - ducking debug
 - policemen are actually not even damaging you
 - make web compilation possible

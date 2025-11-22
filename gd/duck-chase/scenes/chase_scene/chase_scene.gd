@@ -73,6 +73,10 @@ func respawn_main_character():
 	
 	add_child(main_char)
 	duck_char = main_char # keeps reference to the main char
+	
+	# HACK fake lives_updated and stamina_updated signals to update UI
+	main_char.lives_updated.emit(1)
+	main_char.stamina_updated.emit()
 
 
 ## cleans up all that should NOT get into the next session from the previous session
