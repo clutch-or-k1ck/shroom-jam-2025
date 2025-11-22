@@ -169,16 +169,22 @@ func stop_barraging() -> void:
 
 
 func create_game_loop() -> GameLoopManager:
-	var game_loop_manager := GameLoopManager.new(
-		{
-			0.1: self.launch_obstacles,
-			15.: self.launch_heal_items,
-			30.: [self.launch_police_cars, self.launch_policemen],
-			60.: [self.stop_policemen_spawn, self.stop_obstacles_spawn, self.barrage],
-			80.: self.stop_barraging,
-			90.: self.speed_up
-		}
-	)
+	var normal_game_loop := {
+		0.1: self.launch_obstacles,
+		15.: self.launch_heal_items,
+		30.: [self.launch_police_cars, self.launch_policemen],
+		60.: [self.stop_policemen_spawn, self.stop_obstacles_spawn, self.barrage],
+		80.: self.stop_barraging,
+		90.: self.speed_up
+	}
+	
+	var bomb_only_game_loop := {
+		0.1: self.barrage
+	}
+	
+	var game_loop_manager := GameLoopManager.new(bomb_only_game_loop)
+	game_loop_manager.looping = false
+	
 	add_child(game_loop_manager)
 	return game_loop_manager
 

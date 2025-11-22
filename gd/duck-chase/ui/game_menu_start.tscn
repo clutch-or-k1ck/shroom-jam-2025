@@ -7,12 +7,6 @@
 [node name="MenuBase" instance=ExtResource("1_bg726")]
 script = ExtResource("2_a1vlr")
 
-[node name="global_margins" parent="." index="0"]
-theme_override_constants/margin_left = 200
-theme_override_constants/margin_top = 100
-theme_override_constants/margin_right = 100
-theme_override_constants/margin_bottom = 120
-
 [node name="play_btn" type="Button" parent="global_margins/vbox_layout/hbox_layout/buttons_margins/buttons" index="0"]
 layout_mode = 2
 theme = ExtResource("2_v4qqd")
