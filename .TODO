@@ -1,5 +1,4 @@
 - add missing sounds: dash, bomb shriek
-- dash: modulate duck transparency and color during the dash?
 - dash: it must consume stamina
 - duck positioning and obstacles positioning
 - ui buttons glow effect is too weak for when they are active

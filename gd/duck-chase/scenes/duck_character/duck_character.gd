@@ -438,10 +438,13 @@ func _on_character_movement_state_updated(old: MrDuck.eCharacterMovementState, n
 	match old:
 		eCharacterMovementState.RunningDucked:
 			unduck()
+		eCharacterMovementState.Dashing:
+			modulate = Color(1., 1., 1., 1.)
 			
 	match new:
 		eCharacterMovementState.Dashing:
 			_distance_covered_in_dash = 0.
+			modulate = Color(1., 1., 1., 0.2)
 		eCharacterMovementState.ZeroG:
 			_time_elapsed_in_zero_g = 0.
 		eCharacterMovementState.RunningDucked:
