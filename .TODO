@@ -1,4 +1,8 @@
-- allow dash a bit earlier
+- duck movement improvements:
+	- brake when decelerating (animation possible in spine?)
+	- accelerate the anim when accelerating
+- banknotes particles
+- hearts in the upper row and the lower row without dependence of policemen!
 - bomb focus debugging
 - running ducked after getting hit is bugged
 - the news scene before the game launches, including news music

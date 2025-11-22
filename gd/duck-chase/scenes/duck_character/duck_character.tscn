@@ -26,6 +26,7 @@ script = ExtResource("1_fkuwv")
 dashing_stamina_cost = 34.0
 jump_velocity = -2400
 jump_velocity_calibration_coef = 0.7
+air_dash_zone = 0.1
 fall_gravity_scale_factor = 8.0
 fall_constant_speed = 1600.0
 zero_g_grace_period = 0.1
