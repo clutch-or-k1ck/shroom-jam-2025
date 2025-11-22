@@ -13,7 +13,7 @@ _data = [Vector2(0, 0.233526), 0.0, 0.0, 0, 0, Vector2(0.526316, 0.271098), 0.0,
 point_count = 3
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fkuwv"]
-size = Vector2(90, 91)
+size = Vector2(90, 137)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s0yet"]
 size = Vector2(92, 97)
@@ -53,7 +53,7 @@ hue_variation_max = 1.0
 
 [node name="hitbox_head" type="CollisionShape2D" parent="."]
 show_behind_parent = true
-position = Vector2(75, -192.5)
+position = Vector2(75, -215.5)
 shape = SubResource("RectangleShape2D_fkuwv")
 
 [node name="hitbox_body" type="CollisionShape2D" parent="."]
@@ -70,7 +70,7 @@ position = Vector2(3.8147e-06, -133.875)
 scale = Vector2(0.44598, 0.44598)
 skeleton_data_res = ExtResource("3_s0yet")
 preview_skin = "Default"
-preview_animation = "-- Empty --"
+preview_animation = "run"
 preview_frame = false
 preview_time = 0.0
 

@@ -268,7 +268,7 @@ metadata/_custom_type_script = "uid://beehhs7t2qyd"
 
 [node name="policemen" type="Node2D" parent="road"]
 z_index = 6
-position = Vector2(0, -873)
+position = Vector2(0, -854)
 script = ExtResource("4_myeqy")
 item_types = Array[PackedScene]([ExtResource("18_gxndn")])
 global_speed_multiplier = 0.9
@@ -277,11 +277,7 @@ spawn_probability = 1.5
 treadmill_group = 1
 start_active = false
 apply_random_scaling = true
-random_scale_min = 0.95
-random_scale_max = 1.05
 apply_random_displacement = true
-random_displacement_min = Vector2(0, -5)
-random_displacement_max = Vector2(0, 5)
 metadata/_custom_type_script = "uid://beehhs7t2qyd"
 
 [node name="sidewalk_bottom" type="Node2D" parent="road"]

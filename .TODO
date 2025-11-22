@@ -1,9 +1,7 @@
-- running ducked after getting hit is bugged
-- policemen are actually not even damaging you
-- menu button sounds
 - allow dash a bit earlier
 - bomb focus debugging
+- running ducked after getting hit is bugged
 - the news scene before the game launches, including news music
-- add missing sounds: dash, bomb shriek
+- add missing sounds: dash, bomb shriek, menu button sounds
 - sound volume calibration
 - make web compilation possible
