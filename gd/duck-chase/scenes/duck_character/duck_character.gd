@@ -54,7 +54,7 @@ enum eFallVelocityCalculationMethod {Constant, Gravity}
 @export var ground_reference: Node2D
 
 @onready var sprite := $duck_sprite
-@onready var standing_collision := $duck_collision_standing
+@onready var standing_collision := $hitbox_head
 @onready var duck_hurt_sfx := $duck_hurt_sfx
 @onready var punch_sfx := $punch_sfx
 @onready var health_obtained := $health_obtained
