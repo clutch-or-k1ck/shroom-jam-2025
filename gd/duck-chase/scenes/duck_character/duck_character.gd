@@ -11,6 +11,7 @@ class_name MrDuck
 ## while not flying, the rate at which stamina is regenerating per second
 @export var stamina_regeneration_rate := 10.
 @export var jumping_stamina_cost := 25.
+@export var dashing_stamina_cost := 25.
 @export var can_regenerate_stamina_in_free_fall := true
 ## mainly for testing and debugging, can 'switch off' the character death
 @export var can_die := true
@@ -105,8 +106,11 @@ func add_stamina(amount: float) -> void:
 	stamina_updated.emit()
 
 
-func has_stamina() -> bool:
-	return stamina > 0.
+func has_stamina(required_amount: float = -1.) -> bool:
+	if required_amount < 0.:
+		return stamina > 0.
+	else:
+		return stamina > required_amount
 
 
 ## per-frame stamina depletion
@@ -186,7 +190,7 @@ func run_state_machine(delta: float) -> void:
 			# NOTE when running, we can duck, jump, or dash. Jump and dash have higher priority than duck
 			elif Input.is_action_just_pressed('jump'):
 				set_character_movement_state(eCharacterMovementState.Jumping)
-			elif Input.is_action_just_pressed('dash'): # TODO add action
+			elif Input.is_action_just_pressed('dash') and has_stamina(dashing_stamina_cost): # TODO add action
 				set_character_movement_state(eCharacterMovementState.Dashing)
 			elif Input.is_action_pressed('duck'): # TODO add action
 				set_character_movement_state(eCharacterMovementState.RunningDucked)
@@ -197,7 +201,7 @@ func run_state_machine(delta: float) -> void:
 			# NOTE when running ducked, we can continue running ducked, or instead jump/dash
 			if Input.is_action_just_pressed('jump'):
 				set_character_movement_state(eCharacterMovementState.Jumping)
-			elif Input.is_action_just_pressed('dash'): # TODO add action
+			elif Input.is_action_just_pressed('dash') and has_stamina(dashing_stamina_cost): # TODO add action
 				set_character_movement_state(eCharacterMovementState.Dashing)
 			elif not Input.is_action_pressed('duck'):
 				set_character_movement_state(eCharacterMovementState.Running)
@@ -209,7 +213,7 @@ func run_state_machine(delta: float) -> void:
 			# NOTE when jumping (character moves up), we allowed dashing/jumping close to the top
 			elif Input.is_action_just_pressed('jump') and has_stamina() and is_in_air_dash_range():
 				set_character_movement_state(eCharacterMovementState.Flying)
-			elif Input.is_action_just_pressed('dash') and has_stamina() and is_in_air_dash_range(): # TODO specify how much stamina
+			elif Input.is_action_just_pressed('dash') and has_stamina(dashing_stamina_cost) and is_in_air_dash_range(): # TODO specify how much stamina
 				set_character_movement_state(eCharacterMovementState.Dashing)
 			elif velocity.y < 0.: # NOTE keep this state until the charcter is moving up
 				pass # CAUTION we are still jumping, but have to update velocity properly to avoid getting stuck here
@@ -229,7 +233,7 @@ func run_state_machine(delta: float) -> void:
 			
 			if Input.is_action_just_pressed('jump') and has_stamina():
 				set_character_movement_state(eCharacterMovementState.Flying)
-			elif Input.is_action_just_pressed('dash') and has_stamina(): # TODO specify how much stamina
+			elif Input.is_action_just_pressed('dash') and has_stamina(dashing_stamina_cost): # TODO specify how much stamina
 				set_character_movement_state(eCharacterMovementState.Dashing)
 			
 		eCharacterMovementState.Falling:
@@ -445,6 +449,7 @@ func _on_character_movement_state_updated(old: MrDuck.eCharacterMovementState, n
 		eCharacterMovementState.Dashing:
 			_distance_covered_in_dash = 0.
 			modulate = Color(1., 1., 1., 0.2)
+			drain_stamina(dashing_stamina_cost)
 		eCharacterMovementState.ZeroG:
 			_time_elapsed_in_zero_g = 0.
 		eCharacterMovementState.RunningDucked:
