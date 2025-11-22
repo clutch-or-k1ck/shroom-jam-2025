@@ -178,12 +178,13 @@ func create_game_loop() -> GameLoopManager:
 		90.: self.speed_up
 	}
 	
+	# NOTE this is for debugging purposes only to throw bombs non-stop
 	var bomb_only_game_loop := {
 		0.1: self.barrage
 	}
 	
-	var game_loop_manager := GameLoopManager.new(bomb_only_game_loop)
-	game_loop_manager.looping = false
+	var game_loop_manager := GameLoopManager.new(normal_game_loop)
+	game_loop_manager.looping = true
 	
 	add_child(game_loop_manager)
 	return game_loop_manager
@@ -215,6 +216,10 @@ func restart_game_loop() -> void:
 	init_game()
 	init_hud()
 	respawn_main_character()
+	
+	# bind heal items treadmill to duck's health
+	heal_items_treadmill.activation_condition = func deactivate_on_full_heatl():
+		return duck_char.lives < duck_char.max_lives
 	
 	if game_loop_manager == null:
 		game_loop_manager = create_game_loop()

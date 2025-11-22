@@ -54,6 +54,10 @@ enum eTreadmillSpawnMethod {FillViewport, Random}
 ## probability on each random toss
 @export var prespawn_probability := 0.05
 
+## called on per-frame basis, defines if this treadmill should be active or not
+# NOTE this is checked AFTER active is checked: so, if active is false, activation condition is not even called
+var activation_condition: Callable = Callable()
+
 #region Adding item types at runtime!
 
 ## you should use this dictionary to push item types to spawn at runtime
@@ -269,7 +273,8 @@ func _process(delta: float) -> void:
 			editor_item = stack_new_treadmill_item()
 	else:
 		despawn_out_of_bounds_elements()
-		if active: # spawn items
+			
+		if active and (activation_condition.is_null() or activation_condition.call() == true): # spawn items
 			if spawn_method == eTreadmillSpawnMethod.FillViewport:
 				fill_with_treadmill_items()
 			else:

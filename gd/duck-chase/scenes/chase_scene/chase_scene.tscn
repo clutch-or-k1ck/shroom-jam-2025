@@ -76,7 +76,7 @@ duck_anim_speed_increase_rate = 0.3
 
 [node name="music_player" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("24_qrt7r")
-volume_db = -26.519
+volume_db = -10.0
 parameters/looping = true
 
 [node name="end_of_game_sfx" type="AudioStreamPlayer" parent="."]

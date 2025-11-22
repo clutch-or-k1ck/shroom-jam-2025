@@ -1,6 +1,7 @@
-- sound volume calibration
+- add missing sounds: dash, bomb shriek
+- dash: show animation a bit longer
+- dash: modulate duck transparency and color during the dash?
 - duck positioning and obstacles positioning
-- make heals spawn more deterministic (don't spawn hearts when the duck is full of hearts)
 - ui buttons glow effect is too weak for when they are active
 - hearts debug (all are missing when the game restarts)
 - ducking debug
@@ -9,3 +10,4 @@
 - menu button sounds
 - allow dash a bit earlier
 - bomb focus debugging
+- sound volume calibration

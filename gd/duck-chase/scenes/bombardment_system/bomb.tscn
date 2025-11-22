@@ -29,6 +29,7 @@ animation = &"explosion3"
 
 [node name="explosion_sfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_hahuk")
+volume_db = -5.0
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="animation_finished" from="explosion_anim" to="." method="_on_explosion_anim_animation_finished"]

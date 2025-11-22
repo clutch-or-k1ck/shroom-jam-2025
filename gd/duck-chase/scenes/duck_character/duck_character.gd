@@ -143,14 +143,16 @@ func is_invincible() -> bool:
 		(_distance_covered_in_dash / dashing_distance) < 0.7
 
 
-func lose_life():
+## takes one heart from duck's HP
+func lose_life() -> void:
 	lives = max(0, lives - 1)
 	lives_updated.emit(-1)
 	if lives == 0 and can_die:
 		_die()
 
 
-func get_life():
+## adds one heart to duck's HP
+func get_life() -> void:
 	if is_dead:
 		return
 	lives = min(4, lives + 1)
