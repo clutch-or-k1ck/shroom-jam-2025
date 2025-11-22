@@ -6,7 +6,7 @@
 [sub_resource type="SpineAnimationMix" id="SpineAnimationMix_srg4h"]
 from = "jump"
 to = "fall"
-mix = 0.1
+mix = 0.2
 
 [sub_resource type="SpineAnimationMix" id="SpineAnimationMix_asepf"]
 from = "dash"

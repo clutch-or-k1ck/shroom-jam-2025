@@ -387,6 +387,19 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 
+## in 'delta' seconds, if the character is in the specified movement state, update the animation to the specified one
+## NOTE this is useful for postponed animation updates or animation transition tricks
+func schedule_animation_update_if_character_movement_state_matches(
+	in_seconds: float,
+	match_state: eCharacterMovementState,
+	anim_name: String
+) -> void:
+	await get_tree().create_timer(in_seconds).timeout
+	if character_movement_state == match_state:
+		var anim_state := sprite.get_animation_state() as SpineAnimationState
+		anim_state.set_animation(anim_name)
+
+
 func update_animation(new_state: eCharacterMovementState):
 	# NOTE ducked animation is handled in the duck/unduck functions
 	if new_state == eCharacterMovementState.RunningDucked:
@@ -395,10 +408,11 @@ func update_animation(new_state: eCharacterMovementState):
 	var anim_state := sprite.get_animation_state() as SpineAnimationState
 	anim_state.set_animation(animation_map[new_state], false if new_state == eCharacterMovementState.Dying else true)
 	
-	# we want to transition into falling pose almost immediately after the jump started
+	# we want to transition into falling pose almost immediately after the jump started (it looks so the duck tucks its legs)
 	if new_state == eCharacterMovementState.Jumping:
-		await get_tree().create_timer(0.1).timeout
-		anim_state.set_animation('fall')
+		schedule_animation_update_if_character_movement_state_matches(
+			0.1, eCharacterMovementState.Jumping, 'fall'
+		)
 
 
 func _on_character_movement_state_updated(old: MrDuck.eCharacterMovementState, new: MrDuck.eCharacterMovementState) -> void:
