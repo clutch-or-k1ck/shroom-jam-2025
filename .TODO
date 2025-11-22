@@ -1,10 +1,10 @@
-- add missing sounds: dash, bomb shriek
 - ui buttons glow effect is too weak for when they are active
 - ducking debug
 - policemen are actually not even damaging you
-- make web compilation possible
 - menu button sounds
 - allow dash a bit earlier
 - bomb focus debugging
-- sound volume calibration
 - the news scene before the game launches, including news music
+- add missing sounds: dash, bomb shriek
+- sound volume calibration
+- make web compilation possible
