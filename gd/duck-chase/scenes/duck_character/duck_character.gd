@@ -367,6 +367,7 @@ func unduck() -> void:
 func _ready() -> void:
 	update_animation(character_movement_state, character_movement_state)
 	banknote_spawner.active = true
+	banknote_spawner.banknote_velocity = Globals.get_global_world_speed()
 
 
 func _process(delta: float) -> void:
@@ -439,6 +440,8 @@ func _on_character_movement_state_updated(old: MrDuck.eCharacterMovementState, n
 			unduck()
 		eCharacterMovementState.Dashing:
 			modulate = Color(1., 1., 1., 1.)
+		eCharacterMovementState.Falling:
+			banknote_spawner.spawn_once(randi_range(2, 4))
 			
 	match new:
 		eCharacterMovementState.Dashing:
