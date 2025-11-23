@@ -401,8 +401,12 @@ func schedule_animation_update_if_character_movement_state_matches(
 
 
 func update_animation(old_state: eCharacterMovementState, new_state: eCharacterMovementState):
-	# NOTE ducked animation is handled in the duck/unduck functions
+	var anim_state := sprite.get_animation_state() as SpineAnimationState
+	
 	if new_state == eCharacterMovementState.RunningDucked:
+		# NOTE HACK ducking/unducking is handled in the respective functions but we should check if the legs are running
+		if anim_state.get_current(0).get_animation().get_name() != 'run':
+			anim_state.set_animation('run', true, 0)
 		return
 	
 	# we want to transition into falling pose almost immediately after the jump started (it looks so the duck tucks its legs)
@@ -421,7 +425,6 @@ func update_animation(old_state: eCharacterMovementState, new_state: eCharacterM
 		)
 		# NOTE if then the state does not match this means the animation has already been updated anyways to another state
 	else:
-		var anim_state := sprite.get_animation_state() as SpineAnimationState
 		anim_state.set_animation(animation_map[new_state], false if new_state == eCharacterMovementState.Dying else true)
 
 func _on_character_movement_state_updated(old: MrDuck.eCharacterMovementState, new: MrDuck.eCharacterMovementState) -> void:
