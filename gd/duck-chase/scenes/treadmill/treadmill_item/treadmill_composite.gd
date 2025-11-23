@@ -94,7 +94,6 @@ func _on_hitbox_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index
 			# TODO spawn the hit vfx at the hit location
 			var shape_owner_id = body.shape_find_owner(body_shape_index)
 			var shape_owner = body.shape_owner_get_owner(shape_owner_id)
-			print('ducky hit himself on the ' + str(shape_owner))
 			shape_owner.add_child(hit_vfx.instantiate())
 		elif restores_life:
 			body.get_life()

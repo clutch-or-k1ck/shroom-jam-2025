@@ -69,7 +69,6 @@ ProgressBar/styles/background = SubResource("StyleBoxFlat_4ieac")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_ffie5")
 
 [node name="chase_scene_root" type="Node2D"]
-position = Vector2(0, -2)
 script = ExtResource("1_8pw8v")
 starting_world_speed = 1000
 world_speed_increase_rate = 400

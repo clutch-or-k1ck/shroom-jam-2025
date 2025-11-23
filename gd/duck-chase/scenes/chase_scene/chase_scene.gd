@@ -157,13 +157,12 @@ var _do_barrage := false
 
 ## throws bombs every n seconds
 func barrage() -> void:
-	# when focusing, we want to throw bomb exactly where the duck character is
-	var duck_horizontal_location_ratio := duck_char.position.x / get_viewport_rect().size.x
-	var bombardment_param_overrides = {'focus.location': duck_horizontal_location_ratio}
-	
 	_do_barrage = true
 	while _do_barrage:
-		bombardier.throw_bombs(bombardier.Patterns.new().get_random_pattern())
+		var duck_horizontal_location_ratio := duck_char.position.x / get_viewport_rect().size.x
+		var bombardment_param_overrides = {'focus.location': duck_horizontal_location_ratio}
+		
+		bombardier.throw_bombs(bombardier.Patterns.new().get_random_pattern(bombardment_param_overrides))
 		await bombardier.bombardment_finished
 		await get_tree().create_timer(randf_range(barraging_random_interval[0], barraging_random_interval[1])).timeout
 
