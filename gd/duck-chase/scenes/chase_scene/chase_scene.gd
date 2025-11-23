@@ -31,13 +31,16 @@ var duck_char: MrDuck
 
 #region Game loop
 
+@export_category('Speed increase rates')
 @export var starting_world_speed := 1200
-## each new game loop, the world speed will increase by this much pixels
+## increase in world's speed in pixels per minute (100 implies + 1000 pixels speed in 10 minutes)
 @export var world_speed_increase_rate := 200
-## each new game loop, the duck animation speed will increase by this much units
+## increase in the duck's animation speed in units per minute (0.1 implies 2.0 playback rate in 10 minutes)
 @export var duck_anim_speed_increase_rate := 0.1
-## each new game loop, the running text speed will increase by this much pixels
+## increase in the speed of the running text in pixels per minute (100 implies + 1000 pixels speed in 10 minutes)
 @export var running_text_speed_increase_rate := 100
+## increase in the music pitch in units per minute (0.05 implies + 0.5 pitch in 10 minutes)
+@export var music_pitch_speed_increase_rate := 0.05
 
 @onready var obstacles_line := $road/obstacles
 
@@ -108,18 +111,32 @@ func init_game():
 	music_player.play()
 
 
-func speed_up():
-	# # speeds up the world and the duck
-	Globals.set_global_world_speed(Globals.get_global_world_speed() + world_speed_increase_rate)
+## converts per minute values to per-frame values
+func per_min_to_per_frame(val: float, delta: float):
+	return (val / 60.) * delta
+
+
+## speeds up everything every frame
+func speed_up(delta: float):
+	var world_speed_increase = per_min_to_per_frame(world_speed_increase_rate, delta)
+	print(Globals.get_global_world_speed())
+	
+	# speed up the world
+	Globals.set_global_world_speed(Globals.get_global_world_speed() + world_speed_increase)
+	
+	# speed up the duck animation
 	duck_char.sprite.get_animation_state().set_time_scale(
-		duck_char.sprite.get_animation_state().get_time_scale() + duck_anim_speed_increase_rate
+		duck_char.sprite.get_animation_state().get_time_scale() + per_min_to_per_frame(duck_anim_speed_increase_rate, delta)
 	)
 	
-	# # slows down the police car so that we start catching up with them visually
-	# TODO
+	# speed up the music
+	music_player.pitch_scale += per_min_to_per_frame(music_pitch_speed_increase_rate, delta)
+	
+	# slows down the police car so that we start catching up with them visually
+	police_cars_treadmill.own_speed -= world_speed_increase
 	
 	# # speeds up the running text line, just for fun
-	running_text.running_text_speed -= running_text_speed_increase_rate
+	running_text.running_text_speed -= per_min_to_per_frame(running_text_speed_increase_rate, delta)
 
 
 func launch_obstacles():
@@ -177,8 +194,7 @@ func create_game_loop() -> GameLoopManager:
 		15.: self.launch_heal_items,
 		30.: [self.launch_police_cars, self.launch_policemen],
 		60.: [self.stop_policemen_spawn, self.stop_obstacles_spawn, self.barrage],
-		80.: self.stop_barraging,
-		90.: self.speed_up
+		85.: self.stop_barraging
 	}
 	
 	# NOTE this is for debugging purposes only to throw bombs non-stop
@@ -283,6 +299,8 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed('game_menu'):
 		pause()
+	if duck_char != null and !duck_char.is_dead:
+		speed_up(delta)
 
 
 #region Updates of lives bar and stam bar

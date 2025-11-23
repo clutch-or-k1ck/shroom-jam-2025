@@ -1,4 +1,4 @@
-- steady tempo increase
+- debug police cars slowdown
 - duck movement improvements:
 	- brake when decelerating (animation possible in spine?)
 	- accelerate the anim when accelerating
