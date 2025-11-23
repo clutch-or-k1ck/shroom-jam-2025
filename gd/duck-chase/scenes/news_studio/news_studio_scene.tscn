@@ -1,0 +1,72 @@
+[gd_scene load_steps=7 format=3 uid="uid://dfqrtdlm782gj"]
+
+[ext_resource type="Texture2D" uid="uid://cuxpgslgnb0tm" path="res://assets/2d/News.png" id="1_nct2b"]
+[ext_resource type="Script" uid="uid://crsnablc5e237" path="res://scenes/news_studio/news_studio_scene.gd" id="1_uvnxt"]
+[ext_resource type="PackedScene" uid="uid://y4hccnwhpc3e" path="res://scenes/running_text_widget/running_text_widget.tscn" id="3_0mej0"]
+[ext_resource type="FontFile" uid="uid://bxwb6sqycukpt" path="res://assets/fonts/SuperNormal-xRoj5.ttf" id="4_adbe6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_adbe6"]
+bg_color = Color(1, 0, 0, 0)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+
+[sub_resource type="Theme" id="Theme_x5gho"]
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_adbe6")
+
+[node name="canvas" type="CanvasLayer"]
+script = ExtResource("1_uvnxt")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_nct2b")
+expand_mode = 1
+
+[node name="runningTextRoot" parent="." instance=ExtResource("3_0mej0")]
+z_index = 1
+anchors_preset = -1
+anchor_top = 0.721296
+anchor_right = 1.0
+anchor_bottom = 0.876852
+offset_top = -8.0
+offset_right = 0.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 0
+breaking_news = Array[String](["A duck reportedly on the run after having stolen 1 Bln dollars. Police pursuit follows", "Witnesses report that the duck on the run uses a special dashing technique to avoid police barricades", "Did you know ducks can [color=red]FLY[/color]?? Some ducks find it easier to take off mid jump!", "Ducks who duck under obstacles while moving at high speeds have a 13.459% higher survival rate, according to a British scientist and duck researcher Ryan Dox", "Back to the duck chase: bystanders swear they saw the suspect \"dash right through the police barricades\" as if it was \"sort of invincible\". Details are still being established"])
+running_text_speed = -250
+running_text_font_size = 120
+metadata/_edit_use_anchors_ = true
+
+[node name="label_container" type="PanelContainer" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -382.5
+offset_top = -381.051
+offset_right = 382.5
+offset_bottom = -323.051
+grow_horizontal = 2
+grow_vertical = 0
+pivot_offset = Vector2(397.5, 25.051)
+theme = SubResource("Theme_x5gho")
+
+[node name="press_anything_to_start_label" type="RichTextLabel" parent="label_container"]
+layout_mode = 2
+theme_override_colors/default_color = Color(0.991647, 0.600797, 0.213245, 1)
+theme_override_constants/outline_size = 12
+theme_override_fonts/normal_font = ExtResource("4_adbe6")
+theme_override_font_sizes/normal_font_size = 65
+bbcode_enabled = true
+text = "PRESS ANYTHING TO START"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1

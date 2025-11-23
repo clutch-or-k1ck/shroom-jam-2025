@@ -1,6 +1,3 @@
-- bomb focus debugging
-- the news scene before the game launches
-
 - duck movement improvements:
 	- brake when decelerating (animation possible in spine?)
 	- accelerate the anim when accelerating
