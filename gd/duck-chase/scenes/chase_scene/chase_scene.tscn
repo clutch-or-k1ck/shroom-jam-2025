@@ -69,6 +69,7 @@ ProgressBar/styles/background = SubResource("StyleBoxFlat_4ieac")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_ffie5")
 
 [node name="chase_scene_root" type="Node2D"]
+position = Vector2(0, -2)
 script = ExtResource("1_8pw8v")
 starting_world_speed = 1000
 world_speed_increase_rate = 400
@@ -253,13 +254,12 @@ metadata/_custom_type_script = "uid://beehhs7t2qyd"
 
 [node name="heal_items_treadmill" type="Node2D" parent="road"]
 z_index = 6
-position = Vector2(0, -139)
+position = Vector2(0, -446)
 script = ExtResource("4_myeqy")
 item_types = Array[PackedScene]([ExtResource("19_u40ln")])
 global_speed_multiplier = 0.9
 spawn_method = 1
 spawn_probability = 0.2
-treadmill_group = 1
 start_active = false
 apply_random_displacement = true
 random_displacement_min = Vector2(0, -10)
