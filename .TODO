@@ -1,6 +1,6 @@
 - duck movement improvements:
 	- brake when decelerating (animation possible in spine?)
 	- accelerate the anim when accelerating
-- add missing sounds: dash, bomb shriek, menu button sounds, intro scene music, police siren
+- add missing sounds: dash, bomb shriek, menu button sounds, intro scene music
 - sound volume calibration
 - make web compilation possible

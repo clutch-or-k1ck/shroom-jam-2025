@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://c7xeypsndd6ob"]
+[gd_scene load_steps=5 format=3 uid="uid://c7xeypsndd6ob"]
 
 [ext_resource type="PackedScene" uid="uid://ccc8nqq4x5n21" path="res://scenes/treadmill/treadmill_item/treadmill_composite.tscn" id="1_xraqj"]
 [ext_resource type="Texture2D" uid="uid://yhdiy1jlwb1h" path="res://assets/2d/Police_Car.png" id="2_jdh6g"]
+[ext_resource type="AudioStream" uid="uid://6hv7k6abbsv5" path="res://assets/sounds/misc/police-operation-siren-144229.mp3" id="3_jdh6g"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xraqj"]
 
@@ -16,3 +17,9 @@ shape = SubResource("RectangleShape2D_xraqj")
 position = Vector2(-296.288, -105.25)
 scale = Vector2(0.490544, 0.490544)
 texture = ExtResource("2_jdh6g")
+
+[node name="sirens" type="AudioStreamPlayer2D" parent="." index="2"]
+stream = ExtResource("3_jdh6g")
+volume_db = -15.0
+autoplay = true
+parameters/looping = true
