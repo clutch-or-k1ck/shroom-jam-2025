@@ -46,6 +46,12 @@ enum eTreadmillSpawnMethod {FillViewport, Random}
 ## maximum x and maximum y for the random displacement
 @export var random_displacement_max: Vector2
 
+@export_category('Spawn')
+## items will be spawned this many pixels BEFORE the screen boundary
+@export var spawn_buffer := 0
+## items will be despawned this many pixels AFTER the screen boundary
+@export var despawn_buffer := 0
+
 ## pre-spawn will perform some spawning in the _on_ready
 @export_category('Prespawn')
 @export var enable_prespawn := false
@@ -105,9 +111,9 @@ func despawn_out_of_bounds_elements() -> void:
 	# NOTE the despawn condition depends on the movement direction!
 	var dispawn_condition_identifier := func dispawn_condition(items_) -> bool:
 		if use_own_speed and own_speed > 0.:
-			return items_.size() > 0 and items_[0].position.x + items_[0].get_bounding_rect().size.x > get_viewport_rect().size.x + 1200. # give a small buffer
+			return items_.size() > 0 and items_[0].position.x + items_[0].get_bounding_rect().size.x > get_viewport_rect().size.x + despawn_buffer
 		else:
-			return items_.size() > 0 and items_[0].position.x + items_[0].get_bounding_rect().size.x < 0. - 1200. # give a small buffer
+			return items_.size() > 0 and items_[0].position.x + items_[0].get_bounding_rect().size.x < 0. - despawn_buffer
 			
 	while dispawn_condition_identifier.call(items): # give a small buffer for despawn
 		self.remove_child(items[0]) # CAUTION does this truly free the child?
@@ -158,10 +164,10 @@ func resolve_position(method: eTargetPositionResolutionMethod, fixed_position: V
 		eTargetPositionResolutionMethod.OutsideScreenBoundaries:
 			# NOTE if we use own speed and treadmill is moving to the RIGHT, items should appear on the LEFT
 			if use_own_speed and own_speed > 0.:
-				spawn_at = Vector2(-get_viewport_rect().size.x*0.1, 0.)
+				spawn_at = Vector2(-get_viewport_rect().size.x*0.1 - spawn_buffer, 0.)
 			else: # in other cases they are allowed to appear on the right
 				# NOTE spawn a bit further than the screen boundary
-				spawn_at = Vector2(get_viewport_rect().size.x * 1.1, 0.)
+				spawn_at = Vector2(get_viewport_rect().size.x * 1.1 + spawn_buffer, 0.)
 		eTargetPositionResolutionMethod.FixedPosition:
 			spawn_at = fixed_position
 			
