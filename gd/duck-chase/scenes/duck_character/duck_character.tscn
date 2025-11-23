@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://y4on5eclsc2c"]
+[gd_scene load_steps=13 format=3 uid="uid://y4on5eclsc2c"]
 
 [ext_resource type="Script" uid="uid://cqhkxr2nncxxy" path="res://scenes/duck_character/duck_character.gd" id="1_fkuwv"]
 [ext_resource type="Texture2D" uid="uid://dboro0tpbrcms" path="res://assets/2d/Smoke_Particle_2.png" id="2_gvjwx"]
@@ -6,6 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://6g1hfvm7xw6f" path="res://assets/sounds/misc/retro-coin-1-236677.mp3" id="4_ahea1"]
 [ext_resource type="AudioStream" uid="uid://cunt5j5kka60x" path="res://assets/sounds/duck_sounds/quack_random_queue.tres" id="4_gvjwx"]
 [ext_resource type="AudioStream" uid="uid://bcygwaao24j7c" path="res://assets/sounds/punch_sounds/punch_random_queue.tres" id="5_q1k4s"]
+[ext_resource type="Script" uid="uid://c5igxuherenm8" path="res://scenes/banknote_spawner/banknote_spawner.gd" id="7_deph8"]
 [ext_resource type="Texture2D" uid="uid://cawfg7a2381m2" path="res://assets/2d/Feather_Particle_1.png" id="7_q1k4s"]
 
 [sub_resource type="Curve" id="Curve_gvjwx"]
@@ -71,7 +72,7 @@ position = Vector2(3.8147e-06, -133.875)
 scale = Vector2(0.44598, 0.44598)
 skeleton_data_res = ExtResource("3_s0yet")
 preview_skin = "Default"
-preview_animation = "run"
+preview_animation = "-- Empty --"
 preview_frame = false
 preview_time = 0.0
 
@@ -85,27 +86,10 @@ stream = ExtResource("5_q1k4s")
 [node name="health_obtained" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_ahea1")
 
-[node name="banknotes_particles" type="CPUParticles2D" parent="."]
-position = Vector2(-35, -182)
-amount = 2
-lifetime = 3.0
-randomness = 0.27
-emission_shape = 4
-emission_points = PackedVector2Array()
-emission_colors = PackedColorArray()
-direction = Vector2(-1, -0.5)
-spread = 5.35
-gravity = Vector2(0, 168.219)
-initial_velocity_min = 1300.0
-initial_velocity_max = 1300.0
-angular_velocity_min = 261.1
-angular_velocity_max = 332.31
-radial_accel_min = 8.2
-radial_accel_max = 8.2
-angle_min = -163.9
-angle_max = 640.9
-scale_amount_min = 0.4
-scale_amount_max = 0.4
+[node name="banknote_spawner" type="Node2D" parent="."]
+position = Vector2(-35, -198)
+script = ExtResource("7_deph8")
+metadata/_custom_type_script = "uid://c5igxuherenm8"
 
 [node name="feather_particles" type="CPUParticles2D" parent="."]
 position = Vector2(11, -122)
@@ -127,5 +111,6 @@ scale_amount_min = 0.7
 scale_amount_max = 0.7
 
 [connection signal="character_movement_state_updated" from="." to="." method="_on_character_movement_state_updated"]
+[connection signal="dead" from="." to="." method="_on_dead"]
 [connection signal="lives_updated" from="." to="." method="_on_lives_updated"]
 [connection signal="animation_completed" from="duck_sprite" to="." method="_on_duck_sprite_animation_completed"]

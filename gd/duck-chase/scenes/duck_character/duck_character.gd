@@ -58,9 +58,10 @@ enum eFallVelocityCalculationMethod {Constant, Gravity}
 @onready var duck_hurt_sfx := $duck_hurt_sfx
 @onready var punch_sfx := $punch_sfx
 @onready var health_obtained := $health_obtained
-@onready var banknotes_particles := $banknotes_particles
 @onready var dust_particles := $dust_particles
 @onready var feather_particles := $feather_particles
+@onready var banknote_spawner := $banknote_spawner
+
 
 var stamina := max_stamina
 var lives := max_lives
@@ -363,15 +364,9 @@ func unduck() -> void:
 	standing_collision.set_deferred('disabled', false)
 
 
-## loose banknotes!
-func loose_banknotes_cycle() -> void:
-	banknotes_particles.emitting = true
-	pass
-
-
 func _ready() -> void:
 	update_animation(character_movement_state, character_movement_state)
-	loose_banknotes_cycle()
+	banknote_spawner.active = true
 
 
 func _process(delta: float) -> void:
@@ -476,3 +471,7 @@ func _on_lives_updated(delta: int) -> void:
 func _on_duck_sprite_animation_completed(spine_sprite: Object, animation_state: Object, track_entry: Object) -> void:
 	if (track_entry as SpineTrackEntry).get_animation().get_name() == 'hit':
 		update_animation(character_movement_state, character_movement_state)
+
+
+func _on_dead() -> void:
+	banknote_spawner.active = false

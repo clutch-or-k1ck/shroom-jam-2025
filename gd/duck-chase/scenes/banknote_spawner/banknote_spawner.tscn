@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cpwm3ay6vombb"]
+
+[ext_resource type="Script" uid="uid://c5igxuherenm8" path="res://scenes/banknote_spawner/banknote_spawner.gd" id="1_247be"]
+
+[node name="BanknoteSpawner" type="Node2D"]
+script = ExtResource("1_247be")
