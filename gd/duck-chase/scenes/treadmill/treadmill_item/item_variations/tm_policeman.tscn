@@ -7,7 +7,6 @@
 size = Vector2(146, 439)
 
 [node name="root" instance=ExtResource("1_pmiaj")]
-bounds = Vector2(256.7, -515.845)
 no_spawn_buffer = 500
 deals_damage = true
 damage_dealt = 1
@@ -28,3 +27,6 @@ monitoring = true
 [node name="hitbox_shape" parent="hitbox" index="0"]
 position = Vector2(154, 290)
 shape = SubResource("RectangleShape2D_3gm1n")
+
+[node name="bbox_end" parent="." index="4"]
+position = Vector2(267, 514)

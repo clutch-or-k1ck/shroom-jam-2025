@@ -4,7 +4,6 @@
 [ext_resource type="Texture2D" uid="uid://0i31v2yropa4" path="res://assets/2d/Fence_2.png" id="2_4yk4b"]
 
 [node name="root" instance=ExtResource("1_aqqoc")]
-bounds = Vector2(778.02, 63.3)
 
 [node name="fence4" type="Sprite2D" parent="." index="4"]
 position = Vector2(544, -29)
@@ -15,3 +14,6 @@ texture = ExtResource("2_4yk4b")
 position = Vector2(699, -29)
 scale = Vector2(0.234, 0.234)
 texture = ExtResource("2_4yk4b")
+
+[node name="bbox_end" parent="." index="7"]
+position = Vector2(782, -64)

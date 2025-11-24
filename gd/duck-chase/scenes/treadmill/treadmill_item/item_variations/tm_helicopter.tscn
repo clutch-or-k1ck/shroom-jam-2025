@@ -6,7 +6,6 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vxv1e"]
 
 [node name="root" instance=ExtResource("1_opcxw")]
-bounds = Vector2(1556.16, 102.766)
 no_spawn_buffer = 1700
 
 [node name="hitbox_shape" parent="hitbox" index="0"]

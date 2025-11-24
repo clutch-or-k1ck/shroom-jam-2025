@@ -9,15 +9,6 @@ class_name TreadmillComposite
 ## this is mainly for avoiding situations where several hit areas of a single obstacle deal extra damage
 var charges := 1
 
-var bounds_: Vector2
-## define bounds of this treadmill group (used to define the group's bbox in global coords)
-@export var bounds: Vector2:
-	set(vec):
-		bounds_ = vec
-		queue_redraw()
-	get:
-		return bounds_
-
 ## number of pixels where no additional items are allowed to spawn
 @export var no_spawn_buffer: int
 
@@ -36,22 +27,9 @@ var bounds_: Vector2
 @onready var hitbox := $hitbox
 
 
-## returns the bounding rectangle defined by bounds in local coordinates
-func get_bounding_rect_local() -> Rect2:
-	return Rect2(Vector2(0., 0.), Vector2(bounds_.x, -bounds.y))
-
-
-## returns the bounding rectangle defined by bounds in global coordinates
+## returns boundaries of this treadmill item in local coordinates
 func get_bounding_rect() -> Rect2:
-	var bounding_rect_local = get_bounding_rect_local()
-	var bounding_rect_global = Rect2(
-		Vector2(0., 0.),
-		Vector2(
-			bounding_rect_local.size.x * self.global_scale.x,
-			bounding_rect_local.size.y * self.global_scale.y
-		)
-	)
-	return bounding_rect_global
+	return Rect2($bbox_start.position, $bbox_end.position - $bbox_start.position)
 
 
 func get_no_spawn_area() -> int:
@@ -66,10 +44,16 @@ func _ready() -> void:
 		hitbox.monitoring = false
 
 
+func _process(delta: float) -> void:
+	if Engine.is_editor_hint():
+		self.queue_redraw()
+
+
 func _draw() -> void:
 	if Engine.is_editor_hint():
-		var preview_rect := Rect2(Vector2(0., 0.), Vector2(bounds_.x, -bounds_.y))
-		draw_rect(preview_rect, Color(1., 0., 0.), false)
+		# an improved preview rect
+		var preview_rect := Rect2($bbox_start.position, $bbox_end.position - $bbox_start.position)
+		draw_rect(preview_rect, Color(0., 1., 0.), false)
 
 
 ## deal damage if this composite group is supposed to deal damage

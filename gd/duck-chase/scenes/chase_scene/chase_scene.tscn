@@ -114,6 +114,8 @@ random_scale_max = 1.2
 apply_random_displacement = true
 random_displacement_min = Vector2(0, -100)
 random_displacement_max = Vector2(0, 100)
+spawn_buffer = 50.0
+despawn_buffer = 400.0
 enable_prespawn = true
 prespawn_samples = 30
 prespawn_probability = 0.1
@@ -127,6 +129,8 @@ position = Vector2(0, -27)
 script = ExtResource("4_myeqy")
 item_types = Array[PackedScene]([ExtResource("4_4p7bp")])
 global_speed_multiplier = 0.03
+spawn_buffer = 0.0
+despawn_buffer = 1000.0
 metadata/_custom_type_script = "uid://beehhs7t2qyd"
 
 [node name="treadmill_city_front" type="Node2D" parent="city_backdrop"]
@@ -134,6 +138,8 @@ position = Vector2(0, -38)
 script = ExtResource("4_myeqy")
 item_types = Array[PackedScene]([ExtResource("4_jqnf2")])
 global_speed_multiplier = 0.1
+spawn_buffer = 0.0
+despawn_buffer = 1000.0
 metadata/_custom_type_script = "uid://beehhs7t2qyd"
 
 [node name="road" type="Node2D" parent="."]
@@ -153,6 +159,8 @@ random_scale_min = 0.8
 random_scale_max = 1.2
 apply_random_displacement = true
 random_displacement_max = Vector2(0, 40)
+spawn_buffer = 0.0
+despawn_buffer = 1000.0
 metadata/_custom_type_script = "uid://beehhs7t2qyd"
 
 [node name="road_collision" type="StaticBody2D" parent="road"]
@@ -189,6 +197,8 @@ global_speed_multiplier = 0.3
 apply_random_scaling = true
 random_scale_min = 1.2
 random_scale_max = 1.2
+spawn_buffer = 0.0
+despawn_buffer = 0.0
 metadata/_custom_type_script = "uid://beehhs7t2qyd"
 
 [node name="sidewalk_top_objects" type="Node2D" parent="road/sidewalk_top"]
@@ -202,7 +212,8 @@ spawn_probability = 0.4
 apply_random_scaling = true
 random_scale_min = 1.3
 random_scale_max = 1.3
-despawn_buffer = 2000
+spawn_buffer = 0.0
+despawn_buffer = 2000.0
 metadata/_custom_type_script = "uid://beehhs7t2qyd"
 
 [node name="police_cars_treadmill" type="Node2D" parent="road"]
@@ -214,10 +225,11 @@ spawn_method = 1
 spawn_probability = 1.3
 start_active = false
 use_own_speed = true
-own_speed = 150.0
+own_speed = 400.0
 apply_random_displacement = true
 random_displacement_min = Vector2(0, -100)
-despawn_buffer = 1200
+spawn_buffer = 0.0
+despawn_buffer = 1200.0
 metadata/_custom_type_script = "uid://beehhs7t2qyd"
 
 [node name="sidewalk_middle" type="Node2D" parent="road"]
@@ -229,6 +241,8 @@ global_speed_multiplier = 0.6
 apply_random_scaling = true
 random_scale_min = 2.3
 random_scale_max = 2.3
+spawn_buffer = 0.0
+despawn_buffer = 0.0
 metadata/_custom_type_script = "uid://beehhs7t2qyd"
 
 [node name="sidewalk_middle_objects" type="Node2D" parent="road/sidewalk_middle"]
@@ -242,7 +256,8 @@ spawn_probability = 0.5
 apply_random_scaling = true
 random_scale_min = 2.0
 random_scale_max = 2.0
-despawn_buffer = 2000
+spawn_buffer = 0.0
+despawn_buffer = 2000.0
 metadata/_custom_type_script = "uid://beehhs7t2qyd"
 
 [node name="obstacles" type="Node2D" parent="road"]
@@ -255,6 +270,8 @@ spawn_method = 1
 spawn_probability = 1.0
 treadmill_group = 1
 start_active = false
+spawn_buffer = 0.0
+despawn_buffer = 200.0
 metadata/_custom_type_script = "uid://beehhs7t2qyd"
 
 [node name="heal_items_treadmill" type="Node2D" parent="road"]
@@ -269,6 +286,8 @@ start_active = false
 apply_random_displacement = true
 random_displacement_min = Vector2(0, -10)
 random_displacement_max = Vector2(0, 10)
+spawn_buffer = 0.0
+despawn_buffer = 100.0
 metadata/_custom_type_script = "uid://beehhs7t2qyd"
 
 [node name="policemen" type="Node2D" parent="road"]
@@ -283,6 +302,7 @@ treadmill_group = 1
 start_active = false
 apply_random_scaling = true
 apply_random_displacement = true
+spawn_buffer = 0.0
 metadata/_custom_type_script = "uid://beehhs7t2qyd"
 
 [node name="sidewalk_bottom" type="Node2D" parent="road"]
@@ -294,6 +314,8 @@ global_speed_multiplier = 1.7
 apply_random_scaling = true
 random_scale_min = 3.5
 random_scale_max = 3.5
+spawn_buffer = 0.0
+despawn_buffer = 0.0
 metadata/_custom_type_script = "uid://beehhs7t2qyd"
 
 [node name="sidewalk_bottom_objects" type="Node2D" parent="road/sidewalk_bottom"]
@@ -304,6 +326,8 @@ item_types = Array[PackedScene]([ExtResource("9_hjabt")])
 global_speed_multiplier = 3.2
 spawn_method = 1
 spawn_probability = 0.4
+spawn_buffer = 0.0
+despawn_buffer = 200.0
 metadata/_custom_type_script = "uid://beehhs7t2qyd"
 
 [node name="treadmill_helicopters" type="Node2D" parent="."]
@@ -315,8 +339,8 @@ spawn_method = 1
 spawn_probability = 0.05
 use_own_speed = true
 own_speed = 300.0
-spawn_buffer = 2000
-despawn_buffer = 2000
+spawn_buffer = 2000.0
+despawn_buffer = 2000.0
 metadata/_custom_type_script = "uid://beehhs7t2qyd"
 
 [node name="running_text" type="CanvasLayer" parent="."]

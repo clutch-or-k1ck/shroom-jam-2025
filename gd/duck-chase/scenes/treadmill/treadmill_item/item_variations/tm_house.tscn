@@ -14,3 +14,6 @@ shape = SubResource("RectangleShape2D_bfcm3")
 position = Vector2(368.371, -131.25)
 scale = Vector2(0.270984, 0.270984)
 texture = ExtResource("2_mj3or")
+
+[node name="bbox_end" parent="." index="3"]
+position = Vector2(726, -248)

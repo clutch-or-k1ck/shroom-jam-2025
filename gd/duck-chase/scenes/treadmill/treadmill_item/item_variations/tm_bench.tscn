@@ -6,6 +6,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_caa6l"]
 
 [node name="root" instance=ExtResource("1_caa6l")]
+no_spawn_buffer = 50
 
 [node name="hitbox_shape" parent="hitbox" index="0"]
 shape = SubResource("RectangleShape2D_caa6l")
@@ -14,3 +15,6 @@ shape = SubResource("RectangleShape2D_caa6l")
 position = Vector2(100.705, -50)
 scale = Vector2(0.410256, 0.410256)
 texture = ExtResource("2_jmo75")
+
+[node name="bbox_end" parent="." index="3"]
+position = Vector2(197, -100)

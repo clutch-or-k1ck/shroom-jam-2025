@@ -9,7 +9,6 @@
 size = Vector2(92.5, 133)
 
 [node name="root" instance=ExtResource("1_jly4t")]
-bounds = Vector2(332.966, 207.644)
 no_spawn_buffer = 400
 deals_damage = true
 damage_dealt = 1
@@ -36,3 +35,6 @@ texture = ExtResource("3_qxmn7")
 position = Vector2(274.75, -80.55)
 scale = Vector2(0.45, 0.45)
 texture = ExtResource("4_1yn2b")
+
+[node name="bbox_end" parent="." index="5"]
+position = Vector2(326, -203)

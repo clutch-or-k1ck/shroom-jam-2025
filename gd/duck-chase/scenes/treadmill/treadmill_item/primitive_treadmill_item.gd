@@ -8,10 +8,9 @@ class_name PrimitiveTreadmillItem
 @onready var treadmill_item_sprite_ := $treadmill_item_sprite
 
 
-## the primitive treadmill item returns its sprite's bounding rect with scaling applied
+## the primitive treadmill item returns its sprite's bounding rect in local coords
 func get_bounding_rect() -> Rect2:
-	var sprite_rect := treadmill_item_sprite_.get_rect() as Rect2
-	return Rect2(Vector2(0., 0.), Vector2(sprite_rect.size.x * self.global_scale.x, sprite_rect.size.y * self.global_scale.y))
+	return treadmill_item_sprite_.get_rect()
 
 
 ## the primitive treadmill item returns its no_spawn_buffer as no_spawn_area

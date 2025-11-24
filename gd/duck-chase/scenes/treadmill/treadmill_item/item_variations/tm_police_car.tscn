@@ -7,8 +7,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xraqj"]
 
 [node name="root" instance=ExtResource("1_xraqj")]
-bounds = Vector2(-409.925, 146.831)
-no_spawn_buffer = 0
+no_spawn_buffer = 350
 
 [node name="hitbox_shape" parent="hitbox" index="0"]
 shape = SubResource("RectangleShape2D_xraqj")
@@ -23,3 +22,6 @@ stream = ExtResource("3_jdh6g")
 volume_db = -15.0
 autoplay = true
 parameters/looping = true
+
+[node name="bbox_start" parent="." index="3"]
+position = Vector2(-592, -211)

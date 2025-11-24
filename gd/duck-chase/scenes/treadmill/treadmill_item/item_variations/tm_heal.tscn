@@ -7,7 +7,6 @@
 size = Vector2(93, 90)
 
 [node name="root" instance=ExtResource("1_hei46")]
-bounds = Vector2(94.218, 91.603)
 no_spawn_buffer = 1500
 restores_life = true
 
@@ -22,3 +21,6 @@ shape = SubResource("RectangleShape2D_hei46")
 position = Vector2(46.7758, -43.25)
 scale = Vector2(0.881443, 0.881443)
 texture = ExtResource("2_kb7y8")
+
+[node name="bbox_end" parent="." index="3"]
+position = Vector2(96, -94)

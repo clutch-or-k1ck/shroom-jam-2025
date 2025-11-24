@@ -6,7 +6,6 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8rqbh"]
 
 [node name="root" instance=ExtResource("1_boyju")]
-bounds = Vector2(467.64, 63.3)
 no_spawn_buffer = 50
 
 [node name="hitbox_shape" parent="hitbox" index="0"]
@@ -26,3 +25,6 @@ texture = ExtResource("2_iigqp")
 position = Vector2(389, -29)
 scale = Vector2(0.234, 0.234)
 texture = ExtResource("2_iigqp")
+
+[node name="bbox_end" parent="." index="5"]
+position = Vector2(472, -65)

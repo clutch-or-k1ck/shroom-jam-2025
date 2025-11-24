@@ -48,9 +48,9 @@ enum eTreadmillSpawnMethod {FillViewport, Random}
 
 @export_category('Spawn')
 ## items will be spawned this many pixels BEFORE the screen boundary
-@export var spawn_buffer := 0
+@export var spawn_buffer := 300.
 ## items will be despawned this many pixels AFTER the screen boundary
-@export var despawn_buffer := 0
+@export var despawn_buffer := 500.
 
 ## pre-spawn will perform some spawning in the _on_ready
 @export_category('Prespawn')
@@ -63,6 +63,33 @@ enum eTreadmillSpawnMethod {FillViewport, Random}
 ## called on per-frame basis, defines if this treadmill should be active or not
 # NOTE this is checked AFTER active is checked: so, if active is false, activation condition is not even called
 var activation_condition: Callable = Callable()
+
+
+# this is a helper class that defines a infinite subsection of 2d space, defined by a line and a normal vector
+class HalfPlane2D:
+	var distance: Vector2
+	var normal: Vector2
+	
+	func _init(arbitrary_point: Vector2, normal: Vector2):
+		distance = arbitrary_point
+		self.normal = normal
+		
+	func contains(point: Vector2) -> bool:
+		return (point - distance).dot(normal) >= 0
+		
+	func encloses(rect: Rect2) -> bool:
+		return contains(rect.position) and contains(rect.end)
+
+
+enum eTreadmillDirection {LEFT, RIGHT} # TODO UP and DOWN must be added in future
+
+
+func get_treadmill_direction() -> eTreadmillDirection:
+	if use_own_speed:
+		return eTreadmillDirection.RIGHT if own_speed >= 0. else eTreadmillDirection.LEFT
+	else:
+		return eTreadmillDirection.RIGHT if Globals.get_global_world_speed() < 0. else eTreadmillDirection.LEFT # TODO we create a hard dependency on Globals of this particular project - that is wrong
+
 
 #region Adding item types at runtime!
 
@@ -106,17 +133,51 @@ func move_treadmill(delta: float) -> void:
 			item.position += Vector2(-1. * Globals.get_global_world_speed() * global_speed_multiplier * delta, 0.)
 
 
+## returns the kill zone as rectangle
+func get_kill_zone() -> HalfPlane2D:
+	if get_treadmill_direction() == eTreadmillDirection.RIGHT:
+		return HalfPlane2D.new(
+			Vector2(get_viewport_rect().size.x + despawn_buffer, 0.),
+			Vector2(1., 0.)
+		)
+	else:
+		return HalfPlane2D.new(
+			Vector2(-despawn_buffer, 0.),
+			Vector2(-1., 0.)
+		)
+
+
+## return global bounds of the treadmill item
+func get_global_bounds(item: TreadmillItem) -> Rect2:
+	var local_bounds := item.get_bounding_rect()
+	var item_scale := item.global_scale
+	var global_bounds := Rect2(
+		Vector2(
+			local_bounds.position.x * item_scale.x,
+			local_bounds.position.y * item_scale.y
+		),
+		Vector2(
+			local_bounds.size.x * item_scale.x,
+			local_bounds.size.y * item_scale.y
+		)
+	)
+	
+	# finally, add item's position making this a positioned rect
+	return Rect2(
+		global_bounds.position + item.position,
+		global_bounds.size
+	)
+
+
+## for a given item, returns whether this should be despawned
+func should_despawn(item: TreadmillItem) -> bool:
+	return get_kill_zone().encloses(get_global_bounds(item))
+
+
 ## despawn elements that have passed beyound the left screen border
 func despawn_out_of_bounds_elements() -> void:
-	# NOTE the despawn condition depends on the movement direction!
-	var dispawn_condition_identifier := func dispawn_condition(items_) -> bool:
-		if use_own_speed and own_speed > 0.:
-			return items_.size() > 0 and items_[0].position.x + items_[0].get_bounding_rect().size.x > get_viewport_rect().size.x + despawn_buffer
-		else:
-			return items_.size() > 0 and items_[0].position.x + items_[0].get_bounding_rect().size.x < 0. - despawn_buffer
-			
-	while dispawn_condition_identifier.call(items): # give a small buffer for despawn
-		self.remove_child(items[0]) # CAUTION does this truly free the child?
+	while items.size() > 0 and should_despawn(items[0]):
+		self.remove_child(items[0])
 		items.remove_at(0)
 
 
@@ -151,6 +212,13 @@ func create_new_treadmill_item(idx: int) -> TreadmillItem:
 	return new_treadmill_item
 
 
+func get_out_of_screen_boundaries_spawn_point() -> Vector2:
+	if get_treadmill_direction() == eTreadmillDirection.RIGHT:
+		return Vector2(-spawn_buffer, 0.)
+	else:
+		return Vector2(get_viewport_rect().size.x + spawn_buffer, 0.)
+
+
 enum eTargetPositionResolutionMethod {SnapToLast, OutsideScreenBoundaries, FixedPosition}
 ## finds a position for a new treamill item following the spawn method and applying randomization
 ## returns true if no no-spawn-area was overlapped (only valid if check_no_spawn_overlaps == true)
@@ -160,14 +228,9 @@ func resolve_position(method: eTargetPositionResolutionMethod, fixed_position: V
 		eTargetPositionResolutionMethod.SnapToLast:
 			# NOTE snap to last item if present, otherwise spawn at root
 			spawn_at = Vector2(0., 0.) if items.size() == 1 else \
-				Vector2(items[-2].position.x + items[-2].get_bounding_rect().end.x, items[-2].position.y)
+				Vector2(get_global_bounds(items[-2]).end.x, items[-2].position.y)
 		eTargetPositionResolutionMethod.OutsideScreenBoundaries:
-			# NOTE if we use own speed and treadmill is moving to the RIGHT, items should appear on the LEFT
-			if use_own_speed and own_speed > 0.:
-				spawn_at = Vector2(-get_viewport_rect().size.x*0.1 - spawn_buffer, 0.)
-			else: # in other cases they are allowed to appear on the right
-				# NOTE spawn a bit further than the screen boundary
-				spawn_at = Vector2(get_viewport_rect().size.x * 1.1 + spawn_buffer, 0.)
+			spawn_at = get_out_of_screen_boundaries_spawn_point()
 		eTargetPositionResolutionMethod.FixedPosition:
 			spawn_at = fixed_position
 			
@@ -196,6 +259,24 @@ func select_random_treadmill_item_type() -> int:
 	return randi_range(0, get_item_types_for_spawn().size() - 1) # TODO more interesting selection methods?
 
 
+## returns the area which will result in spawn conflicts/overlaps if spawned within or null if no such area exists
+func get_spawn_conflict_zone(treadmill: Treadmill) -> HalfPlane2D:
+	if treadmill.items.is_empty():
+		return null
+		
+	var treadmill_newest := treadmill.items[-1]
+	if get_treadmill_direction() == eTreadmillDirection.RIGHT: # moving RIGHT, no-spawn buffer extends to the LEFT, spawn conflicts arise to the RIGHT
+		return HalfPlane2D.new(
+			Vector2(get_global_bounds(treadmill_newest).position.x - treadmill_newest.get_no_spawn_area(), 0.),
+			Vector2(1., 0) # spawning conflicts to the right of the line
+		)
+	else: # moving LEFT, no-spawn buffer extends to the RIGHT, spawn conflicts arise to the LEFT
+		return HalfPlane2D.new(
+			Vector2(get_global_bounds(treadmill_newest).position.x + treadmill_newest.get_no_spawn_area(), 0.),
+			Vector2(-1., 0.)
+		)
+
+
 func is_overlapping_no_spawn_areas(position: Vector2) -> bool:
 	# is there a treadmill item that prohibits spawning due to its no-spawn area?
 	# NOTE we check this for all treadmills in the group
@@ -203,15 +284,9 @@ func is_overlapping_no_spawn_areas(position: Vector2) -> bool:
 		treadmill_group != -1 else [self]
 		
 	for treadmill in treadmills_to_check:
-		if not treadmill.items.is_empty():
-			# NOTE if we move to the right at our own speed, we are allowed to spawn LEFT
-			if use_own_speed and own_speed > 0.:
-				# NOTE HACK treadmill items that move to the right have their origin differently than normal items
-				if position.x <= treadmill.items[-1].position.x - treadmill.items[-1].get_bounding_rect().size.x - treadmill.items[-1].get_no_spawn_area():
-						return true
-			else:
-				if position.x <= treadmill.items[-1].position.x + treadmill.items[-1].get_bounding_rect().end.x + treadmill.items[-1].get_no_spawn_area():
-					return true
+		var spawn_conflict_zone := get_spawn_conflict_zone(treadmill)
+		if spawn_conflict_zone != null and spawn_conflict_zone.contains(position):
+			return true
 	return false
 
 
@@ -250,7 +325,7 @@ func prespawn() -> void:
 ## for random spawning, spawn with a very low probability every frame
 func fill_with_treadmill_items() -> void:
 	if items.size() == 0 or \
-			items[-1].position.x + items[-1].get_bounding_rect().end.x <= get_viewport_rect().size.x:
+			get_global_bounds(items[-1]).end.x <= get_viewport_rect().size.x:
 		stack_new_treadmill_item()
 
 
