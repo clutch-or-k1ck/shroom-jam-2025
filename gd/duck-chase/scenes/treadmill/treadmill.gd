@@ -272,7 +272,7 @@ func get_spawn_conflict_zone(treadmill: Treadmill) -> HalfPlane2D:
 		)
 	else: # moving LEFT, no-spawn buffer extends to the RIGHT, spawn conflicts arise to the LEFT
 		return HalfPlane2D.new(
-			Vector2(get_global_bounds(treadmill_newest).position.x + treadmill_newest.get_no_spawn_area(), 0.),
+			Vector2(get_global_bounds(treadmill_newest).end.x + treadmill_newest.get_no_spawn_area(), 0.),
 			Vector2(-1., 0.)
 		)
 
