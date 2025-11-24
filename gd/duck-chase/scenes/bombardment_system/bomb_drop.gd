@@ -26,6 +26,7 @@ var reference_scale: Vector2
 ## destroy self when child bomb exploded
 func handle_child_bomb_explosion() -> void:
 	shadow_sprite.visible = false
+	$bomb_whistle.playing = false
 	
 	# NOTE we free the bomb drop with a delay to let all vfs play to end
 	await get_tree().create_timer(1.5).timeout
@@ -60,3 +61,6 @@ func _process(delta: float) -> void:
 func _ready() -> void:
 	reference_scale = shadow_sprite.scale
 	shadow_sprite.scale = Vector2(0., 0.)
+	# slight random delay in sound to avoid simultaneous playback
+	await get_tree().create_timer(randf_range(0., 0.2)).timeout
+	$bomb_whistle.play()

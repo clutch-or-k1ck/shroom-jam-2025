@@ -1,0 +1,8 @@
+[gd_resource type="AudioStreamRandomizer" load_steps=2 format=3 uid="uid://dhmrscbum5775"]
+
+[ext_resource type="AudioStream" uid="uid://bkakfl74al2bt" path="res://assets/sounds/misc/bomb_whistle.mp3" id="1_p3xbl"]
+
+[resource]
+random_pitch = 1.2
+streams_count = 1
+stream_0/stream = ExtResource("1_p3xbl")

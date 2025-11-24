@@ -9,6 +9,7 @@ var active_button_idx: int
 @onready var content_container := $global_margins/vbox_layout/hbox_layout/content_margins
 @onready var header := $global_margins/vbox_layout/header_margins/header
 
+var btn_sfx := preload('res://assets/sounds/misc/button.mp3')
 
 ## collect the buttons from the 'buttons' section of this menu
 func collect_buttons() -> Array[Button]:
@@ -42,10 +43,19 @@ func set_active_btn_idx(idx: int) -> void:
 	_on_active_btn_idx_changed()
 
 
+func play_btn_sfx():
+	var audio_stream_player := AudioStreamPlayer.new()
+	audio_stream_player.stream = btn_sfx
+	audio_stream_player.finished.connect(audio_stream_player.queue_free)
+	add_child(audio_stream_player)
+	audio_stream_player.play()
+
+
 ## make a button at a given index grab focus
 func _on_active_btn_idx_changed() -> void:
 	if active_button_idx < buttons.size():
 		buttons[active_button_idx].grab_focus()
+		play_btn_sfx()
 
 
 ## make the button that currently has focus emit its 'pressed' signal

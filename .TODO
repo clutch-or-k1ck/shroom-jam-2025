@@ -2,6 +2,6 @@
 - duck movement improvements:
 	- decelerate anim when slowing down
 	- accelerate the anim when speeding up
-- add missing sounds: dash, bomb shriek, menu button sounds, intro scene music
+- add missing sounds: dash, intro scene music
 - sound volume calibration
 - make web compilation possible

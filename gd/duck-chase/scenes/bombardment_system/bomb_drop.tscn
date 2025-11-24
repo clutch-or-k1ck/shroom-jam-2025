@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://cq7w6f5erfs1"]
+[gd_scene load_steps=4 format=3 uid="uid://cq7w6f5erfs1"]
 
 [ext_resource type="Script" uid="uid://dqh4wib1lja0x" path="res://scenes/bombardment_system/bomb_drop.gd" id="1_xuy5s"]
 [ext_resource type="Texture2D" uid="uid://c6notxinai2ji" path="res://assets/2d/Bomb_Warning.png" id="2_xuy5s"]
+[ext_resource type="AudioStream" uid="uid://dhmrscbum5775" path="res://assets/sounds/misc/randomized_bomb_whistle.tres" id="3_tg7yu"]
 
 [node name="bomb_drop" type="Node2D"]
 script = ExtResource("1_xuy5s")
@@ -12,3 +13,6 @@ initial_vertical_impulse = 2500.0
 position = Vector2(-3.8147e-06, 1)
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("2_xuy5s")
+
+[node name="bomb_whistle" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_tg7yu")
