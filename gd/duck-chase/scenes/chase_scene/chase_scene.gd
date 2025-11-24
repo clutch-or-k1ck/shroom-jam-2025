@@ -202,8 +202,8 @@ func create_game_loop() -> GameLoopManager:
 		0.1: self.barrage
 	}
 	
-	var game_loop_manager := GameLoopManager.new(bomb_only_game_loop)
-	game_loop_manager.looping = false
+	var game_loop_manager := GameLoopManager.new(normal_game_loop)
+	game_loop_manager.looping = true
 	
 	add_child(game_loop_manager)
 	return game_loop_manager
