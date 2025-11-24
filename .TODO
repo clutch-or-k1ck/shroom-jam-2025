@@ -1,7 +1,7 @@
 - debug police cars slowdown
 - duck movement improvements:
-	- brake when decelerating (animation possible in spine?)
-	- accelerate the anim when accelerating
+	- decelerate anim when slowing down
+	- accelerate the anim when speeding up
 - add missing sounds: dash, bomb shriek, menu button sounds, intro scene music
 - sound volume calibration
 - make web compilation possible
