@@ -259,20 +259,36 @@ func select_random_treadmill_item_type() -> int:
 	return randi_range(0, get_item_types_for_spawn().size() - 1) # TODO more interesting selection methods?
 
 
+## returns a treadmill item that is at the moment at closest to the spawn point
+func get_nearest_to_spawn(treadmill: Treadmill) -> TreadmillItem:
+	var nearest: TreadmillItem = null
+	var distance: float = 1e+9
+	
+	var spawn_point := treadmill.get_out_of_screen_boundaries_spawn_point()
+	
+	for item in treadmill.items:
+		var dist = abs(item.position.x - spawn_point.x)
+		if dist < distance:
+			distance = dist
+			nearest = item
+	
+	return nearest
+
+
 ## returns the area which will result in spawn conflicts/overlaps if spawned within or null if no such area exists
 func get_spawn_conflict_zone(treadmill: Treadmill) -> HalfPlane2D:
 	if treadmill.items.is_empty():
 		return null
 		
-	var treadmill_newest := treadmill.items[-1]
+	var nearest_to_spawn := get_nearest_to_spawn(treadmill)
 	if get_treadmill_direction() == eTreadmillDirection.RIGHT: # moving RIGHT, no-spawn buffer extends to the LEFT, spawn conflicts arise to the RIGHT
 		return HalfPlane2D.new(
-			Vector2(get_global_bounds(treadmill_newest).position.x - treadmill_newest.get_no_spawn_area(), 0.),
+			Vector2(get_global_bounds(nearest_to_spawn).position.x - nearest_to_spawn.get_no_spawn_area(), 0.),
 			Vector2(1., 0) # spawning conflicts to the right of the line
 		)
 	else: # moving LEFT, no-spawn buffer extends to the RIGHT, spawn conflicts arise to the LEFT
 		return HalfPlane2D.new(
-			Vector2(get_global_bounds(treadmill_newest).end.x + treadmill_newest.get_no_spawn_area(), 0.),
+			Vector2(get_global_bounds(nearest_to_spawn).end.x + nearest_to_spawn.get_no_spawn_area(), 0.),
 			Vector2(-1., 0.)
 		)
 

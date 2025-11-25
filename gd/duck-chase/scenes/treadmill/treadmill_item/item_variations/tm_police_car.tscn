@@ -7,13 +7,13 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xraqj"]
 
 [node name="root" instance=ExtResource("1_xraqj")]
-no_spawn_buffer = 350
+no_spawn_buffer = 600
 
 [node name="hitbox_shape" parent="hitbox" index="0"]
 shape = SubResource("RectangleShape2D_xraqj")
 
 [node name="car_sprite" type="Sprite2D" parent="." index="1"]
-position = Vector2(-296.288, -105.25)
+position = Vector2(2, -105)
 scale = Vector2(0.490544, 0.490544)
 texture = ExtResource("2_jdh6g")
 
@@ -24,4 +24,7 @@ autoplay = true
 parameters/looping = true
 
 [node name="bbox_start" parent="." index="3"]
-position = Vector2(-592, -211)
+position = Vector2(-298, -207)
+
+[node name="bbox_end" parent="." index="4"]
+position = Vector2(300, -2)
