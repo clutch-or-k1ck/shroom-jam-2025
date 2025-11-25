@@ -1,12 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://c7xeypsndd6ob"]
+[gd_scene load_steps=6 format=3 uid="uid://c7xeypsndd6ob"]
 
 [ext_resource type="PackedScene" uid="uid://ccc8nqq4x5n21" path="res://scenes/treadmill/treadmill_item/treadmill_composite.tscn" id="1_xraqj"]
+[ext_resource type="Script" uid="uid://bo8h8cr1pivtg" path="res://scenes/treadmill/treadmill_item/item_variations/tm_police_car.gd" id="2_1jsdc"]
 [ext_resource type="Texture2D" uid="uid://yhdiy1jlwb1h" path="res://assets/2d/Police_Car.png" id="2_jdh6g"]
 [ext_resource type="AudioStream" uid="uid://6hv7k6abbsv5" path="res://assets/sounds/misc/police-operation-siren-144229.mp3" id="3_jdh6g"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xraqj"]
 
 [node name="root" instance=ExtResource("1_xraqj")]
+script = ExtResource("2_1jsdc")
 no_spawn_buffer = 600
 
 [node name="hitbox_shape" parent="hitbox" index="0"]
@@ -28,3 +30,12 @@ position = Vector2(-298, -207)
 
 [node name="bbox_end" parent="." index="4"]
 position = Vector2(300, -2)
+
+[node name="beacons" type="Node2D" parent="." index="5"]
+position = Vector2(-9, -190)
+
+[node name="red_beacon" type="Node2D" parent="beacons" index="0"]
+position = Vector2(-20, 0)
+
+[node name="blue_beacon" type="Node2D" parent="beacons" index="1"]
+position = Vector2(20, 0)
