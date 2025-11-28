@@ -72,11 +72,9 @@ ProgressBar/styles/fill = SubResource("StyleBoxFlat_ffie5")
 [node name="chase_scene_root" type="Node2D"]
 script = ExtResource("1_8pw8v")
 world_speed_base = 1200.0
-world_speed_max = 2500.0
-world_speed_calibration_time = 240.0
-world_speed_calibration_speed = 1950.0
-start_at_elapsed_time = 10000.0
-do_speed_up = false
+world_speed_max = 2600.0
+world_speed_calibration_time = 150.0
+world_speed_calibration_speed = 2200.0
 
 [node name="music_player" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("24_qrt7r")

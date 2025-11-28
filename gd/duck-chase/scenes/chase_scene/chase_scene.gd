@@ -158,10 +158,10 @@ func stop_barraging() -> void:
 func create_game_loop() -> GameLoopManager:
 	var normal_game_loop := {
 		0.1: self.launch_obstacles,
-		15.: self.launch_heal_items,
-		30.: [self.launch_police_cars, self.launch_policemen],
-		60.: [self.stop_policemen_spawn, self.stop_obstacles_spawn, self.barrage],
-		85.: self.stop_barraging
+		13.: self.launch_heal_items,
+		25.: [self.launch_police_cars, self.launch_policemen],
+		45.: [self.stop_policemen_spawn, self.stop_obstacles_spawn, self.barrage],
+		60.: self.stop_barraging
 	}
 	
 	# NOTE this is for debugging purposes only to throw bombs non-stop
@@ -248,7 +248,6 @@ func get_target_world_speed(elapsed_time: float):
 		1. - (world_speed_calibration_speed - world_speed_base) / (world_speed_max - world_speed_base)
 	)
 	var m = k * (world_speed_max - world_speed_base)
-	print('target world speed is %d' % (world_speed_base + m / k * (1. - exp(-k * elapsed_time))))
 	return world_speed_base + m / k * (1. - exp(-k * elapsed_time))
 
 
@@ -273,23 +272,23 @@ func get_target_world_speed(elapsed_time: float):
 	},
 	{
 		'target': 'duck_char.jump_velocity',
-		'base': -2400.,
-		'target_high': -3800.
+		'base': -2600.,
+		'target_high': -3500.
 	},
 	{
 		'target': 'duck_char.fall_constant_speed',
-		'base': 1600.,
-		'target_high': 2800.
+		'base': 1800.,
+		'target_high': 2500.
 	},
 	{
 		'target': 'duck_char.air_dash_zone',
 		'base': 0.1,
-		'target_high': 0.5
+		'target_high': 0.25
 	},
 	{
 		'target': 'duck_char.zero_g_grace_period',
-		'base': 0.1,
-		'target_high': 0.01
+		'base': 0.06,
+		'target_high': 0.03
 	}
 ]
 
@@ -307,7 +306,6 @@ func modulate_global_world_speed_properties():
 		)
 		
 		if 'method' in property_modulator:
-			print('calling a property modulator method with value %f' % target_value)
 			property_modulator['method'].call(target_value)
 		elif 'target' in property_modulator:
 			var target_object = null # the object on which to set the property
@@ -326,7 +324,6 @@ func modulate_global_world_speed_properties():
 					target_object = target_object.get(target_path[i])
 				target_property = target_path[-1]
 				
-			print('setting property %s to its target value %f' % [property_modulator['target'], target_value])
 			target_object.set(target_property, target_value)
 
 
@@ -334,7 +331,6 @@ func modulate_global_world_speed_properties():
 func modulate_global_speeds() -> void:
 	Globals.set_global_world_speed(get_target_world_speed(time_elapsed))
 	modulate_global_world_speed_properties()
-
 
 #endregion
 
