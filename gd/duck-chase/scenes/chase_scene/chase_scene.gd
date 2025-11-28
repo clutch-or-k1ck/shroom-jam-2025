@@ -30,19 +30,13 @@ var duck_char: MrDuck
 
 
 #region Game loop
-
-@export_category('Speed increase rates')
-@export var starting_world_speed := 1200
-## increase in world's speed in pixels per minute (100 implies + 1000 pixels speed in 10 minutes)
-@export var world_speed_increase_rate := 200
-## increase in the duck's animation speed in units per minute (0.1 implies 2.0 playback rate in 10 minutes)
-@export var duck_anim_speed_increase_rate := 0.1
-## increase in the speed of the running text in pixels per minute (100 implies + 1000 pixels speed in 10 minutes)
-@export var running_text_speed_increase_rate := 100
-## increase in the music pitch in units per minute (0.05 implies + 0.5 pitch in 10 minutes)
-@export var music_pitch_speed_increase_rate := 0.05
-
 @onready var obstacles_line := $road/obstacles
+
+## time elapsed since the start of the chase
+var time_elapsed: float
+
+## if we are playing the game (duck is alive and chase is ongoing)
+var playing := false
 
 var bombing_overrides := {}
 var barraging_random_interval: Array = [0.5, 3.]
@@ -101,42 +95,15 @@ func clean_up_previous_session():
 
 
 ## this happens only once at the very beginning of the chase
-func init_game():
+func start_chase():
 	# reset treadmills
 	heal_items_treadmill.active = false
 	policemen_treadmill.active = false
 	obstacles_treadmill.active = true
 	obstacles_treadmill.spawn_probability = 0.5
-	Globals.set_global_world_speed(starting_world_speed)
+	playing = true
+	time_elapsed = start_at_elapsed_time
 	music_player.play()
-
-
-## converts per minute values to per-frame values
-func per_min_to_per_frame(val: float, delta: float):
-	return (val / 60.) * delta
-
-
-## speeds up everything every frame
-func speed_up(delta: float):
-	var world_speed_increase = per_min_to_per_frame(world_speed_increase_rate, delta)
-	print(Globals.get_global_world_speed())
-	
-	# speed up the world
-	Globals.set_global_world_speed(Globals.get_global_world_speed() + world_speed_increase)
-	
-	# speed up the duck animation
-	duck_char.sprite.get_animation_state().set_time_scale(
-		duck_char.sprite.get_animation_state().get_time_scale() + per_min_to_per_frame(duck_anim_speed_increase_rate, delta)
-	)
-	
-	# speed up the music
-	music_player.pitch_scale += per_min_to_per_frame(music_pitch_speed_increase_rate, delta)
-	
-	# slows down the police car so that we start catching up with them visually
-	police_cars_treadmill.own_speed -= world_speed_increase
-	
-	# # speeds up the running text line, just for fun
-	running_text.running_text_speed -= per_min_to_per_frame(running_text_speed_increase_rate, delta)
 
 
 func launch_obstacles():
@@ -210,18 +177,19 @@ func create_game_loop() -> GameLoopManager:
 
 
 ## events that happen when the game is lost
-func end_game() -> void:
-	end_of_game_sfx.play()
+func finish_chase() -> void:
+	playing = false
 	game_loop_manager.playing = false
 	(music_player as AudioStreamPlayer).playing = false
 	Globals.set_global_world_speed(0.)
+	
+	end_of_game_sfx.play()
 	
 	# TODO this should be handled via GUI
 	GameScore.accumulating = false
 	var phrase := 'Your score is: ' + str(GameScore.get_current_score()) + '. '
 	if GameScore.is_PR():
 		phrase += 'This is your highest score!'
-	print(phrase)
 	if GameScore.is_PR():
 		GameScore.persist()
 
@@ -232,12 +200,13 @@ func restart_game_loop() -> void:
 	GameScore.accumulating = true
 	remove_ui() # removes whatever menu ui is currently in ui overlay
 	clean_up_previous_session()
-	init_game()
+	start_chase()
 	init_hud()
 	respawn_main_character()
+	modulate_global_speeds()
 	
 	# bind heal items treadmill to duck's health
-	heal_items_treadmill.activation_condition = func deactivate_on_full_heatl():
+	heal_items_treadmill.activation_condition = func deactivate_on_full_health():
 		return duck_char.lives < duck_char.max_lives
 	
 	if game_loop_manager == null:
@@ -245,6 +214,128 @@ func restart_game_loop() -> void:
 	game_loop_manager.playing = true
 	
 	
+#endregion
+
+#region world speed
+
+@export_category('World speed')
+
+## the world will start moving at this speed
+@export var world_speed_base: float
+
+## the world speed increase will converge at this value
+@export var world_speed_max: float
+
+## the world speed will equal 'world_speed_calibration_speed' at this point in elapsed time
+@export var world_speed_calibration_time: float
+
+## the world speed will equal this value at 'world_speed_calibration_time'
+@export var world_speed_calibration_speed: float
+
+## when the game starts, it will pretend this much time had already elapsed, for debugging purposes only
+@export var start_at_elapsed_time := 0.
+
+## speed up the world or not, use for debugging purposes
+@export var do_speed_up := true
+
+## this is a non-linear function with limit of its first derivative equal to zero
+## NOTE reference formulas:
+## y = StartSpeed + m/k * (1 - exp(-kx))
+## m = k * (MaxSpeed - StartSpeed) NOTE this is the first calibration coefficient
+## k = - 1/calibration_time * (ln(1 - (calibration_speed - StartSpeed)/(MaxSpeed - StartSpeed))) NOTE this is the second calibration coefficient
+func get_target_world_speed(elapsed_time: float):
+	var k = -1. / world_speed_calibration_time * log(
+		1. - (world_speed_calibration_speed - world_speed_base) / (world_speed_max - world_speed_base)
+	)
+	var m = k * (world_speed_max - world_speed_base)
+	print('target world speed is %d' % (world_speed_base + m / k * (1. - exp(-k * elapsed_time))))
+	return world_speed_base + m / k * (1. - exp(-k * elapsed_time))
+
+
+## every property will converge to its 'target_high' which is acieved when the world speed reaches its reference high
+@onready var global_world_speed_property_modulators = [
+	{
+		'method': (func set_anim_scale(val):
+			if duck_char != null:
+				duck_char.sprite.get_animation_state().set_time_scale(val)),
+		'base': 1.3,
+		'target_high': 2.
+	},
+	{
+		'target': 'music_player.pitch_scale',
+		'base': 0.8,
+		'target_high': 1.2
+	},
+	{
+		'target': 'running_text.running_text_speed',
+		'base': -250.,
+		'target_high': -1000.
+	},
+	{
+		'target': 'duck_char.jump_velocity',
+		'base': -2400.,
+		'target_high': -3800.
+	},
+	{
+		'target': 'duck_char.fall_constant_speed',
+		'base': 1600.,
+		'target_high': 2800.
+	},
+	{
+		'target': 'duck_char.air_dash_zone',
+		'base': 0.1,
+		'target_high': 0.5
+	},
+	{
+		'target': 'duck_char.zero_g_grace_period',
+		'base': 0.1,
+		'target_high': 0.01
+	}
+]
+
+
+## modulates the object properties that depend on the global world speed! called per-frame or periodically
+func modulate_global_world_speed_properties():
+	var world_speed_overage := Globals.get_global_world_speed() - world_speed_base
+	
+	for property_modulator in global_world_speed_property_modulators:
+		var base: float = property_modulator['base']
+		var target_high: float = property_modulator['target_high']
+		# interpolate using the current world speed overage
+		var target_value = base + world_speed_overage * (
+			(target_high - base) / (world_speed_max - world_speed_base)
+		)
+		
+		if 'method' in property_modulator:
+			print('calling a property modulator method with value %f' % target_value)
+			property_modulator['method'].call(target_value)
+		elif 'target' in property_modulator:
+			var target_object = null # the object on which to set the property
+			var target_property: String # the name of the property to set
+			
+			var target_path := (property_modulator['target'] as String).split('.')
+			if target_path.size() == 1:
+				target_object = self
+				target_property = target_path[0]
+			elif target_path.size() == 2:
+				target_object = self.get(target_path[0])
+				target_property = target_path[1]
+			elif target_path.size() > 2:
+				target_object = self
+				for i in range(1, target_path.size()):
+					target_object = target_object.get(target_path[i])
+				target_property = target_path[-1]
+				
+			print('setting property %s to its target value %f' % [property_modulator['target'], target_value])
+			target_object.set(target_property, target_value)
+
+
+## sets speed of the world, animations, vfx and sfx depending on time elapsed
+func modulate_global_speeds() -> void:
+	Globals.set_global_world_speed(get_target_world_speed(time_elapsed))
+	modulate_global_world_speed_properties()
+
+
 #endregion
 
 #region UI utils
@@ -299,8 +390,10 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed('game_menu'):
 		pause()
-	if duck_char != null and !duck_char.is_dead:
-		speed_up(delta)
+	if playing:
+		time_elapsed += delta
+		if do_speed_up:
+			modulate_global_speeds()
 
 
 #region Updates of lives bar and stam bar
@@ -324,7 +417,7 @@ func _on_duck_character_lives_updated(delta: int) -> void:
 
 
 func _on_duck_character_dead() -> void:
-	end_game()
+	finish_chase()
 	await get_tree().create_timer(3.).timeout
 	show_ui(eUITypes.DeathScreen)
 

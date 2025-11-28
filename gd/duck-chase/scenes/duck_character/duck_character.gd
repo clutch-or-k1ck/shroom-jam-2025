@@ -17,18 +17,24 @@ class_name MrDuck
 @export var can_die := true
 
 @export_category('Movement')
+
 ## initial velocity of the jump (will converge to zero at maximum jump height)
 @export var jump_velocity := -400
+
 ## non-linear jump calibration coefficient, should be a value < 1., this will make the jump faster in the beginning and slow down faster at the end
 @export var jump_velocity_calibration_coef := 0.3
+
 ## when jump upward velocity is this close to zero, we are in the zero g zone
 @export var zero_g_velocity_tolerance := 0.03
+
 ## peak jump height
 @export var jump_height := 300
+
 ## this is percentage of maximum jump height where dashing and flight are allowed if character is in the air
 @export var air_dash_zone := 0.05
 
 enum eFallVelocityCalculationMethod {Constant, Gravity}
+
 ## if constant, the duck falls at a constant speed, if gravity, gravity is applied every frame
 @export var fall_velocity_method: eFallVelocityCalculationMethod
 
@@ -40,16 +46,22 @@ enum eFallVelocityCalculationMethod {Constant, Gravity}
 
 ## horizontal character speed
 @export var speed = 300
+
 ## the amount of time in seconds the duck is allowed to 'freeze' in the air at the top of the jump
 @export var zero_g_grace_period := 0.3
+
 ## to alleviate the illusion of slow movement, apply scale to movement speed when moving left
 @export var left_strafe_speed_scale_factor := 1.5
+
 ## horizontal speed will be adjusted by this factor when duck is in the air
 @export var free_fall_hspeed_scale_factor := 0.
+
 ## how much distance is covered with a dash
 @export var dashing_distance := 50.
+
 ## dashing velocity
 @export var dashing_velocity := 400.
+
 ## ground reference allows to specify where the 'ground' is for precise jump height math
 @export var ground_reference: Node2D
 

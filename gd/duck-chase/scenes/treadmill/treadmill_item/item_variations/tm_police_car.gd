@@ -26,10 +26,6 @@ var blue_beacon_phase: float:
 		return _blue_beacon_phase
 
 
-func _process(delta: float) -> void:
-	print(z_index)
-
-
 func _ready() -> void:
 	# tween the red beacon
 	var red_beacon_tween := create_tween()

@@ -25,13 +25,12 @@ size = Vector2(81, 33)
 [node name="duck_character" type="CharacterBody2D"]
 script = ExtResource("1_fkuwv")
 dashing_stamina_cost = 34.0
-can_die = false
-jump_velocity = -2400
+jump_velocity = -3000
 jump_velocity_calibration_coef = 0.7
-air_dash_zone = 0.1
+air_dash_zone = 0.2
 fall_gravity_scale_factor = 8.0
-fall_constant_speed = 1600.0
-zero_g_grace_period = 0.1
+fall_constant_speed = 2100.0
+zero_g_grace_period = 0.05
 left_strafe_speed_scale_factor = 2.0
 dashing_distance = 300.0
 dashing_velocity = 2200.0
