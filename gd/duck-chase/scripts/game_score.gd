@@ -2,22 +2,11 @@ extends Node
 
 
 ## score accumulation rate per second NOTE we use a value like 7.3 so that the score accumulation doesn't look boring
-const _accumulation_rate := 7.3
-## the score is accumulated once in this many seconds
-const _accumulation_freq := 1.
+const _accumulation_rate := 3
 # NOTE the score itself is a float but an integer value should be showed in the gui
 var _current_score := 0.
 ## if true, we accumulate the score every frame
-var _accumulating: bool
-var accumulating: bool:
-	set(val):
-		# setting the same value should have no further effect
-		if _accumulating != val:
-			_accumulating = val
-			if _accumulating: # NOTE user has just requested accumulation, launch the accumulation loop
-				_accumulating_loop()
-	get():
-		return _accumulating
+var accumulating: bool
 
 signal score_changed(new_score: int)
 
@@ -50,15 +39,18 @@ func get_current_score() -> int:
 
 
 func set_score(score: float) -> void:
-	_current_score = score
-	score_changed.emit(get_current_score())
+	var old := _current_score
+	var new := score
+	
+	_current_score = new
+	if floor(old) < floor(new):
+		score_changed.emit(get_current_score())
 
 
 func reset() -> void:
 	set_score(0.)
 
 
-func _accumulating_loop() -> void:
-	while accumulating:
-		set_score(_current_score + _accumulation_rate)
-		await get_tree().create_timer(_accumulation_freq).timeout
+func _process(delta: float) -> void:
+	if accumulating:
+		set_score(_current_score + _accumulation_rate*delta)

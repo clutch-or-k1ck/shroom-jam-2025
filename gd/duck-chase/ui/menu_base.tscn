@@ -36,7 +36,6 @@ size_flags_stretch_ratio = 0.1
 layout_mode = 2
 theme = ExtResource("2_tkftx")
 bbcode_enabled = true
-text = "ONE TWO THREE"
 horizontal_alignment = 1
 vertical_alignment = 1
 
