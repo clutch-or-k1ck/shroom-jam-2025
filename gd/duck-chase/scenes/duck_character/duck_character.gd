@@ -250,12 +250,20 @@ func run_state_machine(delta: float) -> void:
 				set_character_movement_state(eCharacterMovementState.Dashing)
 			
 		eCharacterMovementState.Falling:
-			# NOTE when we are falling, no further inputs are processed
-			if is_on_floor(): # CAUTION don't fail to update the velocity accordingly
-				if is_dead:
+			# NOTE if dead, we play the death animation only when the ducks lands on the floor
+			if is_dead:
+				if is_on_floor():
 					set_character_movement_state(eCharacterMovementState.Dying)
 				else:
+					pass # NOTE continue falling
+			else:
+				if is_on_floor():
 					set_character_movement_state(eCharacterMovementState.Running)
+				# allow to fly/dash if in air dash range
+				elif Input.is_action_pressed('jump') and has_stamina() and is_in_air_dash_range():
+					set_character_movement_state(eCharacterMovementState.Flying)
+				elif Input.is_action_pressed('dash') and has_stamina(dashing_stamina_cost) and is_in_air_dash_range():
+					set_character_movement_state(eCharacterMovementState.Dashing)
 			
 		eCharacterMovementState.Flying:
 			# NOTE when we are flying, we can keep flying if there is enough stamina and input is pressed
