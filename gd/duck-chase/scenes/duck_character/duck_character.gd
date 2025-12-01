@@ -471,6 +471,9 @@ func _on_character_movement_state_updated(old: MrDuck.eCharacterMovementState, n
 			_distance_covered_in_dash = 0.
 			modulate = Color(1., 1., 1., 0.2)
 			drain_stamina(dashing_stamina_cost)
+			
+			# play sfx
+			$dash_sfx.play()
 		eCharacterMovementState.ZeroG:
 			_time_elapsed_in_zero_g = 0.
 		eCharacterMovementState.RunningDucked:
