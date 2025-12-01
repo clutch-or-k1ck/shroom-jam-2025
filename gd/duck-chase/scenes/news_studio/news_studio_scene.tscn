@@ -1,9 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://dfqrtdlm782gj"]
+[gd_scene load_steps=9 format=3 uid="uid://dfqrtdlm782gj"]
 
 [ext_resource type="Texture2D" uid="uid://cuxpgslgnb0tm" path="res://assets/2d/News.png" id="1_nct2b"]
 [ext_resource type="Script" uid="uid://crsnablc5e237" path="res://scenes/news_studio/news_studio_scene.gd" id="1_uvnxt"]
 [ext_resource type="PackedScene" uid="uid://y4hccnwhpc3e" path="res://scenes/running_text_widget/running_text_widget.tscn" id="3_0mej0"]
 [ext_resource type="FontFile" uid="uid://bxwb6sqycukpt" path="res://assets/fonts/SuperNormal-xRoj5.ttf" id="4_adbe6"]
+[ext_resource type="AudioStream" uid="uid://bjmtfnpx4ukdd" path="res://assets/sounds/misc/breaking-news-1.wav" id="5_4uebp"]
+[ext_resource type="AudioStream" uid="uid://c68udcjptvy28" path="res://assets/sounds/misc/game-show-loop.wav" id="6_3aepg"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_adbe6"]
 bg_color = Color(1, 0, 0, 0)
@@ -70,3 +72,12 @@ fit_content = true
 autowrap_mode = 0
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="breaking_news_intro_music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_4uebp")
+volume_db = -10.0
+
+[node name="news_background_loop" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_3aepg")
+volume_db = -10.0
+playback_type = 1
